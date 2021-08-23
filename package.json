@@ -1,0 +1,9 @@
+{
+  "name": "fe-study",
+  "version": "1.0.0",
+  "description": "front-end study",
+  "main": "index.js",
+  "repository": "git@github.com:OUDUIDUI/fe-study.git",
+  "author": "oushihao <oushihao97@163.com>",
+  "license": "MIT"
+}
