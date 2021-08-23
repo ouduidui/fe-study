@@ -1,0 +1,75 @@
+/* clip */
+.clip-path-1 {
+    clip-path: inset(10px 20px 30px 40px);
+}
+
+.clip-path-2 {
+    clip-path: circle(100px at center);
+}
+
+.clip-path-3 {
+    clip-path: circle(50% at 100px 90px);
+}
+
+.clip-path-4 {
+    clip-path: ellipse(100px 60px at center);
+}
+
+.clip-path-5 {
+    clip-path: polygon(5% 5%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+}
+
+.clip-path-6 {
+    clip-path: url(#myClip)
+}
+
+.clip-path-7 {
+    clip-path: circle( 0 at center);
+    animation: circle-animation 2s infinite linear alternate;
+}
+
+@keyframes circle-animation {
+    0% {
+        clip-path: circle( 0 at center);
+    }
+
+    100% {
+        clip-path: circle(100% at center);
+    }
+}
+
+.clip-path-8 {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: deformation-animation 2s infinite linear alternate;
+}
+
+@keyframes deformation-animation {
+    0% {
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    50% {
+        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+    }
+
+    100% {
+        clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    }
+}
+
+.mask-1{
+    -webkit-mask-image: -webkit-gradient(
+            linear, left top, right bottom,
+            color-stop(0.00,  rgba(0,0,0,1)),
+            color-stop(0.35,  rgba(0,0,0,1)),
+            color-stop(0.50,  rgba(0,0,0,0)),
+            color-stop(0.65,  rgba(0,0,0,0)),
+            color-stop(1.00,  rgba(0,0,0,0)));
+}
+
+.mask-2{
+    -webkit-mask-image: url("../img/mask.svg");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 200px 200px;
+}

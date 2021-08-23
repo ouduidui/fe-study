@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Clipping Masking CSS</title>
+    <link rel="stylesheet" href="./css/common.css"/>
+    <link rel="stylesheet" href="./css/clipAndMask.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>
+        <a href="https://css-tricks.com/clipping-masking-css/" target="_blank">
+            Clipping masking CSS
+        </a>
+    </h1>
+
+    <!--  clip  -->
+    <div>
+        <!-- clip-path: inset() -->
+        <h1><code>clip-path: inset()</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-1"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <!-- clip-path: circle() -->
+        <h1><code>clip-path: circle()</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-2"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-3"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <!-- clip-path: ellipse() -->
+        <h1><code>clip-path: ellipse()</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-4"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <!-- clip-path: polygon() -->
+        <h1><code>clip-path: polygon()</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-5"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <!-- clip-path: url() -->
+        <h1><code>clip-path + SVG</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-6"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+
+                <svg width="0" height="0">
+                    <defs>
+                        <clipPath id="myClip">
+                            <circle cx="200" cy="150" r="100"/>
+                            <circle cx="60" cy="100" r="70"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+                <h4>After</h4>
+            </div>
+        </div>
+
+
+        <!-- clip-path + animation -->
+        <h1><code>clip-path + animation</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img
+                        class="clip-path-7"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="clip-path-8"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+            </div>
+        </div>
+
+        <!-- clip-path + animation -->
+        <h1><code>mask</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img
+                        class="mask-1"
+                        src="./img/iso-republic-laptop-top-view.png"
+                        alt="demo-image"/>
+                <h4>After</h4>
+            </div>
+        </div>
+
+        <!-- clip-path + animation -->
+        <h1><code>mask</code></h1>
+        <div class="picture-box">
+            <div class="picture-item">
+                <img src="./img/iso-republic-laptop-top-view.png" alt="demo-image"/>
+                <h4>Before</h4>
+            </div>
+            <div class="picture-item">
+                <img src="./img/mask.svg" alt="demo-image"/>
+                <h4>Mask</h4>
+            </div>
+        </div>
+        <div class="picture-item">
+            <img
+                    class="mask-2"
+                    src="./img/iso-republic-laptop-top-view.png"
+                    alt="demo-image"/>
+            <h4>After</h4>
+        </div>
+    </div>
+</div>
+</body>
+</html>
