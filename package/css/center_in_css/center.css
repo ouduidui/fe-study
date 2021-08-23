@@ -1,0 +1,117 @@
+/* 水平居中 */
+/* 内嵌行内标签水平居中 */
+.row-inline .title,.row-inline .text,.row-inline .nav{
+    text-align: center;
+}
+
+/* 单个块级元素水平居中 */
+.row-block .logo{
+    display: block;
+}
+
+.row-block .logo,.row-block .box{
+    margin:0 auto;
+}
+
+/* 多个块级元素水平居中 */
+/* 并列 */
+.row-block-more .box{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+/* 并排方案1 */
+.row-block-more .box2{
+    display: flex;
+    justify-content: center;
+}
+
+/* 并排方案2 */
+/* .row-block-more .box2{
+    text-align: center;
+}
+
+.row-block-more .box2 .item{
+    display: inline-block;
+} */
+
+
+/* 垂直居中 */
+/* 单行文本垂直居中 */
+.col-inline .box .text{
+    line-height: 100px;
+    height:100px;
+}
+
+/* 多行文本垂直居中 */
+.col-inline-more .box1 .text{
+    display: inline-block;
+    padding: 50px 0;
+}
+
+.col-inline-more .box2{
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.col-inline-more .box3{
+    height: 200px;
+    
+}
+
+/* 块级元素垂直居中 */
+.col-block .box1{
+    position: relative;
+}
+
+.col-block .box1 .logo{
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    margin-top:-40px;     /* 已知高度 */
+}
+
+.col-block .box2{
+    position: relative;
+}
+
+.col-block .box2 .logo{
+    position: absolute;
+    top: 50%;
+    transform:translateY(-50%);  /* 未知高度 */
+}
+
+.col-block .box3{
+    display: flex;
+    align-items: center;
+}
+
+
+/* 垂直水平居中 */
+.row-col .box1{
+    position: relative;
+}
+
+.row-col .box1 .logo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+}
+
+.row-col .box2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-col .box3{
+    display: grid;
+    /* display: flex; */
+}
+
+.row-col .box3 .logo{
+    margin: auto;
+}

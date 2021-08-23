@@ -1,0 +1,113 @@
+/* 修饰 */
+*{
+    box-sizing: border-box;
+}
+
+.section{
+    width: 100vw;
+    padding: 20px;
+    background:#16213e;
+    color: #fff;
+}
+
+.title{
+    text-align: center;
+    font-size:28px;
+    line-height: 3;
+}
+
+.row-inline .text{
+    font-size:20px;
+    line-height: 2;
+}
+
+.row-inline .nav{
+    margin-top: 20px;
+}
+
+.row-inline .nav a{
+    font-size:14px;
+    background:#0f3460;
+    padding:5px 10px;
+    margin:10px;
+    box-shadow: 6px 6px 2px 1px #e94560;
+}
+
+.row-block .logo{
+    width: 100px;
+    height: 100px;
+    
+}
+
+.row-block .box{
+    margin-top: 50px;
+    width: 500px;
+    background:#0f3460;
+    padding:10px;
+    box-shadow: 6px 6px 2px 1px #e94560;
+}
+
+.row-block-more .box2{
+    padding-top: 50px;
+    
+}
+
+.row-block-more .item{
+    margin: 10px;
+    width: 300px;
+    background:#0f3460;
+    padding:10px;
+    box-shadow: 6px 6px 2px 1px #e94560;
+}
+
+.col-inline .box{
+    margin-top:20px;
+    width: 100%;
+    background:#0f3460;
+    box-shadow: 6px 6px 2px 1px #e94560;
+    padding: 0 20px;
+    overflow:hidden;        /*超出的文本隐藏*/
+    text-overflow:ellipsis; /*溢出用省略号显示*/
+    white-space:nowrap;     /*溢出不换行*/
+}
+
+.col-inline-more .box1,.col-inline-more .box2,.col-inline-more .box3{
+    margin-top:20px;
+    width: 100%;
+    background:#0f3460;
+    box-shadow: 6px 6px 2px 1px #e94560;
+    padding: 0 20px;
+}
+
+.col-block .box1,.col-block .box2,.col-block .box3{
+    width: 300px;
+    height: 300px;
+    background:#0f3460;
+    box-shadow: 6px 6px 2px 1px #e94560;
+    float: left;
+    margin: 1.2vw 5vw;
+    padding:20px;
+}
+
+.col-block .box1 .logo,.col-block .box2 .logo,.col-block .box3 .logo{
+    width: 80px;
+    height: 80px;
+    background:#fff;
+}
+
+
+.row-col .box1,.row-col .box2,.row-col .box3{
+    width: 300px;
+    height: 300px;
+    background:#0f3460;
+    box-shadow: 6px 6px 2px 1px #e94560;
+    float: left;
+    margin: 1.2vw 5vw;
+    padding:20px;
+}
+
+.row-col .box1 .logo,.row-col .box2 .logo,.row-col .box3 .logo{
+    width: 80px;
+    height: 80px;
+    background:#fff;
+}
