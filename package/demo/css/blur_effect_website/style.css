@@ -1,0 +1,61 @@
+body{
+    background: rgba(0, 0, 0, 0.9);
+    margin: 0;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+h1{
+    margin: 0;
+}
+
+p{
+    line-height: 1.7;
+    margin: 0;
+}
+
+.showcase{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.showcase::after{
+    content: '';
+    height: 100vh;
+    width: 100%;
+    background-image: url(img/bg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    /* 模糊效果 */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition: all 1s;
+}
+
+.showcase:hover::after{
+     /* 模糊效果 */
+     filter: blur(0px);
+     -webkit-filter: blur(0px);
+}
+
+.showcase:hover .content{
+    /* 模糊效果 */
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+}
+
+.content{
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    transition: all 1s;
+}
+
+.content .title{
+    font-size: 3rem;
+    color: #fff;
+}
