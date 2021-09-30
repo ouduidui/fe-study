@@ -1,0 +1,14 @@
+{
+  "name": "virtual_list",
+  "scripts": {
+    "dev:virtual-list": "vite"
+  },
+  "dependencies": {
+    "vue": "^3.2.16",
+    "vue-router": "^4.0.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.2",
+    "vite": "^2.6.0"
+  }
+}
