@@ -1,19 +1,13 @@
 <script setup>
 import images from "../utils/waterfallData";
-import {reactive, ref, onMounted, nextTick, watch} from "vue";
+import {reactive, ref, onMounted, nextTick} from "vue";
+
+const startTime = new Date().getTime();
 
 const data = reactive([...images]);
 
-let renderIdx = 0;
-
 onMounted(() => {
     computeWaterfall(data);
-    renderIdx = data.length;
-})
-
-watch(data, () => {
-    computeWaterfall(data.slice(renderIdx));
-    renderIdx = data.length;
 })
 
 const leftList = ref(null);
@@ -26,7 +20,10 @@ const computeWaterfall = (newData = []) => {
     let i = 0;
 
     const _computeWaterfall = () => {
-        if (i >= len) return;
+        if (i >= len) {
+            console.log(`花费时间：${new Date().getTime() - startTime}ms`);
+            return;
+        }
 
         nextTick(() => {
             const leftHeight = leftList.value.offsetHeight;
@@ -43,30 +40,20 @@ const computeWaterfall = (newData = []) => {
 
     _computeWaterfall();
 }
-
-// 触底更新
-window.addEventListener("scroll", () => {
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let clientHeight = document.documentElement.clientHeight;
-    let scrollHeight = document.documentElement.scrollHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-        data.push(...images);
-    }
-})
 </script>
 
 <template>
-    <div class="page">
+    <div className="page">
         <div>
             <div ref="leftList">
-                <div v-for="image in leftData" class="item">
+                <div v-for="image in leftData" className="item">
                     <img :src="`/src/assets/${image}`">
                 </div>
             </div>
         </div>
         <div>
             <div ref="rightList">
-                <div v-for="image in rightData" class="item">
+                <div v-for="image in rightData" className="item">
                     <img :src="`/src/assets/${image}`">
                 </div>
             </div>
