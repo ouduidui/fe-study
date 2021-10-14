@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt --fix",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -15,7 +15,8 @@
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
     "element-ui": "^2.15.2",
-    "nuxt": "^2.15.7"
+    "nuxt": "^2.15.7",
+    "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
