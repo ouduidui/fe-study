@@ -2,10 +2,5 @@
   "name": "file_upload",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "dev:client": "cd ./frontend && yarn dev",
-    "dev:server": "cd ./backend && yarn dev",
-    "dev": "yarn dev:client && yarn dev:server"
-  }
+  "license": "MIT"
 }
