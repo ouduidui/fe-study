@@ -16,14 +16,14 @@ const uploadFile = async () => {
   form.append("name", file.name);
   form.append("file", file);
 
-  const { data, status } = await axios.post("/api/file/v1", form);
-  console.log(data, status);
+  const { data } = await axios.post("/api/file/v1", form);
+  alert(data.message);
 };
 </script>
 
 <template>
   <div>
-    <h3>HelloWorld</h3>
+    <h3>1. use form</h3>
     <input type="file" name="file" @change="fileChangeHandle" />
     <button @click="uploadFile">上传</button>
   </div>

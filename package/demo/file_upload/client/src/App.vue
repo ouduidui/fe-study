@@ -1,9 +1,10 @@
 <script setup>
-import FileUpload from './components/FileUpload.vue';
+import FileUploadOne from './components/file-upload-one.vue';
 </script>
 
 <template>
-  <file-upload />
+  <h1>File Upload Demo</h1>
+  <file-upload-one />
 </template>
 
 <style>
