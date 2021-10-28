@@ -6,6 +6,9 @@
   "repository": "git@github.com:OUDUIDUI/fe-study.git",
   "author": "oushihao <oushihao97@163.com>",
   "license": "MIT",
+  "scripts": {
+    "dev:file-upload": "cd ./package/demo/file_upload && yarn dev"
+  },
   "devDependencies": {
     "browser-sync": "^2.27.5",
     "commitizen": "^4.2.4",

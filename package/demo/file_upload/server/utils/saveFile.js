@@ -1,19 +1,60 @@
-const { rejects } = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * 文件保存
+ * @param file
+ * @param filename
+ * @return {Promise<*>}
+ */
 exports.saveFile = (file, filename) => {
-  return new Promise((resolve, rejects) => {
-    if (!file) return;
+  const savePath = path.resolve(__dirname, '../files/');
+  return saveHandle(file, savePath, filename || file.name);
+};
 
-    const savePath = path.resolve(__dirname, `../files/${file.name}`);
+/**
+ * 切片文件保存
+ * @param file
+ * @param hash
+ * @param index
+ * @param filename
+ * @return {Promise<*>}
+ */
+exports.saveSliceFile = (file, hash, index, filename) => {
+  const savePath = path.resolve(__dirname, `../files/hash/${hash}`);
+  return saveHandle(file, savePath, `${hash}-${index}`);
+}
+
+exports.mergeFile = (hash) => {
+  const chunkDir = path.resolve(__dirname, `../files/hash/${hash}`);
+  let chunks = fs.readdirSync(chunkDir);
+  chunks.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
+  chunks = chunks.map(cp => path.resolve(chunkDir, cp));
+
+  const pipStream = (filePath, writeStream) => new Promise(resolve => {
+    const readStream = fs.createReadStream(filePath);
+    readStream.on()
+  })
+}
+
+/**
+ * 文件保存动作
+ * @param file
+ * @param savePath
+ * @param filename
+ * @return {Promise<unknown>}
+ */
+const saveHandle = (file, savePath, filename) => {
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(savePath)) fs.mkdirSync(savePath);
+
     const readStream = fs.createReadStream(file.path);
-    const writeStream = fs.createWriteStream(savePath);
+    const writeStream = fs.createWriteStream(`${savePath}/${filename}`);
     readStream.pipe(writeStream);
-  
+
     readStream.on("error", (err) => {
       console.log("发生异常：" + err.message);
-      rejects(err.message);
+      reject(err.message);
     });
     readStream.on("ready", () => console.log("文件已准备好.."));
     readStream.on("open", (fd) => console.log("文件已打开：" + fd));
@@ -24,4 +65,4 @@ exports.saveFile = (file, filename) => {
       resolve('上传成功');
     });
   })
-};
+}
