@@ -7,7 +7,8 @@
   "author": "oushihao <oushihao97@163.com>",
   "license": "MIT",
   "scripts": {
-    "dev:file-upload": "cd ./package/demo/file_upload && yarn dev"
+    "dev:file-upload": "cd ./package/demo/file_upload && yarn dev",
+    "dev:d3-demo": "cd ./package/demo/d3_gallery && yarn dev"
   },
   "devDependencies": {
     "browser-sync": "^2.27.5",
