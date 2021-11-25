@@ -1,0 +1,14 @@
+{
+  "name": "wheels",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test:promise": "promises-aplus-tests packages/promise/__test__/index.js",
+    "test:array": "jest packages/array/__test__/index.spec.js"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "promises-aplus-tests": "^2.1.2"
+  }
+}

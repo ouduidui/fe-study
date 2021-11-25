@@ -1,10 +1,10 @@
 <script setup>
-import histogram from "./components/histogram.vue"
+import SimpleBarChart from "./components/SimpleBarChart.vue"
 </script>
 
 <template>
   <div class="page">
-    <histogram />
+    <simple-bar-chart />
   </div>
 </template>
 
