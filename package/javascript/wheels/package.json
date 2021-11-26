@@ -6,11 +6,15 @@
   "scripts": {
     "test": "jest && yarn test:promise",
     "test:promise": "promises-aplus-tests packages/promise/__test__/index.js",
-    "test:array": "jest packages/array_api/__test__/index.spec.js",
-    "test:throttle-and-debounce": "jest packages/throttle_and_debounce/__test__/index.spec.js"
+    "test:array_api": "jest packages/array_api/__test__/index.spec.js",
+    "test:throttle-and-debounce": "jest packages/throttle_and_debounce/__test__/index.spec.js",
+    "test:function_api": "jest packages/function_api/__test__/index.spec.js"
   },
   "devDependencies": {
     "jest": "^27.3.1",
     "promises-aplus-tests": "^2.1.2"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
