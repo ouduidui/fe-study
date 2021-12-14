@@ -1,6 +1,6 @@
 const EventBus = require('../src/index');
 
-describe('事先总线', () => {
+describe('事件总线', () => {
   it('on', () => {
     const eventBus = new EventBus();
     const fn = () => {};
