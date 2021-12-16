@@ -1,4 +1,4 @@
-const curry = require('../src/index');
+const curry = require('../src/curry');
 
 describe('函数柯里化', () => {
   it('happy path', () => {

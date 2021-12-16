@@ -1,4 +1,4 @@
-const Function = require('../src/index');
+const Function = require('../src/api');
 
 describe('函数原生方法', () => {
   describe('call', () => {

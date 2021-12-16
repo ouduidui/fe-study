@@ -68,7 +68,7 @@ const imgLazyLoad2 = (function () {
            *    - time 返回一个记录从IntersectionObserver的时间到交叉被触发的时间的时间戳
            * */
           if (entry.intersectionRatio > 0) {
-            entry.target.src = entry.target.getAttribute('data-src');
+            entry.target.src = entry.target.getAttribute('data-eventBus');
             count++;
             observer.unobserve(entry.target);  // 停止观察当前元素 避免不可见时候再次调用callback函数
             if (count === len) {

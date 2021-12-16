@@ -11,7 +11,7 @@ export const calculateHashByWorker = (file) => {
   const chunks = createFileChunk(file);
 
   return new Promise(resolve => {
-    const worker = new Worker('/src/utils/calculateHash/hash.js');
+    const worker = new Worker('/eventBus/utils/calculateHash/hash.js');
     worker.postMessage({chunks});
     worker.onmessage = e => {
       if (e.data.hash) {
