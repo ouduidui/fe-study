@@ -101,6 +101,13 @@ describe('Map', () => {
       expect(value[0]).toBe(localValue[0]);
       expect(value[1]).toBe(localValue[1]);
     }
+
+    let i = 0;
+    for(const entry of map) {
+      const localValue = values[i++];
+      expect(entry[0]).toBe(localValue[0]);
+      expect(entry[1]).toBe(localValue[1]);
+    }
   })
 
   it('forEach', () => {

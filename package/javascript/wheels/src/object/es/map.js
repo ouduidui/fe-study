@@ -8,6 +8,8 @@ class Map {
     this._keys = [];
     this._keyMap = {};
 
+    this[Symbol.iterator] = this.entries;
+
     values.length && values.forEach(v => this.set(v[0], v[1]));
   }
 
@@ -99,12 +101,15 @@ class Map {
     return this._createIterator(values);
   }
 
+  /**
+   * 返回由key和value组成的迭代器
+   * @return {Generator<*, void, *>}
+   */
   entries() {
     let map = [];
     for (let key of this._keys) {
       map.push([this._keyMap[key], this._values[key]]);
     }
-
     return this._createIterator(map);
   }
 
