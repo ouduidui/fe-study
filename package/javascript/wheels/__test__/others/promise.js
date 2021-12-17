@@ -1,9 +1,9 @@
-const Promise = require("../Promise");
+const Promise = require("../../src/others/promise/Promise");
 
 /**
  * Promise/A+测试
  *   - yarn test—promise
- *   - promises-aplus-tests javascript_api/promise/__test__/index.js
+ *   - promises-aplus-tests javascript_api/promise/function/promise.js
  * */
 
 Promise.defer = Promise.deferred = function () {

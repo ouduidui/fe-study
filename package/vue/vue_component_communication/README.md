@@ -1010,7 +1010,7 @@ const register = () => {
 这里我采用的是自己简单写一个`EventBus`。
 
 ```javascript
-// utils/index.js
+// utils/promise.js
 const eventBus = {
     callBacks: {},
   	// 收集事件

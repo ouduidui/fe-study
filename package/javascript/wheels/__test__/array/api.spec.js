@@ -1,4 +1,4 @@
-const Array = require('../src/api');
+const Array = require('../../src/array/api');
 
 describe('Array Methods', () => {
   it('forEach', () => {

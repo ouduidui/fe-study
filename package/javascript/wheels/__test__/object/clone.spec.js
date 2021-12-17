@@ -1,5 +1,5 @@
-const shallowCopy = require('../src/clone/shallowCopy');
-const deepClone = require('../src/clone/deepClone')
+const shallowCopy = require('../../src/object/clone/shallowCopy');
+const deepClone = require('../../src/object/clone/deepClone')
 
 describe('浅拷贝', () => {
   it('happy path', () => {

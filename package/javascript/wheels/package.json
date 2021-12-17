@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "test": "jest && yarn test:promise",
-    "test:promise": "promises-aplus-tests packages/others/promise/__test__/index.js",
-    "test:array_api": "jest packages/array/__test__/api.spec.js",
-    "test:throttle-and-debounce": "jest packages/function/throttle_and_debounce/__test__/throttle.spec.js",
-    "test:function_api": "jest packages/function/__test__/api.spec.js"
+    "test:promise": "promises-aplus-tests __test__/others/promise.js",
+    "test:array_api": "jest __test__/array/api.spec.js",
+    "test:throttle-and-debounce": "jest src/function/throttle_and_debounce/__test__/throttle.spec.js",
+    "test:function_api": "jest __test__/function/api.spec.js"
   },
   "devDependencies": {
     "jest": "^27.3.1",

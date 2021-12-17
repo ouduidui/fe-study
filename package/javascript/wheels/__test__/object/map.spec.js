@@ -1,4 +1,4 @@
-const Map = require('../src/es/map');
+const Map = require('../../src/object/es/map');
 
 describe('Map', () => {
   it('Happy Path', () => {

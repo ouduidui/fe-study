@@ -1,4 +1,4 @@
-const {debounce1, debounce2} = require("../src/debounce");
+const {debounce1, debounce2} = require("../../src/function/debounce");
 
 describe('防抖', () => {
   it('简易版', (done) => {

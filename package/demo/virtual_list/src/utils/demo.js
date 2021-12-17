@@ -1,4 +1,4 @@
-// index.js
+// promise.js
 const App = getApp()
 
 let rtp = 0.5

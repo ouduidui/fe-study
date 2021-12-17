@@ -1,4 +1,4 @@
-const {throttle1, throttle2, throttle3} = require("../src/throttle");
+const {throttle1, throttle2, throttle3} = require("../../src/function/throttle");
 
 describe('节流', () => {
   it('时间戳实现', (done) => {
