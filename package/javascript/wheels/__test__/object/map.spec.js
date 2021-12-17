@@ -63,15 +63,13 @@ describe('Map', () => {
     let localKeys = [obj, arr, 'a', 1];
     const len1 = localKeys.length;
     let key;
+
     for(let i = 0; i < len1; i++) {
       key = keys.next();
-      expect(localKeys.includes(key.value)).toBe(true);
-      localKeys = localKeys.filter(k => k !== key.value);
+      expect(key.value === localKeys[i]).toBe(true);
     }
 
     expect(keys.next().done).toBe(true);
-    expect(localKeys.length).toBe(0);
-
 
     const values = map.values();
     expect(typeof values[Symbol.iterator]).toBe('function');
@@ -81,12 +79,50 @@ describe('Map', () => {
     let value;
     for(let i = 0; i < len2; i++) {
       value = values.next();
-      expect(localValues.includes(value.value)).toBe(true);
-      localValues = localValues.filter(k => k !== value.value);
+      expect(value.value === localValues[i]).toBe(true);
     }
 
     expect(values.next().done).toBe(true);
-    expect(localValues.length).toBe(0);
+  })
 
+  it('entries', () => {
+    const values = [
+      [{a: 1}, 1],
+      [[1,2,3], 'a'],
+      ['a', [1,2,3]],
+      [1, {a: 1}]
+    ];
+    const map = new Map(values);
+
+    const entries = map.entries();
+    for(let idx in values) {
+      const value = entries.next().value;
+      const localValue = values[idx];
+      expect(value[0]).toBe(localValue[0]);
+      expect(value[1]).toBe(localValue[1]);
+    }
+  })
+
+  it('forEach', () => {
+    const obj = {a: 1};
+    const arr = [1,2,3];
+    const map = new Map([
+      [obj, 1],
+      [arr, 'a'],
+      ['a', arr],
+      [1, obj]
+    ]);
+
+    const localKeys = [obj, arr, 'a', 1];
+    const localValues = [1, 'a', arr, obj];
+    let i = 0;
+
+    map.forEach(function(value, key, m) {
+      expect(value).toBe(localValues[i]);
+      expect(key).toBe(localKeys[i]);
+      expect(m).toBe(map);
+      expect(this.msg).toBe('helloWorld');
+      i++
+    }, {msg: 'helloWorld'})
   })
 })

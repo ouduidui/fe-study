@@ -3,13 +3,13 @@ class Map {
    * @param values {[any, any][]}
    */
   constructor(values = []) {
-    this._values = {};
+    this._values = Object.create(null);
     this.size = 0;
-    this._keys = {};
+    this._keys = [];
+    this._keyMap = {};
 
-    values.length && values.forEach(item => this.set(item[0], item[1]));
+    values.length && values.forEach(v => this.set(v[0], v[1]));
   }
-
 
   /**
    * 判断是否存在该key
@@ -18,7 +18,7 @@ class Map {
    */
   has(key) {
     const keyStr = this._defaultToString(key);
-    return this._values[keyStr] !== undefined && this._keys[keyStr] === key;
+    return this._values[keyStr] !== undefined && this._keyMap[keyStr] === key;
   }
 
   /**
@@ -31,7 +31,8 @@ class Map {
     if (!this.has(key)) {
       const keyStr = this._defaultToString(key);
       this._values[keyStr] = value;
-      this._keys[keyStr] = key;
+      this._keyMap[keyStr] = key;
+      this._keys.push(keyStr);
       this.size++;
     }
 
@@ -56,7 +57,8 @@ class Map {
     if (this.has(key)) {
       const keyStr = this._defaultToString(key);
       delete this._values[keyStr];
-      delete this._keys[keyStr];
+      delete this._keyMap[keyStr];
+      this._keys = this._keys.filter(k => k !== keyStr);
       this.size--;
     }
     return this;
@@ -66,8 +68,9 @@ class Map {
    * 清空Map
    */
   clear() {
-    this._values = {};
-    this._keys = {};
+    this._values = Object.create(null);
+    this._keyMap = {};
+    this._keys = [];
     this.size = 0;
   }
 
@@ -77,8 +80,8 @@ class Map {
    */
   keys() {
     let keys = [];
-    for (let key in this._keys) {
-      keys.push(this._keys[key]);
+    for (let key of this._keys) {
+      keys.push(this._keyMap[key]);
     }
     return this._createIterator(keys);
   }
@@ -89,11 +92,33 @@ class Map {
    */
   values() {
     let values = [];
-    for (let key in this._values) {
+    for (let key of this._keys) {
       values.push(this._values[key]);
     }
 
     return this._createIterator(values);
+  }
+
+  entries() {
+    let map = [];
+    for (let key of this._keys) {
+      map.push([this._keyMap[key], this._values[key]]);
+    }
+
+    return this._createIterator(map);
+  }
+
+  /**
+   *
+   * @param callback {Function}
+   * @param context {object}
+   */
+  forEach(callback, context = {}) {
+    for (let k of this._keys) {
+      const key = this._keyMap[k];
+      const value = this._values[k];
+      callback.call(context, value, key, this)
+    }
   }
 
 
