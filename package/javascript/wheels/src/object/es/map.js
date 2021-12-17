@@ -1,13 +1,13 @@
 class Map {
   /**
-   * @param data {[any, any][]}
+   * @param values {[any, any][]}
    */
-  constructor(data = []) {
-    this.items = {};
+  constructor(values = []) {
+    this._values = {};
     this.size = 0;
     this._keys = {};
 
-    data.length && data.forEach(item => this.set(item[0], item[1]));
+    values.length && values.forEach(item => this.set(item[0], item[1]));
   }
 
 
@@ -18,7 +18,7 @@ class Map {
    */
   has(key) {
     const keyStr = this._defaultToString(key);
-    return this.items[keyStr] !== undefined && this._keys[keyStr] === key;
+    return this._values[keyStr] !== undefined && this._keys[keyStr] === key;
   }
 
   /**
@@ -30,7 +30,7 @@ class Map {
   set(key, value) {
     if (!this.has(key)) {
       const keyStr = this._defaultToString(key);
-      this.items[keyStr] = value;
+      this._values[keyStr] = value;
       this._keys[keyStr] = key;
       this.size++;
     }
@@ -44,7 +44,7 @@ class Map {
    * @return {*}
    */
   get(key) {
-    return this.items[this._defaultToString(key)];
+    return this._values[this._defaultToString(key)];
   }
 
   /**
@@ -55,7 +55,7 @@ class Map {
   delete(key) {
     if (this.has(key)) {
       const keyStr = this._defaultToString(key);
-      delete this.items[keyStr];
+      delete this._values[keyStr];
       delete this._keys[keyStr];
       this.size--;
     }
@@ -66,7 +66,7 @@ class Map {
    * 清空Map
    */
   clear() {
-    this.items = {};
+    this._values = {};
     this._keys = {};
     this.size = 0;
   }
@@ -89,8 +89,8 @@ class Map {
    */
   values() {
     let values = [];
-    for (let key in this.items) {
-      values.push(this.items[key]);
+    for (let key in this._values) {
+      values.push(this._values[key]);
     }
 
     return this._createIterator(values);
