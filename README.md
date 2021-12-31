@@ -2,30 +2,38 @@
 
 ## HTML
 
-
-
 ## CSS
 
-- [CSS居中](https://github.com/OUDUIDUI/fe-study/tree/master/package/css/center_in_css)
-- [CSS中的剪切和遮罩](https://github.com/OUDUIDUI/fe-study/tree/master/package/css/clipping_and_masking_in_css)
+- [CSS居中](./package/css/center_in_css)
+- [CSS中的剪切和遮罩](./package/css/clipping_and_masking_in_css)
 
 ## JavaScript
 
-- [造轮子](https://github.com/OUDUIDUI/fe-study/tree/master/package/javascript/wheels)
-  - [Promise](https://github.com/OUDUIDUI/fe-study/tree/master/package/javascript/wheels/packages/promise)
-  - [Array Methods](https://github.com/OUDUIDUI/fe-study/tree/master/package/javascript/wheels/packages/array)
-  - [节流防抖](https://github.com/OUDUIDUI/fe-study/tree/master/package/javascript/wheels/packages/throttle_and_debounce)
-  - [图片懒加载](https://github.com/OUDUIDUI/fe-study/tree/master/package/javascript/wheels/packages/lazy_load)
+- [造轮子](./package/javascript/wheels)
+  - [Array](./package/javascript/wheels/src/array)
+    - [实现数组API](./package/javascript/wheels/src/array/api)
+    - [实现数组去重](./package/javascript/wheels/src/array/unique)
+  - [Object](./package/javascript/wheels/src/object)
+    - [深浅拷贝](./package/javascript/wheels/src/object/clone)
+    - [Map|Set 实现](./package/javascript/wheels/src/object/es)
+  - [Function](./package/javascript/wheels/src/function)
+    - [实现函数API](./package/javascript/wheels/src/function/api)
+    - [函数防抖](./package/javascript/wheels/src/function/debounce)
+    - [函数节流](./package/javascript/wheels/src/function/throttle)
+    - [事件总线](./package/javascript/wheels/src/function/eventBus)
+    - [函数柯里化](./package/javascript/wheels/src/function/curry)
+  - [其他](./package/javascript/wheels/src/others)
+    - [Promise](./package/javascript/wheels/src/others/promise)
+    - [图片懒加载](./package/javascript/wheels/src/others/lazy_load)
 
 ## Vue
 
-- [Vue2 && Vue3 组件通信](https://github.com/OUDUIDUI/fe-study/tree/master/package/vue/vue_component_communication)
+- [Vue2 && Vue3 组件通信](./package/vue/vue_component_communication)
+
+## 设计模式
+
+- [单例模式](./package/patterns/packages/singleton/README.md)
 
 ## React
 
-
-
 ## NodeJS
-
-
-
