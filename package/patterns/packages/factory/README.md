@@ -6,8 +6,6 @@
 
 如果你使用过 [document.createElement](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement) 方法创建过 DOM 元素，那么你已经使用过工厂方法了，虽然这个方法实际上很复杂，但其使用的就是工厂方法的思想：访问者只需提供标签名（如 `div`、`img`），那么这个方法就会返回对应的 DOM 元素。
 
-
-
 我们可以简单来实现一个实例：
 
 > 当你去外面吃饭点菜的时候，菜单上可能有几十种菜，而你只需要跟服务员说你想吃什么，等会菜就会做好端到你面前，而关于烧菜的过程不需要你去管，你只需要确认服务员上菜的时候准确无误即可。
@@ -53,8 +51,6 @@ class ChickenNuggets {
 严格上这种实现在面向对象语言中叫做**简单工厂模式**。适用于产品种类比较少，创建逻辑不复杂的时候使用。
 
 **工厂模式**的本意是将实际创建对象的过程推迟到子类中，一般用抽象类来作为父类，创建过程由抽象类的子类来具体实现。`JavaScript` 中没有抽象类，所以我们可以简单地将工厂模式看做是一个实例化对象的工厂类即可。关于抽象类的有关内容，可以参看抽象工厂模式。
-
-
 
 然而作为灵活的 `JavaScript`，我们不必如此较真，可以把易变的参数提取出来：
 
@@ -108,9 +104,7 @@ class Cooking {
 
 - **Product** ：产品，访问者从工厂拿到产品实例；
 
-
-
-![1573965215292-fd58a10a-eecd-4155-a95e-8550cdd99736.png](/Users/ouduidui/Library/Application%20Support/marktext/images/c6d04717f3965d9fca7af2f84c501826da39c153.png)
+![factory.png](../../statics/images/factory.png)
 
 ```javascript
 // 工厂类
@@ -168,7 +162,7 @@ React.createElement('h3', { className: 'main-title' },
 class Vnode (tag, data, children) { ... }
 
 function createElement(tag, data, children) {
-  	return new Vnode(tag, data, children)
+      return new Vnode(tag, data, children)
 }
 ```
 
@@ -183,8 +177,8 @@ function createElement(tag, data, children) {
 ```javascript
 export default class VueRouter {
     constructor(options) {
-        this.mode = mode	// 路由模式
-        
+        this.mode = mode    // 路由模式
+
         switch (mode) {           // 简单工厂
             case 'history':       // history 方式
                 this.history = new HTML5History(this, options.base)
