@@ -2,7 +2,7 @@
 
 **单例模式（Singleton Pattern** ）又称为单体模式，**保证一个类只有一个实例，并提供一个访问它的全局访问点**。也就是说，第二次使用同一个类创建新对象的时候，应该得到与第一次创建的对象完全相同的对象。
 
-## 实例的代码实现
+## 简单代码实现
 
 浏览器中的 [window](https://developer.mozilla.org/zh-CN/docs/Web/API/Window) 和 [document](https://developer.mozilla.org/zh-CN/docs/Web/API/Document) 全局变量，这两个对象都是单例，任何时候访问他们都是一样的对象，`window` 表示包含 DOM 文档的窗口，`document` 是窗口中载入的 DOM 文档，分别提供了各自相关的方法。​
 
@@ -377,7 +377,7 @@ Vue.prototype.$loading = service
 
 用服务方式使用全屏 `Loading` 是单例的，即在前一个全屏 `Loading` 关闭前再次调用全屏 `Loading`，并不会创建一个新的 `Loading` 实例，而是返回现有全屏 `Loading` 的实例。
 
-下面我们可以看看 ElementUI 2.9.2 的[源码](https://github.com/ElemeFE/element/blob/v2.9.2/packages/loading/src/index.js)是如何实现的，为了观看方便，省略了部分代码：
+下面我们可以看看 ElementUI 2.9.2 的[源码](https://github.com/ElemeFE/element/blob/v2.9.2/packages/loading/src/index.spec.js)是如何实现的，为了观看方便，省略了部分代码：
 
 ```javascript
 import Vue from 'vue'
