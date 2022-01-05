@@ -15,7 +15,7 @@ const uploadHandle = async () => {
   if (!file) {
     return ElMessage.error('请选择文件');
   }
-  let fileChunkList = await createFileChunks(file);
+  const fileChunkList = await createFileChunks(file);
   await uploadChunks(fileChunkList, file.name);
 }
 </script>

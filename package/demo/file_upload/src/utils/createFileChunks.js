@@ -22,8 +22,9 @@ export async function createFileChunks(file, size = DEFAULT_SIZE) {
   // 计算出文件的hash
   const fileHash = await calculateHash(fileChunkList);
 
-  fileChunkList.forEach(item => {
-    item.fileHash = fileHash
+  fileChunkList.forEach((item, index) => {
+    item.fileHash = fileHash;
+    item.hash = fileHash + '-' + index
   })
 
   return fileChunkList;

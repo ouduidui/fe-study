@@ -7,8 +7,8 @@ const {CHUNKS_PATH} = require('../utils/config')
 const chunkHandler = async (req) => {
   const {body, files} = req;
   const {chunk} = files;
-  const {filename, hash} = body;
-  const chunkDir = path.resolve(CHUNKS_PATH, filename);
+  const {filename, hash, fileHash} = body;
+  const chunkDir = path.resolve(CHUNKS_PATH, fileHash);
 
   if (!fs.existsSync(chunkDir)) {
     fs.mkdirSync(chunkDir)

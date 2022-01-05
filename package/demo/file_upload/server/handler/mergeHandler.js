@@ -5,8 +5,8 @@ const {CHUNKS_PATH, FILES_PATH} = require('../utils/config')
 
 const DEFAULT_SIZE = 1 * 1024 * 1024;   // 默认切片大小
 
-const mergeHandler = async ({filename, size = DEFAULT_SIZE}) => {
-  const chunkDir = path.resolve(CHUNKS_PATH, filename);
+const mergeHandler = async ({filename, fileHash, size = DEFAULT_SIZE}) => {
+  const chunkDir = path.resolve(CHUNKS_PATH, fileHash);
   const chunkPaths = fs.readdirSync(chunkDir);
 
   chunkPaths.sort((a, b) => {
