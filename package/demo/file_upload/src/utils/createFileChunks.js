@@ -1,4 +1,5 @@
 export const DEFAULT_SIZE = 10 * 1024 * 1024;   // 默认切片大小
+import {calculateHash} from './calculateHash';
 
 /**
  * 生成文件切片
@@ -6,7 +7,7 @@ export const DEFAULT_SIZE = 10 * 1024 * 1024;   // 默认切片大小
  * @param size {number}
  * @return {Array<{chunk: File, hash: string}>}
  */
-const createFileChunks = (file, size = DEFAULT_SIZE) => {
+export async function createFileChunks(file, size = DEFAULT_SIZE) {
   const fileChunkList = [];
 
   let curSize = 0;
@@ -18,7 +19,12 @@ const createFileChunks = (file, size = DEFAULT_SIZE) => {
     curSize += size;
   }
 
+  // 计算出文件的hash
+  const fileHash = await calculateHash(fileChunkList);
+
+  fileChunkList.forEach(item => {
+    item.fileHash = fileHash
+  })
+
   return fileChunkList;
 }
-
-export default createFileChunks;

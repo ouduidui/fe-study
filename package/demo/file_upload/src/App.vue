@@ -1,5 +1,5 @@
 <script setup>
-import createFileChunks from "./utils/createFileChunks";
+import {createFileChunks} from "./utils/createFileChunks";
 import {uploadChunks} from "./utils/uploadChunks";
 import {ElMessage} from 'element-plus'
 
@@ -11,13 +11,11 @@ let file = null;
  */
 const chooseFileHandle = (e) => ([file] = e.target.files);
 
-let fileChunkList = [];
-
 const uploadHandle = async () => {
   if (!file) {
     return ElMessage.error('请选择文件');
   }
-  fileChunkList = createFileChunks(file);
+  let fileChunkList = await createFileChunks(file);
   await uploadChunks(fileChunkList, file.name);
 }
 </script>
