@@ -1,4 +1,5 @@
 import request from "./request";
+import {DEFAULT_SIZE} from "./createFileChunks";
 
 /**
  *
@@ -6,39 +7,42 @@ import request from "./request";
  * @param filename {string}
  * @return {Promise<void>}
  */
-const uploadChunks = async (chunks, filename) => {
+export const uploadChunks = async (chunks, filename) => {
   const requestList = chunks.map(({chunk, hash}) => {
     const formData = new FormData();
     formData.append('chunk', chunk);
     formData.append('hash', hash);
     formData.append('filename', filename)
     return formData;
-  }).map(formData => {
+  }).map((formData, index) => {
     return request({
       url: '/api/upload',
       data: formData,
-      method: 'POST'
+      method: 'POST',
+      onDownloadProgress:(event) => {
+        console.log(event.loaded, event.total)
+      }
     })
   })
 
   await Promise.all(requestList);
-  await mergeRequest(filename);
+  await mergeRequest(filename, DEFAULT_SIZE);
 }
 
 /**
  * 合并请求
- * @param filename
+ * @param filename {string}
+ * @param size {number}
  * @return {Promise<*>}
  */
-const mergeRequest = async (filename) => {
+const mergeRequest = async (filename, size) => {
   return await request({
     url: '/api/merge',
     method: 'POST',
     headers: {
       "content-type": "application/json"
     },
-    data: {filename}
+    data: {filename, size}
   })
 }
 
-export default uploadChunks;

@@ -12,16 +12,18 @@ axios.interceptors.response.use(
  * @param method {'GET' | 'POST'}
  * @param headers {*}
  * @param data {*}
+ * @param onDownloadProgress {Function}
  * @return {Promise<*>}
  */
-const request = ({url, method = 'GET', headers = {}, data = null}) => {
+const request = ({url, method = 'GET', headers = {}, data = null, onDownloadProgress = () => {}}) => {
   return new Promise((resolve, reject) => {
     try {
       axios({
         url,
         method,
         headers,
-        data
+        data,
+        onDownloadProgress
       })
         .then(res => {
           resolve(res);

@@ -1,4 +1,4 @@
-const DEFAULT_SIZE = 1 * 1024 * 1024;   // 默认切片大小
+export const DEFAULT_SIZE = 10 * 1024 * 1024;   // 默认切片大小
 
 /**
  * 生成文件切片

@@ -3,13 +3,12 @@ const fs = require('fs');
 /**
  *
  * @param readrPath {string}
- * @param writePath {string}
+ * @param writeStream {*} 写入流
  * @return {Promise<unknown>}
  */
-const pipeStream = (readrPath, writePath) => {
+const pipeStream = (readrPath, writeStream) => {
   return new Promise((resolve, reject) => {
     const readStream = fs.createReadStream(readrPath);
-    const writeStream = fs.createWriteStream(writePath);
     readStream.pipe(writeStream);
 
     readStream.on("error", (err) => {

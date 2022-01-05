@@ -14,7 +14,7 @@ const chunkHandler = async (req) => {
     fs.mkdirSync(chunkDir)
   }
 
-  return await pipeStream(chunk.path, chunkDir + '/' + hash);
+  return await pipeStream(chunk.path, fs.createWriteStream(chunkDir + '/' + hash));
 }
 
 module.exports = chunkHandler;

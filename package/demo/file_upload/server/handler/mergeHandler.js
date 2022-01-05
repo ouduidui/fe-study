@@ -3,7 +3,9 @@ const path = require('path');
 const pipeStream = require('../utils/pipeStream')
 const {CHUNKS_PATH, FILES_PATH} = require('../utils/config')
 
-const mergeHandler = async (filename) => {
+const DEFAULT_SIZE = 1 * 1024 * 1024;   // 默认切片大小
+
+const mergeHandler = async ({filename, size = DEFAULT_SIZE}) => {
   const chunkDir = path.resolve(CHUNKS_PATH, filename);
   const chunkPaths = fs.readdirSync(chunkDir);
 
@@ -15,7 +17,10 @@ const mergeHandler = async (filename) => {
 
   await Promise.all(
     chunkPaths.map((chunkPath, index) => {
-      pipeStream(path.resolve(chunkDir, chunkPath), FILES_PATH + '/' + filename)
+      pipeStream(path.resolve(chunkDir, chunkPath), fs.createWriteStream(FILES_PATH + '/' + filename, {
+        start: index * size,
+        end: (index + 1) * size
+      }))
     })
   )
 

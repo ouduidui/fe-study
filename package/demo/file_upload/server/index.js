@@ -27,7 +27,7 @@ router.post('/api/upload', async (ctx) => {
 })
 
 router.post('/api/merge', async (ctx) => {
-  await mergeHandler(ctx.request.body.filename);
+  await mergeHandler(ctx.request.body);
   ctx.body = {
     code: 1,
     message: 'Hello World'
