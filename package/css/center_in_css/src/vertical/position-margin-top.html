@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>垂直居中 - 绝对定位+margin-left</title>
+  <style>
+    :root {
+      --box-height: 60px;
+    }
+    .center {
+      position: absolute;
+      top: 50%;
+      margin-top: calc(-1 * var(--box-height) / 2);
+      height: var(--box-height);
+      width: 100px;
+      border: 1px solid #222;
+    }
+  </style>
+</head>
+<body>
+<div class="center"></div>
+</body>
+</html>
