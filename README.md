@@ -1,7 +1,5 @@
 # 前端学习
 
-## HTML
-
 ## CSS
 
 - [CSS居中](./package/css/center_in_css)
@@ -35,6 +33,6 @@
 
 - [单例模式](./package/patterns/packages/singleton/README.md)
 
-## React
+## Demo实现
 
-## NodeJS
+- [大文件上传](./package/demo/file_upload)
