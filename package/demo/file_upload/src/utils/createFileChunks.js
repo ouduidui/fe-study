@@ -23,9 +23,11 @@ export async function createFileChunks(file, size = DEFAULT_SIZE) {
   const fileHash = await calculateHash(fileChunkList);
 
   fileChunkList.forEach((item, index) => {
-    item.fileHash = fileHash;
     item.hash = fileHash + '-' + index
   })
 
-  return fileChunkList;
+  return {
+    fileChunkList,
+    fileHash
+  };
 }

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const pipeStream = require('../utils/pipeStream')
-const {CHUNKS_PATH, FILES_PATH} = require('../utils/config')
+const {CHUNKS_PATH, FILES_PATH, FILES_MAP_PATH} = require('../utils/config')
 
 const DEFAULT_SIZE = 1 * 1024 * 1024;   // 默认切片大小
 
@@ -25,6 +25,14 @@ const mergeHandler = async ({filename, fileHash, size = DEFAULT_SIZE}) => {
   )
 
   removeDir(chunkDir)
+  updateFileMap(filename, fileHash)
+}
+
+const updateFileMap = (filename, fileHash) => {
+  const fileMapStr = fs.readFileSync(FILES_MAP_PATH, 'utf-8');
+  const fileMap = fileMapStr ?  JSON.parse(fileMapStr) : {};
+  fileMap[fileHash] = filename;
+  fs.writeFileSync(FILES_MAP_PATH, JSON.stringify(fileMap, null, 2))
 }
 
 const removeDir = (dirPath) => {
