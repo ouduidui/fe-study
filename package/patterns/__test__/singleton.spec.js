@@ -1,33 +1,33 @@
-const SimpleSingleton = require('../packages/singleton-pattern/simple');
-const SimpleSingletonByClass = require('../packages/singleton-pattern/simpleClass');
-const SingletonByIIFE = require('../packages/singleton-pattern/iife');
-const SingletonByIIFEModule = require('../packages/singleton-pattern/iifeModule');
-const getInstanceByBlockScope = require('../packages/singleton-pattern/blockScope');
-const SingletonProxy = require('../packages/singleton-pattern/proxy');
-const SingletonProxyByProxy = require('../packages/singleton-pattern/proxyByProxy');
+const ManageGame = require('../packages/singleton/manageGame');
+const ManageGameByClass = require('../packages/singleton/manageGameByClass');
+const SingletonByIIFE = require('../packages/singleton/iife');
+const SingletonByIIFEModule = require('../packages/singleton/iifeModule');
+const getInstanceByBlockScope = require('../packages/singleton/blockScope');
+const SingletonProxy = require('../packages/singleton/proxy');
+const SingletonProxyByProxy = require('../packages/singleton/proxyByProxy');
 const {
   HungrySingleton,
   LazySingleton
-} = require('../packages/singleton-pattern/lazy');
+} = require('../packages/singleton/lazy');
 
 describe('单例模式', () => {
   it('在JavaScript中，新对象就是一个单例', () => {
     expect({a: 1}).not.toBe({a: 1})
   })
 
-  it('简单实现单例模式', () => {
-    const singleton1 = new SimpleSingleton()
-    const singleton2 = SimpleSingleton.getInstance()
-    const singleton3 = SimpleSingleton.getInstance()
+  it('示例的代码实现', () => {
+    const singleton1 = new ManageGame()
+    const singleton2 = ManageGame.getInstance()
+    const singleton3 = ManageGame.getInstance()
 
     expect(singleton1).toBe(singleton2);
     expect(singleton2).toBe(singleton3)
   })
 
-  it('简单实现单例模式 - 使用class实现', () => {
-    const singleton1 = new SimpleSingletonByClass()
-    const singleton2 = SimpleSingletonByClass.getInstance()
-    const singleton3 = SimpleSingletonByClass.getInstance()
+  it('示例的代码实现 - 使用class实现', () => {
+    const singleton1 = new ManageGameByClass()
+    const singleton2 = ManageGameByClass.getInstance()
+    const singleton3 = ManageGameByClass.getInstance()
 
     expect(singleton1).toBe(singleton2);
     expect(singleton2).toBe(singleton3)

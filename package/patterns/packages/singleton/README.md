@@ -2,7 +2,19 @@
 
 **单例模式（Singleton Pattern** ）又称为单体模式，**保证一个类只有一个实例，并提供一个访问它的全局访问点**。也就是说，第二次使用同一个类创建新对象的时候，应该得到与第一次创建的对象完全相同的对象。
 
-## 简单代码实现
+## 你曾经遇见的单例模式
+
+当我们在电脑上玩经营类的游戏，经过一番眼花缭乱的骚操作好不容易走上正轨，夜深了我们去休息，第二天打开电脑，发现要从头玩，立马就把电脑扔窗外了，所以一般希望从前一天的进度接着打，这里就用到了存档。每次玩这游戏的时候，我们都希望拿到同一个存档接着玩，这就是属于单例模式的一个实例。
+
+编程中也有很多对象我们只需要唯一一个，比如数据库连接、线程池、配置文件缓存、浏览器中的 `window`/`document` 等，如果创建多个实例，会带来资源耗费严重，或访问行为不一致等情况。
+
+类似于数据库连接实例，我们可能频繁使用，但是创建它所需要的开销又比较大，这时只使用一个数据库连接就可以节约很多开销。一些文件的读取场景也类似，如果文件比较大，那么文件读取就是一个比较重的操作。比如这个文件是一个配置文件，那么完全可以将读取到的文件内容缓存一份，每次来读取的时候访问缓存即可，这样也可以达到节约开销的目的。
+
+在类似场景中，这些例子有以下特点：
+1. 每次访问者来访问，返回的都是同一个实例；
+2. 如果一开始实例没有创建，那么这个特定类需要自行创建这个实例；
+
+## 示例的代码实现
 
 浏览器中的 [window](https://developer.mozilla.org/zh-CN/docs/Web/API/Window) 和 [document](https://developer.mozilla.org/zh-CN/docs/Web/API/Document) 全局变量，这两个对象都是单例，任何时候访问他们都是一样的对象，`window` 表示包含 DOM 文档的窗口，`document` 是窗口中载入的 DOM 文档，分别提供了各自相关的方法。​
 
@@ -11,39 +23,39 @@
 在 `JavaScript` 中使用字面量方式创建一个新对象时，实际上没有其他对象与其类似，因为新对象已经是单例了：
 
 ```javascript
-{ a: 1 } === { a: 1 }         // false
+console.log({ a: 1 } === { a: 1 } )        // false
 ```
 
 那么问题来了，如何对构造函数使用 `new` 操作符创建多个对象时，仅获取同一个单例对象呢。
 
-我们可以用 `JavaScript` 来实现一下：
+我们可以使用 JavaScript 将上面饭馆例子实现一下：
 
 ```javascript
-function Singleton() {
-  if (!Singleton._instance) {
+function ManageGame() {
+  if (!ManageGame._instance) {
     // 如果 _instance 静态属性没有示例的话，将实例赋值于它
-    Singleton._instance = this
+    ManageGame._instance = this
   }
   // 返回实例
-  return Singleton._instance
+  return ManageGame._instance
 }
 
 // 定义 getInstance 静态方法，用于获取实例
-Singleton.getInstance = function () {
-  if (Singleton._instance) {
-    return Singleton._instance
+ManageGame.getInstance = function () {
+  if (ManageGame._instance) {
+    return ManageGame._instance
   }
-  return Singleton._instance = new Singleton()
+  return ManageGame._instance = new ManageGame()
 }
 
 
 // 测试用例
-it('简单实现单例模式', () => {
-  const singleton1 = new Singleton()
-  const singleton2 = Singleton.getInstance()
-  const singleton3 = Singleton.getInstance()
+it('示例的代码实现', () => {
+  const singleton1 = new ManageGame()
+  const singleton2 = ManageGame.getInstance()
+  const singleton3 = ManageGame.getInstance()
 
-  expect(singleton1).toBe(singleton2)
+  expect(singleton1).toBe(singleton2);
   expect(singleton2).toBe(singleton3)
 })
 ```
@@ -53,28 +65,28 @@ it('简单实现单例模式', () => {
 我们可以用 `ES6` 的 `class` 语法改造一下：
 
 ```javascript
-class Singleton {
+class ManageGame {
   // 声明静态属性 _instance 用于存储示例
   static _instance = null;
 
   constructor() {
-    if(!Singleton._instance) {
+    if(!ManageGame._instance) {
       // 初始化示例
-      Singleton._instance = this;
+      ManageGame._instance = this;
     }
 
     // 返回实例
-    return Singleton._instance;
+    return ManageGame._instance;
   }
 
   // 定义 getInstance 静态方法，用于获取实例
   static getInstance() {
-    if(!Singleton._instance) {
+    if(!ManageGame._instance) {
       // 初始化示例
-      Singleton._instance = this;
+      ManageGame._instance = this;
     }
 
-    return Singleton._instance;
+    return ManageGame._instance;
   }
 }
 ```

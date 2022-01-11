@@ -2,13 +2,23 @@
 
 **工厂模式** （Factory Pattern），根据不同的输入返回不同类的实例，一般用来创建同一类对象。工厂方式的主要思想是**将对象的创建与对象的实现分离**。
 
-## 简单代码实现
+## 你曾经遇见的工厂函数
 
-如果你使用过 [document.createElement](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement) 方法创建过 DOM 元素，那么你已经使用过工厂方法了，虽然这个方法实际上很复杂，但其使用的就是工厂方法的思想：访问者只需提供标签名（如 `div`、`img`），那么这个方法就会返回对应的 DOM 元素。
+当你有一天想要下馆子，去吃顿麦当劳。让你去点餐，跟服务员说：我要一个汉堡，一份薯条，一份鸡块。过一会，服务员做好送到你面前，你无需管它的制作过程，就开始吃了。
 
-我们可以简单来实现一个实例：
+上面这个例子就是工厂模式的示例，麦当劳相对于工厂，负责生成产品，访问者通过麦当劳就可以拿到想要的产品。
 
-> 当你去外面吃饭点菜的时候，菜单上可能有几十种菜，而你只需要跟服务员说你想吃什么，等会菜就会做好端到你面前，而关于烧菜的过程不需要你去管，你只需要确认服务员上菜的时候准确无误即可。
+在类似场景中，这些例子有以下特点：
+
+1. 访问者只需要知道产品名，就可以从工厂获得对应实例
+2. 访问者不关心实例创建过程
+
+## 实例的代码实现
+
+如果你使用过 [document.createElement](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement) 方法创建过 DOM
+元素，那么你已经使用过工厂方法了，虽然这个方法实际上很复杂，但其使用的就是工厂方法的思想：访问者只需提供标签名（如 `div`、`img`），那么这个方法就会返回对应的 DOM 元素。
+
+我们可以使用 JavaScript 将上面饭馆例子实现一下：
 
 ```javascript
 function restaurant(menu) {
@@ -50,12 +60,12 @@ class ChickenNuggets {
 
 严格上这种实现在面向对象语言中叫做**简单工厂模式**。适用于产品种类比较少，创建逻辑不复杂的时候使用。
 
-**工厂模式**的本意是将实际创建对象的过程推迟到子类中，一般用抽象类来作为父类，创建过程由抽象类的子类来具体实现。`JavaScript` 中没有抽象类，所以我们可以简单地将工厂模式看做是一个实例化对象的工厂类即可。关于抽象类的有关内容，可以参看抽象工厂模式。
+**工厂模式**的本意是将实际创建对象的过程推迟到子类中，一般用抽象类来作为父类，创建过程由抽象类的子类来具体实现。`JavaScript`中没有抽象类，所以我们可以简单地将工厂模式看做是一个实例化对象的工厂类即可。关于抽象类的有关内容，可以参看抽象工厂模式。
 
 然而作为灵活的 `JavaScript`，我们不必如此较真，可以把易变的参数提取出来：
 
 ```javascript
-class Restaurant {
+class Dish {
   constructor() {
     this.menu = [
       {food: '汉堡包', method/* 做菜方法 */: {}}
@@ -65,7 +75,7 @@ class Restaurant {
   // 点菜
   getMenu(food) {
     const foodInfo = this.menu.find(item => item.food === food);
-    if(!foodInfo) throw new Error('本店没有此道菜')
+    if (!foodInfo) throw new Error('本店没有此道菜')
 
     return new Cooking(food, foodInfo.method);
   }
@@ -73,7 +83,7 @@ class Restaurant {
   // 增加菜品
   addMenu(food, method) {
     const foodInfo = this.menu.find(item => item.food === food);
-    if(foodInfo) throw new Error('已经有这道菜了');
+    if (foodInfo) throw new Error('已经有这道菜了');
     this.menu.push({food, method})
   }
 
@@ -92,7 +102,7 @@ class Cooking {
 }
 ```
 
-我们给 `Restaurant` 类增加了 `addMenu/removeMenu` 私有方法，以便于扩展。
+我们给 `Dish` 类增加了 `addMenu/removeMenu` 私有方法，以便于扩展。
 
 当然这里如果菜品参数不太一致，可以在 `addMenu` 时候注册构造函数或者类，创建的时候返回 `new` 出的对应类实例，灵活变通即可。
 
@@ -140,29 +150,34 @@ class Product2 {
 
 ### Vue/React 源码中的工厂模式
 
-和原生的 `document.createElement` 类似，Vue 和 React 这种具有虚拟 DOM 树（Virtual Dom Tree）机制的框架在生成虚拟 DOM 的时候，都提供了 `createElement` 方法用来生成 VNode，用来作为真实 DOM 节点的映射：
+和原生的 `document.createElement` 类似，Vue 和 React 这种具有虚拟 DOM 树（Virtual Dom Tree）机制的框架在生成虚拟 DOM 的时候，都提供了 `createElement`
+方法用来生成 VNode，用来作为真实 DOM 节点的映射：
 
 ```javascript
 // Vue
-createElement('h3', { class: 'main-title' }, [
-    createElement('img', { class: 'avatar', attrs: { src: '../avatar.jpg' } }),
-    createElement('p', { class: 'nickname' }, 'OUDUIDUI')
+createElement('h3', {class: 'main-title'}, [
+  createElement('img', {class: 'avatar', attrs: {src: '../avatar.jpg'}}),
+  createElement('p', {class: 'nickname'}, 'OUDUIDUI')
 ])
 
 // React
-React.createElement('h3', { className: 'main-title' },
-  React.createElement('img', { src: '../avatar.jpg', className: 'avatar' }),
-  React.createElement('p', { className: 'nickname' }, 'OUDUIDUI')
+React.createElement('h3', {className: 'main-title'},
+  React.createElement('img', {src: '../avatar.jpg', className: 'avatar'}),
+  React.createElement('p', {className: 'nickname'}, 'OUDUIDUI')
 )
 ```
 
 `createElement` 函数结构大概如下：
 
 ```javascript
-class Vnode (tag, data, children) { ... }
+class Vnode{
+  constructor(tag, data, children) {
+    // ...
+  }
+}
 
 function createElement(tag, data, children) {
-      return new Vnode(tag, data, children)
+  return new Vnode(tag, data, children)
 }
 ```
 
@@ -176,31 +191,33 @@ function createElement(tag, data, children) {
 
 ```javascript
 export default class VueRouter {
-    constructor(options) {
-        this.mode = mode    // 路由模式
+  constructor(options) {
+    this.mode = mode    // 路由模式
 
-        switch (mode) {           // 简单工厂
-            case 'history':       // history 方式
-                this.history = new HTML5History(this, options.base)
-                break
-            case 'hash':          // hash 方式
-                this.history = new HashHistory(this, options.base, this.fallback)
-                break
-            case 'abstract':      // abstract 方式
-                this.history = new AbstractHistory(this, options.base)
-                break
-            default:
-                // ... 初始化失败报错
-        }
+    switch (mode) {           // 简单工厂
+      case 'history':       // history 方式
+        this.history = new HTML5History(this, options.base)
+        break
+      case 'hash':          // hash 方式
+        this.history = new HashHistory(this, options.base, this.fallback)
+        break
+      case 'abstract':      // abstract 方式
+        this.history = new AbstractHistory(this, options.base)
+        break
+      default:
+      // ... 初始化失败报错
     }
+  }
 }
 ```
 
-`mode` 是路由创建的模式，这里有三种 History、Hash、Abstract，前两种我们已经很熟悉了，History 是 H5 的路由方式，Hash 是路由中带 `#` 的路由方式，Abstract 代表非浏览器环境中路由方式，比如 Node、Weex 等；`this.history` 用来保存路由实例，vue-router 中使用了工厂模式的思想来获得响应路由控制类的实例。
+`mode` 是路由创建的模式，这里有三种 History、Hash、Abstract，前两种我们已经很熟悉了，History 是 H5 的路由方式，Hash 是路由中带 `#` 的路由方式，Abstract
+代表非浏览器环境中路由方式，比如 Node、Weex 等；`this.history` 用来保存路由实例，vue-router 中使用了工厂模式的思想来获得响应路由控制类的实例。
 
 源码里没有把工厂方法的产品创建流程封装出来，而是直接将产品实例的创建流程暴露在 `VueRouter` 的构造函数中，在被 `new` 的时候创建对应产品实例，相当于 `VueRouter` 的构造函数就是一个工厂方法。
 
-如果一个系统不是 SPA （Single Page Application，单页应用），而是 MPA（Multi Page Application，多页应用），那么就需要创建多个 `VueRouter` 的实例，此时 `VueRouter` 的构造函数也就是工厂方法将会被多次执行，以分别获得不同实例。
+如果一个系统不是 SPA （Single Page Application，单页应用），而是 MPA（Multi Page Application，多页应用），那么就需要创建多个 `VueRouter` 的实例，此时 `VueRouter`
+的构造函数也就是工厂方法将会被多次执行，以分别获得不同实例。
 
 ## 优缺点
 
