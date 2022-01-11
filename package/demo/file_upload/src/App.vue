@@ -1,35 +1,39 @@
 <script setup>
 import {createFileChunks} from "./utils/createFileChunks";
 import {calculateHashProgress} from './utils/calculateHash';
-import {uploadChunks, cancelUpload} from "./utils/uploadChunks";
+import {uploadProgress, uploadChunks, cancelUpload} from "./utils/uploadChunks";
 import {ElMessage} from 'element-plus'
 import {ref} from "vue";
 
 let file = null;
 
-/**
- * 选择文件
- * @param e
- */
+// 选择文件
 const chooseFileHandle = (e) => ([file] = e.target.files);
 
+// 判断是否上传
 const isUpload = ref(false);
-const uploadProgress = ref([])
 
+// 文件上传
 const uploadHandle = async () => {
+  // 判断是否有选择文件
   if (!file) {
     return ElMessage.error('请选择文件');
   }
+
+  // 修改状态
   isUpload.value = true;
-  uploadProgress.value = [];
+  // 将文件切分为chunks,并计算文件hash
   const {fileChunkList, fileHash} = await createFileChunks(file);
-  const {isSuccess, message} = await uploadChunks(fileChunkList, file.name, fileHash, uploadProgress);
+  // 上传chunks
+  const {isSuccess, message} = await uploadChunks(fileChunkList, file.name, fileHash);
   isSuccess ? ElMessage.success(message) : ElMessage.error(message);
   isUpload.value = false;
 }
 
+// 暂停上传
 const stopHandle = () => {
   cancelUpload();
+  // 修改状态
   isUpload.value = false;
   ElMessage.success('已暂停上传');
 }

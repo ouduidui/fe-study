@@ -1,13 +1,14 @@
 const fs = require('fs');
 
 /**
- *
+ * 使用流进行读写
  * @param readrPath {string}
  * @param writeStream {*} 写入流
  * @return {Promise<unknown>}
  */
 const pipeStream = (readrPath, writeStream) => {
   return new Promise((resolve, reject) => {
+    // 创建读取流
     const readStream = fs.createReadStream(readrPath);
     readStream.pipe(writeStream);
 
