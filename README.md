@@ -4,9 +4,9 @@
 
 ## CSS
 
-- [CSS居中](./package/css/center_in_css)
-- [CSS层叠上下文](./package/css/stacking_context)
-- [CSS中的剪切和遮罩](./package/css/clipping_and_masking_in_css)
+- [CSS居中](./package/css/center-in-css)
+- [CSS层叠上下文](./package/css/stacking-context)
+- [CSS中的剪切和遮罩](./package/css/clipping-and-masking)
 
 ## JavaScript
 
@@ -15,7 +15,7 @@
 
 ## Vue
 
-- [Vue2 && Vue3 组件通信](./package/vue/vue_component_communication)
+- [Vue2 && Vue3 组件通信](./package/vue/vue-component-communication)
 
 ## 设计模式
 
@@ -23,4 +23,4 @@
 
 ## Demo实现
 
-- [大文件上传](./package/demo/file_upload)
+- [大文件上传](./package/demo/file-upload)

@@ -15,7 +15,7 @@
 
 ## Vue2组件通信方法
 
-> 之前我写过一篇[关于`Vue2`的组件通信方法的文章](https://ouduidui.cn/2020/12/28/vue_components_communication/)，相对比较详细，这里的话就比较简单带过。
+> 之前我写过一篇[关于`Vue2`的组件通信方法的文章](https://ouduidui.cn/front-end/vue/vue2-component.html) ，相对比较详细，这里的话就比较简单带过。
 
 ### 属性绑定（props）
 

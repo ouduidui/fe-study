@@ -1,13 +1,13 @@
 const {
   AbstractClass1,
   AbstractClass2
-} = require('../packages/abstract_factory/simple');
+} = require('../packages/abstract-factory/simple');
 const {
   Restaurant,
   Dish
-} = require('../packages/abstract_factory/dish');
-const Restaurant2 = require('../packages/abstract_factory/restaurant');
-const Factory = require('../packages/abstract_factory/abstractFactory');
+} = require('../packages/abstract-factory/dish');
+const Restaurant2 = require('../packages/abstract-factory/restaurant');
+const Factory = require('../packages/abstract-factory/abstractFactory');
 
 describe('抽象工厂模式', () => {
   it('抽象类不能直接实例化', () => {
