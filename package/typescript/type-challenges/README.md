@@ -130,8 +130,8 @@
 <a href="./questions/741-extreme-sort/README.md" target="_blank"><img src="https://img.shields.io/badge/-741%E3%83%BBSort-b11b8d" alt="741・Sort"/></a>
 <a href="./questions/869-extreme-distributeunions/README.md" target="_blank"><img src="https://img.shields.io/badge/-869%E3%83%BBDistributeUnions-b11b8d" alt="869・DistributeUnions"/></a>
 <a href="./questions/925-extreme-assert-array-index/README.md" target="_blank"><img src="https://img.shields.io/badge/-925%E3%83%BBAssert%20Array%20Index-b11b8d" alt="925・Assert Array Index"/></a>
-<br><details><summary>
-By Tags
+<br><details><summary> By Tags
+
 </summary><br><table><tbody><tr><td><img src="https://img.shields.io/badge/-%23application-999" alt="#application"/></td><td><a href="./questions/12-medium-chainable-options/README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-12%E3%83%BB%E5%8F%AF%E4%B8%B2%E8%81%94%E6%9E%84%E9%80%A0%E5%99%A8-d9901a" alt="12・可串联构造器"/></a>
 <a href="./questions/6-hard-simple-vue/README.zh-CN.md" target="_blank"><img src="https://img.shields.io/badge/-6%E3%83%BB%E7%AE%80%E5%8D%95%E7%9A%84%20Vue%20%E7%B1%BB%E5%9E%8B-de3d37" alt="6・简单的 Vue 类型"/></a>
 <a href="./questions/213-hard-vue-basic-props/README.md" target="_blank"><img src="https://img.shields.io/badge/-213%E3%83%BBVue%20Basic%20Props-de3d37" alt="213・Vue Basic Props"/></a>
