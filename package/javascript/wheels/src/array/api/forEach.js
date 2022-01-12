@@ -15,16 +15,17 @@ const _forEach = function (callback, thisArg) {
     throw new TypeError(callback + ' is not a function');
   }
 
-  const O = Object(this);  // O === this
+  const O = Object(this); // O === this
   const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
 
   let k = 0;
   while (k < len) {
-    if (k in O) {  // 判断元素是否在数组中
+    if (k in O) {
+      // 判断元素是否在数组中
       callback.call(thisArg, O[k], k, O);
     }
     k++;
   }
-}
+};
 
 module.exports = _forEach;

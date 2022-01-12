@@ -10,7 +10,7 @@ class Map {
 
     this[Symbol.iterator] = this.entries;
 
-    values.length && values.forEach(v => this.set(v[0], v[1]));
+    values.length && values.forEach((v) => this.set(v[0], v[1]));
   }
 
   /**
@@ -60,7 +60,7 @@ class Map {
       const keyStr = this._defaultToString(key);
       delete this._values[keyStr];
       delete this._keyMap[keyStr];
-      this._keys = this._keys.filter(k => k !== keyStr);
+      this._keys = this._keys.filter((k) => k !== keyStr);
       this.size--;
     }
     return this;
@@ -122,10 +122,9 @@ class Map {
     for (let k of this._keys) {
       const key = this._keyMap[k];
       const value = this._values[k];
-      callback.call(context, value, key, this)
+      callback.call(context, value, key, this);
     }
   }
-
 
   /**
    * 将其他类型的key生成字符串key
@@ -149,7 +148,7 @@ class Map {
    * @return {Generator<*, void, *>}
    * @private
    */
-  * _createIterator(items) {
+  *_createIterator(items) {
     for (let i = 0; i < items.length; i++) {
       yield items[i];
     }

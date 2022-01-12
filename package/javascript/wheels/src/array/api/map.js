@@ -22,13 +22,13 @@ const _map = function (callback, thisArg) {
   const res = [];
   while (k < len) {
     if (k in O) {
-      res[k] = callback.call(thisArg, O[k], k, O);  // 赋值各元素的结果
+      res[k] = callback.call(thisArg, O[k], k, O); // 赋值各元素的结果
     }
     k++;
   }
 
   // 将结果数组返回
   return res;
-}
+};
 
 module.exports = _map;

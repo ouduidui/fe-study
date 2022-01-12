@@ -22,7 +22,7 @@ const _every = function (callback, thisArg) {
   while (k < len) {
     if (k in O) {
       if (!callback.call(thisArg, O[k], k, O)) {
-        return false;   // 只要有一个元素没有通过测试，即返回false
+        return false; // 只要有一个元素没有通过测试，即返回false
       }
     }
     k++;
@@ -30,6 +30,6 @@ const _every = function (callback, thisArg) {
 
   // 遍历结束都通过测试，即返回true
   return true;
-}
+};
 
 module.exports = _every;

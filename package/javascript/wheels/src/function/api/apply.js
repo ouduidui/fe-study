@@ -7,7 +7,7 @@ function _apply(context, args = []) {
   const res = context[fn](...args);
   delete context[fn];
 
-  return res
+  return res;
 }
 
 module.exports = _apply;

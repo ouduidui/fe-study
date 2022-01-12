@@ -37,12 +37,12 @@ const _reduce = function (callback, initialValue, thisArg) {
 
   while (k < len) {
     if (k in O) {
-      acc = callback.call(thisArg, acc, O[k], k, O)
+      acc = callback.call(thisArg, acc, O[k], k, O);
     }
     k++;
   }
 
   return acc;
-}
+};
 
 module.exports = _reduce;

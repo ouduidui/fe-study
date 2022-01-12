@@ -12,5 +12,5 @@ describe('函数柯里化', () => {
     expect(add2(2)(3)(4)).toBe(add(1, 2, 3, 4));
     expect(add2(2, 3)(4)).toBe(add(1, 2, 3, 4));
     expect(add2(2)(3, 4)).toBe(add(1, 2, 3, 4));
-  })
-})
+  });
+});

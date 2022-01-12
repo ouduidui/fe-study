@@ -1,4 +1,4 @@
-# CSS居中方案
+# CSS 居中方案
 
 ## 水平居中
 
@@ -12,8 +12,8 @@
 
 ```css
 .center {
-    text-align: center;
-    width: 100vw;
+  text-align: center;
+  width: 100vw;
 }
 ```
 
@@ -49,7 +49,7 @@
 
 ### 浮动元素
 
-如果子元素包含float浮动属性，为了让子元素居中，则可以让父元素宽度设置为`fit-content`，并配合`margin`。
+如果子元素包含 float 浮动属性，为了让子元素居中，则可以让父元素宽度设置为`fit-content`，并配合`margin`。
 
 ```html
 <div class="center">
@@ -77,16 +77,17 @@
 ![demo3](./assets/demo3.png)
 
 > fit-content：取以下两种值中的较大值
-> 
+>
 > - 固有的最小宽度
-> 
+>
 > - 固有首选宽度（max-content）和可用宽度（available）两者中的较小值
-> 
-> fit-content目前不兼容IE
+>
+> fit-content 目前不兼容 IE
 
-### flex布局
+### flex 布局
 
-我们可以使用flex弹性布局，轻松实现水平居中，不管子元素是行内元素还是块级元素，只需要在父元素设置`display: flex; justify-content: center;`即可。
+我们可以使用 flex 弹性布局，轻松实现水平居中，不管子元素是行内元素还是块级元素，只需要在父元素设
+置`display: flex; justify-content: center;`即可。
 
 ```html
 <div class="center">
@@ -124,6 +125,7 @@
   transform: translateX(-50%);
 }
 ```
+
 ![demo5](./assets/demo5.png)
 
 #### margin-left
@@ -177,7 +179,8 @@
 
 ### 行内块级元素
 
-如果元素是行内块级元素, 基本思想是使用`display: inline-block`, `vertical-align: middle`和一个伪元素让内容块处于容器中央。
+如果元素是行内块级元素, 基本思想是使用`display: inline-block`, `vertical-align: middle`和一个伪元素让内容块处于容器中央
+。
 
 ```html
 <div class="page">
@@ -196,10 +199,11 @@
   vertical-align: middle;
   width: 80px;
   height: 20px;
-  background: #D66852;
+  background: #d66852;
 }
 
-.page::after, .center {
+.page::after,
+.center {
   display: inline-block;
   vertical-align: middle;
 }
@@ -212,9 +216,10 @@
 
 ![demo8](./assets/demo8.png)
 
-### flex布局
+### flex 布局
 
-我们可以使用flex弹性布局，轻松实现水平居中，不管子元素是行内元素还是块级元素，只需要在父元素设置`display: flex; align-items: center;`即可。
+我们可以使用 flex 弹性布局，轻松实现水平居中，不管子元素是行内元素还是块级元素，只需要在父元素设
+置`display: flex; align-items: center;`即可。
 
 ```html
 <div class="center">

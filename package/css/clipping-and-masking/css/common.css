@@ -1,91 +1,91 @@
 body {
-    background: #333;
+  background: #333;
 }
 
 .container {
-    width: 1140px;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    color: #fff !important;
+  width: 1140px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  color: #fff !important;
 }
 
 h1 {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 h4 {
-    font-weight: 300;
-    opacity: .8;
+  font-weight: 300;
+  opacity: 0.8;
 }
 
 a {
-    color: #fff !important;
-    text-decoration: none;
+  color: #fff !important;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 img {
-    height: 300px;
-    display: flex;
-    margin: 0 auto;
+  height: 300px;
+  display: flex;
+  margin: 0 auto;
 }
 
 .picture-box {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
 }
 
 .picture-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px 0;
 }
 
 @media (max-width: 1200px) {
-    .container {
-        width: 960px;
-    }
+  .container {
+    width: 960px;
+  }
 }
 
 @media (max-width: 992px) {
-    .container {
-        width: 720px;
-    }
-    .picture-box {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+  .container {
+    width: 720px;
+  }
+  .picture-box {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
-    .container {
-        width: 540px;
-    }
+  .container {
+    width: 540px;
+  }
 
-    .picture-box {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+  .picture-box {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 576px) {
-    .container {
-        width: 100%;
-    }
+  .container {
+    width: 100%;
+  }
 
-    .picture-box {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+  .picture-box {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

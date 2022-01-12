@@ -7,7 +7,7 @@ function restaurant(menu) {
     case '鸡块':
       return new ChickenNuggets();
     default:
-      throw new Error('本店没有此道菜')
+      throw new Error('本店没有此道菜');
   }
 }
 

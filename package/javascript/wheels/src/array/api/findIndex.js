@@ -22,7 +22,7 @@ const _findIndex = function (callback, thisArg) {
   while (k < len) {
     if (k in O) {
       if (callback.call(thisArg, O[k], k, O)) {
-        return k;   // 返回第一个满足测试的元素索引
+        return k; // 返回第一个满足测试的元素索引
       }
     }
     k++;
@@ -30,6 +30,6 @@ const _findIndex = function (callback, thisArg) {
 
   // 如果都不通过，则返回-1
   return -1;
-}
+};
 
 module.exports = _findIndex;

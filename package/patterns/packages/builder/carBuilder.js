@@ -1,5 +1,5 @@
 // 建造者，汽车部件厂家，提供具体零部件的生产
-function CarBuilder({color = 'white', weight = 0}) {
+function CarBuilder({ color = 'white', weight = 0 }) {
   this.color = color;
   this.weight = weight;
 }
@@ -17,7 +17,7 @@ CarBuilder.prototype.buildTyre = function (type) {
       this.tyreType = '大号轮胎';
       break;
   }
-}
+};
 
 // 生产部件：发动机
 CarBuilder.prototype.buildEngine = function (type) {
@@ -32,7 +32,7 @@ CarBuilder.prototype.buildEngine = function (type) {
       this.engineType = '大马力发动机';
       break;
   }
-}
+};
 
 // 奔驰厂家，负责最终汽车产品的装配
 function benzDirector(tyre, engine, params) {

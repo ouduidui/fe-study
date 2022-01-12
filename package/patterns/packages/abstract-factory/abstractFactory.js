@@ -1,14 +1,14 @@
 // 工厂抽象类
 class AbstractFactory {
   constructor() {
-    if(new.target === AbstractFactory) {
-      throw new Error('抽象类不能直接实例化!')
+    if (new.target === AbstractFactory) {
+      throw new Error('抽象类不能直接实例化!');
     }
   }
 
   // 抽象方法
   createProduct() {
-    throw new Error('抽象方法不能调用!')
+    throw new Error('抽象方法不能调用!');
   }
 }
 
@@ -25,7 +25,7 @@ class Factory extends AbstractFactory {
       case 'Product2':
         return new Product2();
       default:
-        throw new Error('当前没有这个产品')
+        throw new Error('当前没有这个产品');
     }
   }
 }
@@ -33,14 +33,14 @@ class Factory extends AbstractFactory {
 // 抽象产品类
 class AbstractProduct {
   constructor() {
-    if(new.target === AbstractFactory) {
-      throw new Error('抽象类不能直接实例化!')
+    if (new.target === AbstractFactory) {
+      throw new Error('抽象类不能直接实例化!');
     }
   }
 
   // 抽象方法
   operate() {
-    throw new Error('抽象方法不能调用!')
+    throw new Error('抽象方法不能调用!');
   }
 }
 
@@ -68,5 +68,4 @@ class Product2 extends AbstractProduct {
   }
 }
 
-
-module.exports = Factory
+module.exports = Factory;

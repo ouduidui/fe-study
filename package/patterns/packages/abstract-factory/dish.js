@@ -6,7 +6,7 @@ class Restaurant {
       case '薯条':
         return new Chips();
       default:
-        throw new Error('本店没有此道菜')
+        throw new Error('本店没有此道菜');
     }
   }
 }
@@ -15,7 +15,7 @@ class Restaurant {
 class Dish {
   constructor() {
     if (new.target === Dish) {
-      throw new Error('抽象类不能直接实例化!')
+      throw new Error('抽象类不能直接实例化!');
     }
   }
 
@@ -28,7 +28,7 @@ class Dish {
 class Hamburger extends Dish {
   constructor() {
     super();
-    this.type = '汉堡包'
+    this.type = '汉堡包';
   }
 
   eat() {
@@ -39,7 +39,7 @@ class Hamburger extends Dish {
 class Chips extends Dish {
   constructor() {
     super();
-    this.type = '薯条'
+    this.type = '薯条';
   }
 
   eat() {
@@ -50,4 +50,4 @@ class Chips extends Dish {
 module.exports = {
   Restaurant,
   Dish
-}
+};

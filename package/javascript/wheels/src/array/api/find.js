@@ -22,7 +22,7 @@ const _find = function (callback, thisArg) {
   while (k < len) {
     if (k in O) {
       if (callback.call(thisArg, O[k], k, O)) {
-        return O[k];   // 返回第一个满足测试的元素
+        return O[k]; // 返回第一个满足测试的元素
       }
     }
     k++;
@@ -30,6 +30,6 @@ const _find = function (callback, thisArg) {
 
   // 如果都不通过，则返回undefined
   return undefined;
-}
+};
 
 module.exports = _find;

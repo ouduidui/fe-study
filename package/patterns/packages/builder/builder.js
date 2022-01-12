@@ -20,9 +20,7 @@ class ProductBuilder {
 // 指挥者，负责最终产品的装配
 class Director {
   constructor(params) {
-    const _product = new ProductBuilder(params)
-      .buildPart1()
-      .buildPart2();
+    const _product = new ProductBuilder(params).buildPart1().buildPart2();
     return _product;
   }
 }

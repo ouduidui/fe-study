@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>垂直居中 - 行内块级元素</title>
-  <style>
-    .page {
-      height: 300px;
-      border: 1px solid #222;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>垂直居中 - 行内块级元素</title>
+    <style>
+      .page {
+        height: 300px;
+        border: 1px solid #222;
+      }
 
-    .center {
-      display: inline-block;
-      vertical-align: middle;
-      width: 80px;
-      height: 20px;
-      background: #D66852;
-    }
+      .center {
+        display: inline-block;
+        vertical-align: middle;
+        width: 80px;
+        height: 20px;
+        background: #d66852;
+      }
 
-    .page::after, .center {
-      display: inline-block;
-      vertical-align: middle;
-    }
+      .page::after,
+      .center {
+        display: inline-block;
+        vertical-align: middle;
+      }
 
-    .page::after {
-      content: '';
-      height: 100%;
-    }
-  </style>
-</head>
-<body>
-<div class="page">
-  <span class="center"></span>
-</div>
-</body>
+      .page::after {
+        content: '';
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <span class="center"></span>
+    </div>
+  </body>
 </html>

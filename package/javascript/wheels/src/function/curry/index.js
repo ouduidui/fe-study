@@ -13,14 +13,14 @@ function curry(fn, ...args) {
     const combined = [...args, ...newArgs];
 
     // 判断参数总和是否达到要求
-    if(combined.length < length) {
+    if (combined.length < length) {
       // 如果还是缺少参数，则返回函数继续调用
       return curry(fn.bind(this), ...combined);
-    }else {
+    } else {
       // 如果参数不缺少，就调用函数
       return fn.apply(this, combined);
     }
-  }
+  };
 }
 
 module.exports = curry;

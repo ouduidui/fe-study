@@ -7,20 +7,20 @@ let getInstance;
 
   // 实现构造函数
   const Singleton = function (name) {
-    if(!_instance) {
+    if (!_instance) {
       _instance = this;
       this.name = name;
     }
     return _instance;
-  }
+  };
 
   // 实现 getInstance 方法，并复制给全局变量
   getInstance = function (name) {
-    if(!_instance) {
+    if (!_instance) {
       _instance = new Singleton(name);
     }
     return _instance;
-  }
+  };
 }
 
 module.exports = getInstance;

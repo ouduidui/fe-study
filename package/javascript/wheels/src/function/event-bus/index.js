@@ -1,6 +1,6 @@
 class EventBus {
   constructor() {
-    this.cache = {}
+    this.cache = {};
   }
 
   on(name, fn) {
@@ -8,7 +8,7 @@ class EventBus {
       this.cache[name] = [];
     }
 
-    this.cache[name].push(fn)
+    this.cache[name].push(fn);
   }
 
   once(name, fn) {
@@ -16,13 +16,13 @@ class EventBus {
     const newFn = function (...args) {
       fn.call(this, ...args);
       self.off(name, newFn);
-    }
+    };
     self.on(name, newFn);
   }
 
   off(name, fn) {
     if (this.cache[name]) {
-      this.cache[name] = this.cache[name].filter(f => f !== fn && f.callback !== fn)
+      this.cache[name] = this.cache[name].filter((f) => f !== fn && f.callback !== fn);
     }
   }
 
@@ -30,7 +30,7 @@ class EventBus {
     if (this.cache[name]) {
       let tasks = [...this.cache[name]];
       for (let fn of tasks) {
-        fn(...args)
+        fn(...args);
       }
     }
   }

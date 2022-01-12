@@ -3,7 +3,7 @@ class ManageGame {
   static _instance = null;
 
   constructor() {
-    if(!ManageGame._instance) {
+    if (!ManageGame._instance) {
       // 初始化示例
       ManageGame._instance = this;
     }
@@ -14,7 +14,7 @@ class ManageGame {
 
   // 定义 getInstance 静态方法，用于获取实例
   static getInstance() {
-    if(!ManageGame._instance) {
+    if (!ManageGame._instance) {
       // 初始化示例
       ManageGame._instance = this;
     }

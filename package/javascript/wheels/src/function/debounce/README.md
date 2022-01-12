@@ -23,8 +23,8 @@ function debounce(func, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       func.apply(this, arguments);
-    }, delay)
-  }
+    }, delay);
+  };
 }
 ```
 
@@ -43,10 +43,14 @@ function debounce(func, delay) {
  * @param options<{context: any, leading: boolean}>
  * @return <Function>
  * */
-function debounce(func, delay, options = {
-  leading: false,  // 表示是否立即执行
-  context: null
-}) {
+function debounce(
+  func,
+  delay,
+  options = {
+    leading: false, // 表示是否立即执行
+    context: null
+  }
+) {
   let timer;
   let isRun = false;
   const _debounce = function (...args) {
@@ -58,21 +62,21 @@ function debounce(func, delay, options = {
     if (options.leading && !timer) {
       timer = setTimeout(() => {
         timer = null;
-      }, delay)
-     func.apply(options.context, args);
+      }, delay);
+      func.apply(options.context, args);
       isRun = true;
     } else {
       timer = setTimeout(() => {
         func.apply(options.context, args);
         timer = null;
-      }, delay)
+      }, delay);
     }
   };
 
   _debounce.cancel = function () {
     clearTimeout(timer);
     timer = null;
-  }
+  };
 
   return _debounce;
 }
@@ -96,16 +100,16 @@ function debounce(func, delay, options = {
  * @return {(function(): void)|*}
  */
 function throttle(func, delay) {
-  let previous = 0;  // 保存上次调用的时间戳
+  let previous = 0; // 保存上次调用的时间戳
   return function () {
     const now = Date.now();
     if (now >= delay + previous) {
       func.apply(this, arguments);
       previous = now;
     } else {
-      console.warn('距离上次调用的时间差不满足要求')
+      console.warn('距离上次调用的时间差不满足要求');
     }
-  }
+  };
 }
 ```
 
@@ -125,11 +129,11 @@ function throttle(func, delay) {
       func.apply(this, arguments);
       timer = setTimeout(() => {
         timer = null;
-      }, delay)
+      }, delay);
     } else {
-      console.warn('距离上次调用的时间差不满足要求')
+      console.warn('距离上次调用的时间差不满足要求');
     }
-  }
+  };
 }
 ```
 
@@ -149,17 +153,21 @@ function throttle(func, delay) {
  * @param options<Object>
  * @return <Function>
  * */
-function throttle3(func, delay, options = {
-  leading: true,   // 表示是否立即执行
-  trailing: false,  // 是否在最后额外触发一次
-  context: null
-}) {
+function throttle3(
+  func,
+  delay,
+  options = {
+    leading: true, // 表示是否立即执行
+    trailing: false, // 是否在最后额外触发一次
+    context: null
+  }
+) {
   let timer;
   let previous = 0;
   const _throttle = function (...arg) {
-    options.leading = options.leading !== undefined ? options.leading : true;  // 表示是否立即执行
+    options.leading = options.leading !== undefined ? options.leading : true; // 表示是否立即执行
     options.trailing = options.trailing !== undefined ? options.trailing : false; // 是否在最后额外触发一次
-    options.context || (options.context = this);  // 判断是否需要绑定新的上下文
+    options.context || (options.context = this); // 判断是否需要绑定新的上下文
     let now = Date.now();
     if (!previous && !options.leading) {
       previous = now;
@@ -176,17 +184,16 @@ function throttle3(func, delay, options = {
         func.apply(options.context, arg);
         previous = 0;
         timer = null;
-      }, delay)
+      }, delay);
     }
-  }
+  };
 
   _throttle.cancel = function () {
     previous = 0;
     clearTimeout(timer);
     timer = null;
-  }
+  };
 
   return _throttle;
 }
 ```
-

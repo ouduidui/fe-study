@@ -23,14 +23,14 @@ const FUNC_TAG = '[object Function]';
  * @param target {*}
  * @returns {boolean}
  */
-const isObject = target => (typeof target === 'object' || typeof target === 'function') && target !== null;
+const isObject = (target) => (typeof target === 'object' || typeof target === 'function') && target !== null;
 
 /**
  * 获取对象类型
  * @param obj {Object}
  * @returns {string}
  */
-const getType = obj => Object.prototype.toString.call(obj);
+const getType = (obj) => Object.prototype.toString.call(obj);
 
 /**
  * 处理正则类型
@@ -38,7 +38,7 @@ const getType = obj => Object.prototype.toString.call(obj);
  * @return {RegExp}
  */
 function regExpTypeHandle(target) {
-  const {source, flags} = target;
+  const { source, flags } = target;
   return new target.constructor(source, flags);
 }
 
@@ -103,19 +103,15 @@ function handleNotTraverse(target, type) {
  * @param valSet {WeakSet<Object | Function>}  记录已经拷贝过的对象，
  * @returns {*}
  */
-function deepClone(
-  target,
-  valSet = new WeakSet()
-) {
-  if (!(isObject(target))) return target;  // 判断是否为对象或函数
+function deepClone(target, valSet = new WeakSet()) {
+  if (!isObject(target)) return target; // 判断是否为对象或函数
 
   const type = getType(target);
   if (!CAN_TRAVERSE_TYPE.includes(type)) return handleNotTraverse(target, type);
 
+  if (valSet.has(target)) return target; // 判断是否拷贝过此target
 
-  if (valSet.has(target)) return target;  // 判断是否拷贝过此target
-
-  valSet.add(target);  // 记录当前target
+  valSet.add(target); // 记录当前target
 
   // 继承对象的原型，可以保证target原型不丢失
   const Ctor = target.constructor;
@@ -129,7 +125,7 @@ function deepClone(
 
     // SET类型
     case SET_TAG || WEAK_SET_TAG:
-      target.forEach(item => newTarget.add(deepClone(item)));
+      target.forEach((item) => newTarget.add(deepClone(item)));
       break;
 
     default:

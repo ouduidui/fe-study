@@ -22,7 +22,7 @@ const _some = function (callback, thisArg) {
   while (k < len) {
     if (k in O) {
       if (callback.call(thisArg, O[k], k, O)) {
-        return true;   // 只要有一个元素通过测试，即返回true
+        return true; // 只要有一个元素通过测试，即返回true
       }
     }
     k++;
@@ -30,6 +30,6 @@ const _some = function (callback, thisArg) {
 
   // 遍历结束还没有通过测试，即返回false
   return false;
-}
+};
 
 module.exports = _some;

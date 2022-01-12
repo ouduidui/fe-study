@@ -10,17 +10,17 @@ const Singleton = (function () {
       this.name = name;
     }
     return _instance;
-  }
+  };
 
   return {
     // 只返回 getInstance 方法
-    getInstance (name) {
+    getInstance(name) {
       if (!_instance) {
         _instance = new _Singleton(name);
       }
       return _instance;
     }
   };
-})()
+})();
 
 module.exports = Singleton;

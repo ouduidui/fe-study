@@ -10,7 +10,7 @@ const Singleton = (function () {
       this.name = name;
     }
     return _instance;
-  }
+  };
 
   // 定义 getInstance 静态方法，用于获取实例
   _Singleton.getInstance = function (name) {
@@ -18,10 +18,10 @@ const Singleton = (function () {
       _instance = new _Singleton(name);
     }
     return _instance;
-  }
+  };
 
   // 返回构造函数
   return _Singleton;
-})()
+})();
 
 module.exports = Singleton;

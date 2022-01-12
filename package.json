@@ -2,18 +2,16 @@
   "name": "fe-study",
   "version": "1.0.0",
   "description": "front-end study",
+  "scripts": {
+    "format": "yarn prettier --write ."
+  },
   "main": "index.js",
   "repository": "git@github.com:OUDUIDUI/fe-study.git",
   "author": "oushihao <oushihao97@163.com>",
-  "license": "MIT", 
+  "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.27.5",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "3.3.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "husky": "^7.0.4",
+    "prettier": "^2.5.1"
   }
 }

@@ -1,4 +1,4 @@
-const {throttle1, throttle2, throttle3} = require("../../src/function/throttle");
+const { throttle1, throttle2, throttle3 } = require('../../src/function/throttle');
 
 describe('节流', () => {
   it('时间戳实现', (done) => {
@@ -16,9 +16,9 @@ describe('节流', () => {
     setTimeout(() => {
       throttle();
       expect(fn).toHaveBeenCalledTimes(2);
-      done()
-    }, 2000)
-  })
+      done();
+    }, 2000);
+  });
 
   it('定时器实现', (done) => {
     const fn = jest.fn();
@@ -35,9 +35,9 @@ describe('节流', () => {
     setTimeout(() => {
       throttle();
       expect(fn).toHaveBeenCalledTimes(2);
-      done()
-    }, 2000)
-  })
+      done();
+    }, 2000);
+  });
 
   it('复杂版', (done) => {
     const fn = jest.fn(function () {
@@ -45,7 +45,7 @@ describe('节流', () => {
     });
 
     const throttle = throttle3(fn, 2000, {
-      context: {test: 'test'}
+      context: { test: 'test' }
     });
 
     throttle();
@@ -57,9 +57,9 @@ describe('节流', () => {
     setTimeout(() => {
       throttle();
       expect(fn).toHaveBeenCalledTimes(2);
-      done()
-    }, 2000)
-  })
+      done();
+    }, 2000);
+  });
 
   it('复杂版 - 不立即执行', (done) => {
     const fn = jest.fn();
@@ -74,9 +74,9 @@ describe('节流', () => {
     setTimeout(() => {
       throttle();
       expect(fn).toHaveBeenCalledTimes(1);
-      done()
-    }, 2000)
-  })
+      done();
+    }, 2000);
+  });
 
   it('复杂版 - 最后额外触发一次', (done) => {
     const fn = jest.fn();
@@ -91,9 +91,9 @@ describe('节流', () => {
 
     setTimeout(() => {
       expect(fn).toHaveBeenCalledTimes(2);
-      done()
-    }, 2000)
-  })
+      done();
+    }, 2000);
+  });
 
   it('复杂版 - 取消执行', (done) => {
     const fn = jest.fn();
@@ -109,7 +109,7 @@ describe('节流', () => {
 
     setTimeout(() => {
       expect(fn).toHaveBeenCalledTimes(1);
-      done()
-    }, 2000)
-  })
-})
+      done();
+    }, 2000);
+  });
+});

@@ -9,7 +9,7 @@ function Singleton(FuncClass) {
     construct(target, args) {
       return _instance || (_instance = Reflect.construct(FuncClass, args));
     }
-  })
+  });
 }
 
 module.exports = Singleton;

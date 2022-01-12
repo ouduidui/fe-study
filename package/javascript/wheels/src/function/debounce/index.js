@@ -10,10 +10,9 @@ function debounce1(func, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       func.apply(this, arguments);
-    }, delay)
-  }
+    }, delay);
+  };
 }
-
 
 /**
  * 防抖复杂版
@@ -22,10 +21,14 @@ function debounce1(func, delay) {
  * @param options<{context: any, leading: boolean}>
  * @return <Function>
  * */
-function debounce2(func, delay, options = {
-  leading: false,  // 表示是否立即执行
-  context: null
-}) {
+function debounce2(
+  func,
+  delay,
+  options = {
+    leading: false, // 表示是否立即执行
+    context: null
+  }
+) {
   let timer;
   let isRun = false;
   const _debounce = function (...args) {
@@ -37,21 +40,21 @@ function debounce2(func, delay, options = {
     if (options.leading && !timer) {
       timer = setTimeout(() => {
         timer = null;
-      }, delay)
-     func.apply(options.context, args);
+      }, delay);
+      func.apply(options.context, args);
       isRun = true;
     } else {
       timer = setTimeout(() => {
         func.apply(options.context, args);
         timer = null;
-      }, delay)
+      }, delay);
     }
   };
 
   _debounce.cancel = function () {
     clearTimeout(timer);
     timer = null;
-  }
+  };
 
   return _debounce;
 }
@@ -59,4 +62,4 @@ function debounce2(func, delay, options = {
 module.exports = {
   debounce1,
   debounce2
-}
+};

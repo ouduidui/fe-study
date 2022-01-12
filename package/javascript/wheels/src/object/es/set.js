@@ -8,7 +8,7 @@ class Set {
 
     this[Symbol.iterator] = this.values;
 
-    values.length && values.forEach(v => this.add(v));
+    values.length && values.forEach((v) => this.add(v));
   }
 
   /**
@@ -25,7 +25,7 @@ class Set {
    * @param value
    */
   add(value) {
-    if(!this.has(value)) {
+    if (!this.has(value)) {
       this._values.push(value);
       this.size++;
     }
@@ -33,8 +33,8 @@ class Set {
   }
 
   delete(value) {
-    if(this.has(value)) {
-      this._values = this._values.filter(v => v !== value);
+    if (this.has(value)) {
+      this._values = this._values.filter((v) => v !== value);
       this.size--;
     }
     return this;
@@ -71,7 +71,7 @@ class Set {
    * @return {Generator<*, void, *>}
    * @private
    */
-  * _createIterator(items) {
+  *_createIterator(items) {
     for (let i = 0; i < items.length; i++) {
       yield items[i];
     }

@@ -1,28 +1,28 @@
 class AbstractRestaurant {
   constructor() {
-    if(new.target === AbstractRestaurant) {
-      throw new Error('抽象类不能直接实例化!')
+    if (new.target === AbstractRestaurant) {
+      throw new Error('抽象类不能直接实例化!');
     }
     this.signBoard = '麦当劳';
   }
 
   // 抽象方法 做菜
   createDish() {
-    throw new Error('抽象方法不能调用')
+    throw new Error('抽象方法不能调用');
   }
 }
 
 // 菜 抽象类
 class AbstractDish {
   constructor() {
-    if(new.target === AbstractRestaurant) {
-      throw new Error('抽象类不能直接实例化!')
+    if (new.target === AbstractRestaurant) {
+      throw new Error('抽象类不能直接实例化!');
     }
     this.kind = '菜品';
   }
 
   eat() {
-    throw new Error('抽象方法不能调用')
+    throw new Error('抽象方法不能调用');
   }
 }
 
@@ -38,7 +38,7 @@ class Restaurant extends AbstractRestaurant {
       case '薯条':
         return new Chips();
       default:
-        throw new Error('本店没有此道菜')
+        throw new Error('本店没有此道菜');
     }
   }
 }
@@ -46,7 +46,7 @@ class Restaurant extends AbstractRestaurant {
 class Hamburger extends AbstractDish {
   constructor() {
     super();
-    this.type = '汉堡包'
+    this.type = '汉堡包';
   }
 
   eat() {
@@ -57,7 +57,7 @@ class Hamburger extends AbstractDish {
 class Chips extends AbstractDish {
   constructor() {
     super();
-    this.type = '薯条'
+    this.type = '薯条';
   }
 
   eat() {
@@ -65,6 +65,4 @@ class Chips extends AbstractDish {
   }
 }
 
-module.exports = Restaurant
-
-
+module.exports = Restaurant;

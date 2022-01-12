@@ -1,21 +1,21 @@
-# 对比一下Vue2和Vue3的组件通信实现
+# 对比一下 Vue2 和 Vue3 的组件通信实现
 
 `Vue`框架有一大特色，就是**组件化**。
 
-即我们可以把一个复杂的页面，拆分成一个个独立的组件，这样子更加便于维护和调试；再者，组件还有一个特定就是可复用性，我们可以将多个页面的共有部分抽取成一个组件，比如导航栏、底部信息、轮播图等等。
+即我们可以把一个复杂的页面，拆分成一个个独立的组件，这样子更加便于维护和调试；再者，组件还有一个特定就是可复用性，我们可
+以将多个页面的共有部分抽取成一个组件，比如导航栏、底部信息、轮播图等等。
 
 组件化的实现，有助于我们提供开发效率、方便重复使用，简化调试步骤，提升项目可维护性。
 
-
-
-而组件化的实现，就避免不了组件之间的通信，即数据传输和方法调用。而且现实开发中，不仅仅只有父子组件，还会有兄弟组件、爷孙组件等等。
-
+而组件化的实现，就避免不了组件之间的通信，即数据传输和方法调用。而且现实开发中，不仅仅只有父子组件，还会有兄弟组件、爷孙
+组件等等。
 
 我们先简单过一遍常见的组件通讯方法。
 
-## Vue2组件通信方法
+## Vue2 组件通信方法
 
-> 之前我写过一篇[关于`Vue2`的组件通信方法的文章](https://ouduidui.cn/front-end/vue/vue2-component.html) ，相对比较详细，这里的话就比较简单带过。
+> 之前我写过一篇[关于`Vue2`的组件通信方法的文章](https://ouduidui.cn/front-end/vue/vue2-component.html) ，相对比较详细，
+> 这里的话就比较简单带过。
 
 ### 属性绑定（props）
 
@@ -30,13 +30,14 @@
 // 子组件
 <script>
   export default {
-    props: {  
-      msg: {    // 使用props接收msg属性
-        type: String,   // 进行类型判断
-        default: ''     // 设置默认值
+    props: {
+      msg: {
+        // 使用props接收msg属性
+        type: String, // 进行类型判断
+        default: '' // 设置默认值
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -55,11 +56,12 @@
 <script>
   export default {
     methods: {
-      saySomething(msg) {   // 接收到子组件的参数
+      saySomething(msg) {
+        // 接收到子组件的参数
         console.log(msg);
       }
     }
-  }
+  };
 </script>
 
 // 子组件
@@ -68,10 +70,10 @@
     methods: {
       saySomething() {
         // 调用绑定的saySomething事件，并且将HelloWorld作为参数传过去
-        this.$emit('saySomething', 'HelloWorld')
+        this.$emit('saySomething', 'HelloWorld');
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -88,14 +90,13 @@
 <script>
   export default {
     methods: {
-      saySomething() { 
+      saySomething() {
         // 通过this.$refs.comp获取到comp组件实例，然后直接调用其方法并传入参数。
-        this.$refs.comp.saySomething("HelloWorld");
+        this.$refs.comp.saySomething('HelloWorld');
       }
     }
-  }
+  };
 </script>
-
 
 // 子组件
 <script>
@@ -105,7 +106,7 @@
         console.log(msg);
       }
     }
-  }
+  };
 </script>
 ```
 
@@ -113,7 +114,8 @@
 
 对于兄弟组件通信，或者多级组件之间的通信，经常都是使用事件总线去实现。
 
-而事件总线不是`Vue`原生自带的，这些需要我们自己去封装或者找插件去实现。而它的实现原理其实很简单，就是模仿原生的`$emit`、`$on`、`$once`、`$off`的实现。
+而事件总线不是`Vue`原生自带的，这些需要我们自己去封装或者找插件去实现。而它的实现原理其实很简单，就是模仿原生
+的`$emit`、`$on`、`$once`、`$off`的实现。
 
 > 在`vue2`中通常也会用`new Vue()`去代替`Bus`，但在`vue3`就取消了`$on`全局接口，就只能同自己实现或者使用插件
 
@@ -121,29 +123,30 @@
 class Bus {
   constructor() {
     // 存放所有事件
-    this.callbacks = {}
+    this.callbacks = {};
   }
 
   // 事件绑定
   $on(name, fn) {
-    this.callbacks[name] = this.callbacks[name] || []
-    this.callbacks[name].push(fn)
+    this.callbacks[name] = this.callbacks[name] || [];
+    this.callbacks[name].push(fn);
   }
 
   // 事件派发
   $emit(name, args) {
     if (this.callbacks[name]) {
-      this.callbacks[name].forEach(cb => cb(args))
+      this.callbacks[name].forEach((cb) => cb(args));
     }
   }
 }
 
 // main.js
-Vue.prototype.$bus = new Bus()
-
+Vue.prototype.$bus = new Bus();
 
 // comp1
-this.$bus.$on('saySomthing', (msg) => { console.log(msg) });
+this.$bus.$on('saySomthing', (msg) => {
+  console.log(msg);
+});
 
 // comp2
 this.$bus.$emit('saySomthing', 'HelloWorld');
@@ -155,7 +158,7 @@ this.$bus.$emit('saySomthing', 'HelloWorld');
 
 对于复杂结构的组件通讯，我们可以选择`VueX`去实现通讯，这里就不多讲了。
 
-### 非prop特性（`$attrs`/`$listeners`）
+### 非 prop 特性（`$attrs`/`$listeners`）
 
 > [官方文档](https://cn.vuejs.org/v2/api/#vm-attrs)
 
@@ -169,7 +172,6 @@ this.$bus.$emit('saySomthing', 'HelloWorld');
 // 父组件
 <comp1 :msg1="helloWorld" :msg2="HiWorld" @saySomething="saySomething"></comp1>
 
-
 // 子组件 comp1
 <comp2 v-bind="$attrs" v-on="$listeners"></comp2>
 <!-- 此时的$attrs只存在msg1，因为msg2已经被props识别了 -->
@@ -179,9 +181,8 @@ this.$bus.$emit('saySomthing', 'HelloWorld');
 <script>
   export default {
     props: ['msg2']
-  }
+  };
 </script>
-
 
 // 孙组件 comp2
 <div @click="$emit('saySomething')">{{msg1}}</div>
@@ -189,7 +190,7 @@ this.$bus.$emit('saySomthing', 'HelloWorld');
 <script>
   export default {
     props: ['msg1']
-  }
+  };
 </script>
 ```
 
@@ -201,16 +202,14 @@ this.$bus.$emit('saySomthing', 'HelloWorld');
 
 `$children`返回是一个数组，并且不能保证数组中子元素的顺序。
 
-
-
 我们可以使用这些接口，配合`$on`和`$emit`实现一些组件通讯。
 
 ```javascript
 /* 兄弟组件使用共同祖辈搭桥 */
 // comp1
-this.$parent.$on('foo', handle)
+this.$parent.$on('foo', handle);
 // comp2
-this.$parent.$emit('foo')
+this.$parent.$emit('foo');
 ```
 
 ```vue
@@ -218,7 +217,6 @@ this.$parent.$emit('foo')
 <comp1>
   <comp2></comp2>
 </comp1>
-
 
 // comp1
 <div>
@@ -230,12 +228,11 @@ this.$parent.$emit('foo')
     methods: {
       saySomething() {
         // 遍历$children进行派发事件
-        this.$children.forEach(comp => comp.$emit('saySomething', 'HelloWorld'))
+        this.$children.forEach((comp) => comp.$emit('saySomething', 'HelloWorld'));
       }
     }
-  }
+  };
 </script>
-
 
 // comp2
 <script>
@@ -243,10 +240,10 @@ this.$parent.$emit('foo')
     mounted() {
       // 在mounted的事件进行事件绑定
       this.$on('saySomething', (msg) => {
-        console.log(msg)
-      })
+        console.log(msg);
+      });
     }
-  }
+  };
 </script>
 ```
 
@@ -254,7 +251,8 @@ this.$parent.$emit('foo')
 
 > [官方文档](https://cn.vuejs.org/v2/api/#provide-inject)
 
-`provide`和`inject`能够实现祖先组件与后代组件之间的传值，也就是说不论是多少代，只要是嵌套关系，都可以使用该属性进行传值。
+`provide`和`inject`能够实现祖先组件与后代组件之间的传值，也就是说不论是多少代，只要是嵌套关系，都可以使用该属性进行传值
+。
 
 ```javascript
 // 祖先组件
@@ -271,9 +269,10 @@ mounted() {
 }
 ```
 
-## Vue2实现Form表单
+## Vue2 实现 Form 表单
 
-> 下列代码会有删减，可以到 [github](https://github.com/OUDUIDUI/fe-study/tree/master/package/vue/vue_component_communication/vue2) 查看源码
+> 下列代码会有删减，可以到
+> [github](https://github.com/OUDUIDUI/fe-study/tree/master/package/vue/vue_component_communication/vue2) 查看源码
 
 我们通过模仿一下`ElementUI`的`Form`表单实现，来实践一下组件通信。
 
@@ -297,7 +296,6 @@ mounted() {
   </div>
 </template>
 
-
 <!--  OFormItem.vue  -->
 <template>
   <div class="input-box">
@@ -309,11 +307,10 @@ mounted() {
   </div>
 </template>
 
-
 <!--  OInput.vue  -->
 <template>
   <div>
-    <input>
+    <input />
   </div>
 </template>
 ```
@@ -337,22 +334,20 @@ mounted() {
         model: {
           email: ''
         }
-      }
+      };
     },
     methods: {
       input(value) {
         console.log(`value = ${value}，this.model.email = ${this.model.email}`);
       }
     }
-  }
+  };
 </script>
-
-
 
 <!--  OInput.vue  -->
 <template>
   <div>
-    <input :value="value" @input="input">
+    <input :value="value" @input="input" />
   </div>
 </template>
 
@@ -369,13 +364,14 @@ mounted() {
         this.$emit('input', e.target.value);
       }
     }
-  }
+  };
 </script>
 ```
 
 通过上面我们可是实现最简单的双向绑定，也实现了`OInput`组件的`input`事件。
 
-当然我们可以顺便实现一下`input`的其他属性，比如`placeholder`、`type`等等，当然这些属性可以使用`$attrs`来实现，这样子就不需要一个个`props`出来。
+当然我们可以顺便实现一下`input`的其他属性，比如`placeholder`、`type`等等，当然这些属性可以使用`$attrs`来实现，这样子就不
+需要一个个`props`出来。
 
 ```vue
 <!--  app.vue  -->
@@ -387,12 +383,11 @@ mounted() {
   </o-form>
 </template>
 
-
 <!--  OInput.vue  -->
 <template>
   <div>
     <!--    使用$attrs绑定input其它属性    -->
-    <input :value="value" @input="input" v-bind="$attrs">
+    <input :value="value" @input="input" v-bind="$attrs" />
   </div>
 </template>
 
@@ -404,7 +399,8 @@ mounted() {
 </script>
 ```
 
-接下来也实现一下`o-form-item`的属性绑定，这个组件出现简单显示`label`和错误信息之外，其实还有一个功能，就是数据校验，这个在后面再细讲。
+接下来也实现一下`o-form-item`的属性绑定，这个组件出现简单显示`label`和错误信息之外，其实还有一个功能，就是数据校验，这个
+在后面再细讲。
 
 这个组件默认传入两个属性，一个是`label`，一个是`prop`，`prop`主要适用于后面数据校验判断该`form-item`是对应哪个数据。
 
@@ -416,11 +412,10 @@ mounted() {
       <o-input v-model="model.email" @input="input" type="email" placeholder="请输入邮箱"></o-input>
     </o-form-item>
     <o-form-item label="密码" prop="password">
-      <o-input v-model="model.password" placeholder="请输入密码" type="password"/>
+      <o-input v-model="model.password" placeholder="请输入密码" type="password" />
     </o-form-item>
   </o-form>
 </template>
-
 
 <!--  OFormItem.vue  -->
 <script>
@@ -430,17 +425,18 @@ mounted() {
         type: String,
         default: ''
       },
-      prop: {  // 用于判断该item是哪个属性
+      prop: {
+        // 用于判断该item是哪个属性
         type: String,
         default: ''
       }
     },
     data() {
       return {
-        error: ''  // 错误信息
-      }
+        error: '' // 错误信息
+      };
     }
-  }
+  };
 </script>
 ```
 
@@ -454,7 +450,7 @@ mounted() {
       <o-input v-model="model.email" @input="input" type="email" placeholder="请输入邮箱"></o-input>
     </o-form-item>
     <o-form-item label="密码" prop="password">
-      <o-input v-model="model.password" placeholder="请输入密码" type="password"/>
+      <o-input v-model="model.password" placeholder="请输入密码" type="password" />
     </o-form-item>
   </o-form>
 </template>
@@ -470,19 +466,18 @@ mounted() {
         // 校验规则
         rules: {
           email: [
-              {required: true, message: "请输⼊邮箱"},  // 必填
-              {type: 'email', message: "请输⼊正确的邮箱"}  // 邮箱格式
+            { required: true, message: '请输⼊邮箱' }, // 必填
+            { type: 'email', message: '请输⼊正确的邮箱' } // 邮箱格式
           ],
           password: [
-              {required: true, message: "请输⼊密码"},  // 必填
-              {min: 6, message: "密码长度不少于6位"}   // 不少于6位
+            { required: true, message: '请输⼊密码' }, // 必填
+            { min: 6, message: '密码长度不少于6位' } // 不少于6位
           ]
         }
-      }
+      };
     }
-  }
+  };
 </script>
-
 
 <!--  OForm.vue  -->
 <script>
@@ -490,19 +485,20 @@ mounted() {
     props: {
       model: {
         type: Object,
-        required: true   // 必填项
+        required: true // 必填项
       },
       rules: {
         type: Object
       }
     }
-  }
+  };
 </script>
 ```
 
 现在基本的组件传参已经实现了，接下来我们就要来实现一下校验功能。
 
-首先，我们在输入的过程中，就要开始调用数据检验了，因此在`OInput`组件中的`input`方法，需要调用到`OFormItem`的检验方法。但因为是使用`slot`嵌套，所以我们可以使用`$parent`去派发事件。
+首先，我们在输入的过程中，就要开始调用数据检验了，因此在`OInput`组件中的`input`方法，需要调用到`OFormItem`的检验方法。但
+因为是使用`slot`嵌套，所以我们可以使用`$parent`去派发事件。
 
 ```javascript
 // OInput.vue
@@ -517,7 +513,7 @@ input(e) {
 // OFormItem.vue
 mounted() {
   // 在mounted钩子实现事件绑定
-  this.$on('validate', () => {this.validate()}); 
+  this.$on('validate', () => {this.validate()});
 },
 methods: {
   // 校验方法
@@ -527,7 +523,8 @@ methods: {
 
 紧接着就来实现`validate`方法。
 
-首先我们需要从`OForm`组件拿到对应的值和规则，因为我们已经有`prop`值，因此我们只需要拿到`OForm`的`model`和`rules`属性即可，然后通过`prop`获取对应的值和规则。
+首先我们需要从`OForm`组件拿到对应的值和规则，因为我们已经有`prop`值，因此我们只需要拿到`OForm`的`model`和`rules`属性即可
+，然后通过`prop`获取对应的值和规则。
 
 而这时，我们就可以使用到`provide`和`inject`来实现。
 
@@ -558,16 +555,16 @@ methods: {
 <!--  OFormItem.vue  -->
 <script>
   import Schema from "async-validator";
-  
+
   export default {
     ...
-    
+
     methods: {
       validate() {
         // 获取对应的值和规则
         const value = this.form.model[this.prop];
         const rules = this.form.rules[this.prop];
-  
+
         // 创建规则实例
         const schema = new Schema({[this.prop]: rules});
         // 调用实例方法validate进行校验，该方法返回Promise
@@ -595,7 +592,7 @@ methods: {
       <o-input v-model="model.email" @input="input" type="email" placeholder="请输入邮箱"></o-input>
     </o-form-item>
     <o-form-item label="密码" prop="password">
-      <o-input v-model="model.password" placeholder="请输入密码" type="password"/>
+      <o-input v-model="model.password" placeholder="请输入密码" type="password" />
     </o-form-item>
     <o-form-item>
       <button @click="register">注册</button>
@@ -604,15 +601,15 @@ methods: {
 </template>
 
 <script>
-  export default {
-    ...
-    methods: {
-      register() {
-        // 调用form组件的validate方法
-        this.$refs.form.validate(valid => valid ? alert('注册成功') : '');
+    export default {
+      ...
+      methods: {
+        register() {
+          // 调用form组件的validate方法
+          this.$refs.form.validate(valid => valid ? alert('注册成功') : '');
+        }
       }
-    }
-}
+  }
 </script>
 ```
 
@@ -621,12 +618,12 @@ methods: {
 ```javascript
 // OForm.vue
 validate(cb) {
-  const tasks = this.$children 
+  const tasks = this.$children
     .filter(item => item.prop)  // 遍历$children，筛选掉没有prop值的实例
   	.map(item => item.validate());  // 调用子组件的validate方法
 
   // 因为OFormItem的validate方法返回的是Promise，因此通过Promise.all判断是否全都通过
-  Promise.all(tasks)  
+  Promise.all(tasks)
     .then(() => cb(true))
     .catch(() => cb(false))
 }
@@ -634,7 +631,7 @@ validate(cb) {
 
 这时我们的`Form`组件就基本实现了。
 
-## Vue3组件通讯的改动
+## Vue3 组件通讯的改动
 
 在`Vue3`中，组件通讯的方法发生了不少变化。
 
@@ -642,9 +639,11 @@ validate(cb) {
 
 > [官方文档](https://v3.cn.vuejs.org/guide/migration/events-api.html)
 
-`Vue3`不再支持`$on`、`$once`、`$off`这三个方法，而当我们必须使用此类方法的话，可以通过自己封装`EventBus`事件总线或者使用第三方库实现。
+`Vue3`不再支持`$on`、`$once`、`$off`这三个方法，而当我们必须使用此类方法的话，可以通过自己封装`EventBus`事件总线或者使用
+第三方库实现。
 
-官方也推荐了[mitt](https://github.com/developit/mitt)和[tiny-emitter](https://github.com/scottcorgan/tiny-emitter)这两个库，使用方法也比较简单，可以自己去研究一下。
+官方也推荐了[mitt](https://github.com/developit/mitt)和[tiny-emitter](https://github.com/scottcorgan/tiny-emitter)这两个
+库，使用方法也比较简单，可以自己去研究一下。
 
 ### 移除了`$children`
 
@@ -652,7 +651,8 @@ validate(cb) {
 
 `Vue3`同时也移除了`$children`方法，官方推荐是使用`$refs`去实现获取子组件的实例。
 
-而`Vue3`在`composition api`中实现`$refs`也有所不同，因为在`setup`中的`this`不是指向组件实例，因此我们不能直接通过`this.$refs`来获取组件实例。
+而`Vue3`在`composition api`中实现`$refs`也有所不同，因为在`setup`中的`this`不是指向组件实例，因此我们不能直接通
+过`this.$refs`来获取组件实例。
 
 因此，下面简单写一下新的实现方法：
 
@@ -662,51 +662,53 @@ validate(cb) {
 </template>
 
 <script>
-  import {ref, onMounted} from "vue";
-  
+  import { ref, onMounted } from 'vue';
+
   export default {
     setup() {
-      const comp = ref();  // 该变量名必须与上面绑定的名称一致，并初始化的值为空或为null
-      
+      const comp = ref(); // 该变量名必须与上面绑定的名称一致，并初始化的值为空或为null
+
       onMounted(() => {
         // 在mounted钩子的时候，Vue会将该实例赋值给comp
         // 但如果你在mounted生命周期前访问该值还是为空的
-        console.log(comp.value);  
-      })
-      
+        console.log(comp.value);
+      });
+
       return {
-        comp  // 一定得将该属性暴露出去，否则Vue不会将子组件实例赋值给它
-      }
+        comp // 一定得将该属性暴露出去，否则Vue不会将子组件实例赋值给它
+      };
     }
-  }
+  };
 </script>
 ```
 
-### emits、provide、inject选项
+### emits、provide、inject 选项
 
-如果在`Vue3`依旧使用`option api`的话，依旧可以使用`this.$emits`以及`provide`、`inject`选项；但如果使用`compsition api`的话，`emits`方法会通过`setup`参数参入，而`provide`和`inject`可以通过引入钩子实现。
+如果在`Vue3`依旧使用`option api`的话，依旧可以使用`this.$emits`以及`provide`、`inject`选项；但如果使用`compsition api`的
+话，`emits`方法会通过`setup`参数参入，而`provide`和`inject`可以通过引入钩子实现。
 
 ```vue
 <script>
-  import {provide, inject} from "vue";
-  
+  import { provide, inject } from 'vue';
+
   export default {
-    setup(props, {attrs, slots, emit}) {
+    setup(props, { attrs, slots, emit }) {
       // 派发事件
       emit('saySomething', 'Hello World');
-        
+
       // 提供属性
       provide('msg', 'Hello World');
       // 注入属性
       const msg = inject('msg');
     }
-  }
+  };
 </script>
 ```
 
-## Vue3实现Form表单
+## Vue3 实现 Form 表单
 
->  下列代码会有删减，可以到 [github](https://github.com/OUDUIDUI/fe-study/tree/master/package/vue/vue_component_communication/vue3) 查看源码
+> 下列代码会有删减，可以到
+> [github](https://github.com/OUDUIDUI/fe-study/tree/master/package/vue/vue_component_communication/vue3) 查看源码
 
 结构样式跟上面`Vue2`实现一样，重复的东西我就不多讲，重点是在于后面数据校验的实现上，那部分后面会详细讲一讲。
 
@@ -731,58 +733,59 @@ validate(cb) {
 </template>
 
 <script>
-  import OInput from "./components/OInput.vue";
-  import OFormItem from "./components/OFormItem.vue";
-  import OForm from "./components/OForm.vue";
-  import {ref, reactive} from "vue";
+  import OInput from './components/OInput.vue';
+  import OFormItem from './components/OFormItem.vue';
+  import OForm from './components/OForm.vue';
+  import { ref, reactive } from 'vue';
 
   export default {
     name: 'App',
     components: {
-      OInput,OFormItem,OForm
+      OInput,
+      OFormItem,
+      OForm
     },
     setup() {
       // 表单数据
       const model = reactive({
         email: '',
         password: ''
-      })
-  
+      });
+
       // 表单规则
       const rules = reactive({
         email: [
-          {required: true, message: "请输⼊邮箱"},
-          {type: 'email', message: "请输⼊正确的邮箱"}
+          { required: true, message: '请输⼊邮箱' },
+          { type: 'email', message: '请输⼊正确的邮箱' }
         ],
         password: [
-          {required: true, message: "请输⼊密码"},
-          {min: 6, message: "密码长度不少于6位"}
+          { required: true, message: '请输⼊密码' },
+          { min: 6, message: '密码长度不少于6位' }
         ]
-      })
-  
+      });
+
       // input方法
       const input = (value) => {
         console.log(`value = ${value}，model.email = ${model.email}`);
-      }
-  
-          
+      };
+
       // 获取OForm的实例
       const formRef = ref();
       // 提交事件
       const register = () => {
         // 因为点击事件会发生在mounted生命周期后，因此formRef已经被赋值实例
-        formRef.value.validate(valid => valid ? alert('注册成功') : '');
-      }
-      
+        formRef.value.validate((valid) => (valid ? alert('注册成功') : ''));
+      };
+
       return {
         model,
         rules,
         input,
         register,
         formRef
-      }
+      };
     }
-  }
+  };
 </script>
 ```
 
@@ -791,30 +794,30 @@ validate(cb) {
 ```vue
 <!--  OInput.vue  -->
 <template>
-  <input v-model="modelValue" v-bind="$attrs" @input="input">
+  <input v-model="modelValue" v-bind="$attrs" @input="input" />
 </template>
 
 <script>
-export default {
-  name: "OInput",
-  props: {
-    // Vue3中，v-model绑定的值默认为modelValue，而不再是value
-    modelValue: {   
-      type: String
+  export default {
+    name: 'OInput',
+    props: {
+      // Vue3中，v-model绑定的值默认为modelValue，而不再是value
+      modelValue: {
+        type: String
+      }
+    },
+    setup(props, { emit }) {
+      const input = (e) => {
+        const value = e.target.value;
+        // 派发事件
+        emit('inputEvent', value);
+      };
+
+      return {
+        input
+      };
     }
-  },
-  setup(props, {emit}) {
-    const input = (e) => {
-      const value = e.target.value
-      // 派发事件
-      emit('inputEvent', value);
-    }
-    
-    return {
-      input
-    }
-  }
-}
+  };
 </script>
 ```
 
@@ -829,10 +832,10 @@ export default {
 </template>
 
 <script>
-  import {ref} from "vue";
-  
+  import { ref } from 'vue';
+
   export default {
-    name: "OFormItem",
+    name: 'OFormItem',
     props: {
       prop: {
         type: String,
@@ -846,12 +849,12 @@ export default {
     setup() {
       // error响应式变量初始化
       const error = ref('');
-      
+
       return {
         error
-      }
+      };
     }
-  }
+  };
 </script>
 ```
 
@@ -864,19 +867,19 @@ export default {
 </template>
 
 <script>
-export default {
-  name: "OForm",
-  props: {
-    model: {
-      type: Object,
-      required: true
-    },
-    rules: {
-      type: Object,
-      default: {}
+  export default {
+    name: 'OForm',
+    props: {
+      model: {
+        type: Object,
+        required: true
+      },
+      rules: {
+        type: Object,
+        default: {}
+      }
     }
-  }
-}
+  };
 </script>
 ```
 
@@ -884,7 +887,8 @@ export default {
 
 紧接着第一件事就是实现在`OInput`组件中，在`input`方法能够调用`OFormItem`的校验方法。
 
-而在`vue2`中，我们是通过`this.$parent.$emit`去派发实现，但是在`vue3`的`composition api`中显然是不太好这么去实现的，因为在`setup`中获取不到`$parent`方法，况且在`OFormitem`中也使用不了`$on`去绑定事件。
+而在`vue2`中，我们是通过`this.$parent.$emit`去派发实现，但是在`vue3`的`composition api`中显然是不太好这么去实现的，因为
+在`setup`中获取不到`$parent`方法，况且在`OFormitem`中也使用不了`$on`去绑定事件。
 
 因此，我们可以使用`provide`和`inject`的方法，将检验方法传递给`OInput`组件，然后它直接调用就可以了。
 
@@ -895,12 +899,12 @@ import {provide} from "vue";
 export default {
   setup() {
     ...
-  
+
     // 校验方法
     const validate = () => {}
     // 提供validate方法
     provide('formItemValidate', validate);
-  
+
     ...
   }
 }
@@ -917,7 +921,7 @@ export default {
     const input = (e) => {
       const value = e.target.value
       emit('inputEvent', value);
-          
+
       // 调用数据检验
       validate();
     }
@@ -929,7 +933,8 @@ export default {
 }
 ```
 
-紧接着，我们就要实现`OFormItem`的校验方法，首先要获取到`OForm`的`model`和`rules`属性，同样使用`provide`和`inject`的方法去实现。
+紧接着，我们就要实现`OFormItem`的校验方法，首先要获取到`OForm`的`model`和`rules`属性，同样使用`provide`和`inject`的方法
+去实现。
 
 ```javascript
 // OForm.vue
@@ -954,11 +959,11 @@ export default {
   ...
   setup({prop}) {
     ...
-       
+
     // 注入model和rules
     const model = inject('model');
     const rules = inject('rules');
-    
+
     // 校验方法
     const validate = () => {
       // 获取对应的值和校验规则
@@ -991,13 +996,14 @@ const formRef = ref();
 // 提交事件
 const register = () => {
   // 因为点击事件会发生在mounted生命周期后，因此formRef已经被赋值实例
-  formRef.value.validate(valid => valid ? alert('注册成功') : '');
-}
+  formRef.value.validate((valid) => (valid ? alert('注册成功') : ''));
+};
 ```
 
 而最难实现的就是`OForm`的`validate`方法。
 
-在`vue2`中，我们是直接使用`this.$children`进行遍历执行就可以了，但是在`vue3`中，我们没有了`$children`方法，而且官方推荐的`$refs`方法也没办法使用，因为我们使用的是`slot`插槽，无法绑定每个`OFormItem`上。
+在`vue2`中，我们是直接使用`this.$children`进行遍历执行就可以了，但是在`vue3`中，我们没有了`$children`方法，而且官方推荐
+的`$refs`方法也没办法使用，因为我们使用的是`slot`插槽，无法绑定每个`OFormItem`上。
 
 这时候，我们需要使用事件总线来实现这个方法。
 
@@ -1009,7 +1015,7 @@ const eventBus = {
   callBacks: {},
   // 收集事件
   on(name, cb) {
-    if(!this.callBacks[name]){
+    if (!this.callBacks[name]) {
       this.callBacks[name] = [];
     }
 
@@ -1018,22 +1024,25 @@ const eventBus = {
 
   // 派发事件
   emit(name, args) {
-    if(this.callBacks[name]) {
-      this.callBacks[name].forEach(cb => cb(args));
+    if (this.callBacks[name]) {
+      this.callBacks[name].forEach((cb) => cb(args));
     }
   }
-}
+};
 
-export default eventBus
+export default eventBus;
 ```
 
-紧接着，我们采用的方案是，在`OForm`组件中，收集每个`OFormItem`的实例上下文，然后我们就可以直接调用对应实例上下文的`validate`方法既可。
+紧接着，我们采用的方案是，在`OForm`组件中，收集每个`OFormItem`的实例上下文，然后我们就可以直接调用对应实例上下文
+的`validate`方法既可。
 
 这个方案有点类似于`Vue`源码中的依赖收集。
 
-我们需要在`OFormItem`组件初始化的时候，即`mounted`生命周期的时候，派发一下收集事件，并将该组件的组件实例上下文作为参数传递过去；即通知`OForm`的收集，将传入的上下文收集起来。
+我们需要在`OFormItem`组件初始化的时候，即`mounted`生命周期的时候，派发一下收集事件，并将该组件的组件实例上下文作为参数传
+递过去；即通知`OForm`的收集，将传入的上下文收集起来。
 
-而在`OForm`中，我们需要在`setup`中实现事件绑定，而不应该在`OnMounted`钩子实现，因为子组件的`OnMounted`钩子会比父组件的`OnMounted`先调用，而我们需要在事件派发前先绑定事件。
+而在`OForm`中，我们需要在`setup`中实现事件绑定，而不应该在`OnMounted`钩子实现，因为子组件的`OnMounted`钩子会比父组件
+的`OnMounted`先调用，而我们需要在事件派发前先绑定事件。
 
 ```javascript
 // OFormItem.vue
@@ -1063,14 +1072,14 @@ import eventBus from "../utils/eventBus"
 
 export default {
   ...
-  
+
   setup({model, rules}) {
     ...
 
     // 在mount声明之前收集collectContext事件
     const formItemContext = [];
     eventBus.on('collectContext', (instance) => formItemContext.push(instance));
-    
+
     const validate = (cb) => {
       // 遍历收集到的子组件上下文，调用其校验方法
       const tasks = formItemContext

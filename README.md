@@ -4,9 +4,9 @@
 
 ## CSS
 
-- [CSS居中](./package/css/center-in-css)
-- [CSS层叠上下文](./package/css/stacking-context)
-- [CSS中的剪切和遮罩](./package/css/clipping-and-masking)
+- [CSS 居中](./package/css/center-in-css)
+- [CSS 层叠上下文](./package/css/stacking-context)
+- [CSS 中的剪切和遮罩](./package/css/clipping-and-masking)
 
 ## JavaScript
 
@@ -21,6 +21,6 @@
 
 - [设计模式学习笔记](./package/patterns/README.md)
 
-## Demo实现
+## Demo 实现
 
 - [大文件上传](./package/demo/file-upload)
