@@ -1,1 +1,1 @@
-type GetRequired<T> = any
+type GetRequired<T> = any;

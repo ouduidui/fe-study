@@ -1,1 +1,1 @@
-type Flip<T> = any
+type Flip<T> = any;

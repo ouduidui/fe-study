@@ -1,1 +1,1 @@
-type AppendArgument<Fn, A> = any
+type AppendArgument<Fn, A> = any;

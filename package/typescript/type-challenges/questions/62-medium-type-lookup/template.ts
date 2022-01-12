@@ -1,1 +1,1 @@
-type LookUp<U, T> = any
+type LookUp<U, T> = any;

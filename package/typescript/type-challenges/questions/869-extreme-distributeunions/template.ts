@@ -1,1 +1,1 @@
-type DistributeUnions<T> = any
+type DistributeUnions<T> = any;

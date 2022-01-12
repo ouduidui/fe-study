@@ -1,1 +1,1 @@
-type LengthOfString<S extends string> = any
+type LengthOfString<S extends string> = any;

@@ -1,1 +1,1 @@
-type FilterOut<T extends any[], F> = any
+type FilterOut<T extends any[], F> = any;

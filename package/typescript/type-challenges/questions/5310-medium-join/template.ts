@@ -1,1 +1,1 @@
-type Join<T, U> = any
+type Join<T, U> = any;

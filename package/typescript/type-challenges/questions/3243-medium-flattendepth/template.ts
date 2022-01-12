@@ -1,1 +1,1 @@
-type FlattenDepth = any
+type FlattenDepth = any;

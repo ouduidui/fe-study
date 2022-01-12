@@ -1,1 +1,1 @@
-declare function defineStore(store: unknown): unknown
+declare function defineStore(store: unknown): unknown;

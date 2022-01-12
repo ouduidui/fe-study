@@ -1,1 +1,1 @@
-type IndexOf<T, U> = any
+type IndexOf<T, U> = any;

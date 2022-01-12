@@ -1,1 +1,1 @@
-type PickByType<T, U> = any
+type PickByType<T, U> = any;

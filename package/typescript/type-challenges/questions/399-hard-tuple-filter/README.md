@@ -3,9 +3,9 @@
 Implement a type `FilterOut<T, F>` that filters out items of the given type `F` from the tuple `T`.
 
 For example,
-```ts
-type Filtered = FilterOut<[1, 2, null, 3], null> // [1, 2, 3]
-```
 
+```ts
+type Filtered = FilterOut<[1, 2, null, 3], null>; // [1, 2, 3]
+```
 
 <!--info-footer-start--><br><a href="../../README.md" target="_blank"><img src="https://img.shields.io/badge/-Back-grey" alt="Back"/></a> <a href="https://tsch.js.org/399/answer" target="_blank"><img src="https://img.shields.io/badge/-Share%20your%20Solutions-teal" alt="Share your Solutions"/></a> <a href="https://tsch.js.org/399/solutions" target="_blank"><img src="https://img.shields.io/badge/-Check%20out%20Solutions-de5a77?logo=awesome-lists&logoColor=white" alt="Check out Solutions"/></a> <!--info-footer-end-->

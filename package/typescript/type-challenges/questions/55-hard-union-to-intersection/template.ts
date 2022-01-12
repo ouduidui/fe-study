@@ -1,1 +1,1 @@
-type UnionToIntersection<U> = any
+type UnionToIntersection<U> = any;

@@ -1,1 +1,1 @@
-type TrimRight<S extends string> = any
+type TrimRight<S extends string> = any;

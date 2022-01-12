@@ -1,1 +1,1 @@
-type ToNumber<S extends string> = any
+type ToNumber<S extends string> = any;

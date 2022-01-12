@@ -1,1 +1,1 @@
-type ParseQueryString = any
+type ParseQueryString = any;

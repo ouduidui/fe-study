@@ -1,1 +1,1 @@
-type UnionToTuple<T> = any
+type UnionToTuple<T> = any;

@@ -1,1 +1,1 @@
-type DeepPick = any
+type DeepPick = any;

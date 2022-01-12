@@ -1,1 +1,1 @@
-type Shift<T> = any
+type Shift<T> = any;

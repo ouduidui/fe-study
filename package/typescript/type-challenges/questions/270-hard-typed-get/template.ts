@@ -1,1 +1,1 @@
-type Get<T, K> = string
+type Get<T, K> = string;

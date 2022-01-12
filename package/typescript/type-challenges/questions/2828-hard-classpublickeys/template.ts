@@ -1,1 +1,1 @@
-type ClassPublicKeys = any
+type ClassPublicKeys = any;

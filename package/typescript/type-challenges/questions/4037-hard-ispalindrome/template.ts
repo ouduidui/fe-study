@@ -1,1 +1,1 @@
-type IsPalindrome<T> = any
+type IsPalindrome<T> = any;

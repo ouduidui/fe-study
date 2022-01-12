@@ -1,1 +1,1 @@
-type RemoveIndexSignature<T> = any
+type RemoveIndexSignature<T> = any;

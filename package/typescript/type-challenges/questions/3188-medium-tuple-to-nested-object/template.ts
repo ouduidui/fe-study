@@ -1,1 +1,1 @@
-type TupleToNestedObject<T, U> = any
+type TupleToNestedObject<T, U> = any;

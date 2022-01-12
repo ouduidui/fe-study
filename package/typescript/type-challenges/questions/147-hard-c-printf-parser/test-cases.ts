@@ -1,4 +1,4 @@
-import { Equal, Expect } from '@type-challenges/utils'
+import { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
   Expect<Equal<ParsePrintFormat<''>, []>>,
@@ -11,4 +11,4 @@ type cases = [
   Expect<Equal<ParsePrintFormat<'The result is %q.'>, []>>,
   Expect<Equal<ParsePrintFormat<'Hello %s: score is %d.'>, ['string', 'dec']>>,
   Expect<Equal<ParsePrintFormat<'The result is %'>, []>>
-]
+];

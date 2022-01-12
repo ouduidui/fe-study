@@ -1,1 +1,1 @@
-type DeepObjectToUniq<O extends object> = any
+type DeepObjectToUniq<O extends object> = any;

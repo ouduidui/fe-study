@@ -1,1 +1,1 @@
-type ObjectFromEntries<T> = any
+type ObjectFromEntries<T> = any;

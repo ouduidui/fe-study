@@ -1,1 +1,1 @@
-type OptionalKeys<T> = any
+type OptionalKeys<T> = any;

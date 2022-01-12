@@ -1,1 +1,1 @@
-type Reverse<T> = any
+type Reverse<T> = any;

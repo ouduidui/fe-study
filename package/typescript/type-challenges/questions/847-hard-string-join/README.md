@@ -3,24 +3,26 @@
 Create a type-safe string join utility which can be used like so:
 
 ```ts
-const hyphenJoiner = join('-')
+const hyphenJoiner = join('-');
 const result = hyphenJoiner('a', 'b', 'c'); // = 'a-b-c'
 ```
 
 Or alternatively:
+
 ```ts
-join('#')('a', 'b', 'c') // = 'a#b#c'
+join('#')('a', 'b', 'c'); // = 'a#b#c'
 ```
 
-When we pass an empty delimiter (i.e '') to join, we should concat the strings as they are, i.e: 
+When we pass an empty delimiter (i.e '') to join, we should concat the strings as they are, i.e:
+
 ```ts
-join('')('a', 'b', 'c') // = 'abc'
+join('')('a', 'b', 'c'); // = 'abc'
 ```
 
 When only one item is passed, we should get back the original item (without any delimiter added):
-```ts
-join('-')('a') // = 'a'
-```
 
+```ts
+join('-')('a'); // = 'a'
+```
 
 <!--info-footer-start--><br><a href="../../README.md" target="_blank"><img src="https://img.shields.io/badge/-Back-grey" alt="Back"/></a> <a href="https://tsch.js.org/847/answer" target="_blank"><img src="https://img.shields.io/badge/-Share%20your%20Solutions-teal" alt="Share your Solutions"/></a> <a href="https://tsch.js.org/847/solutions" target="_blank"><img src="https://img.shields.io/badge/-Check%20out%20Solutions-de5a77?logo=awesome-lists&logoColor=white" alt="Check out Solutions"/></a> <!--info-footer-end-->

@@ -1,1 +1,1 @@
-type Diff<O, O1> = any
+type Diff<O, O1> = any;

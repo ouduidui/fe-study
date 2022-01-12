@@ -1,1 +1,1 @@
-type MinusOne<T extends number> = any
+type MinusOne<T extends number> = any;

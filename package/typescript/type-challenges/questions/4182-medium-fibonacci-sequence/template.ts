@@ -1,1 +1,1 @@
-type Fibonacci<T extends number> = any
+type Fibonacci<T extends number> = any;

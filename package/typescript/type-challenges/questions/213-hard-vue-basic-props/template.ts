@@ -1,1 +1,1 @@
-declare function VueBasicProps(options: any): any
+declare function VueBasicProps(options: any): any;

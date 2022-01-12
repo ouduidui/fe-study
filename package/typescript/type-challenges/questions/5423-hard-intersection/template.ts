@@ -1,1 +1,1 @@
-type Intersection<T> = any
+type Intersection<T> = any;

@@ -1,7 +1,7 @@
 enum Comparison {
   Greater,
   Equal,
-  Lower,
+  Lower
 }
 
-type Comparator<A extends number, B extends number> = any
+type Comparator<A extends number, B extends number> = any;

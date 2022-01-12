@@ -1,1 +1,1 @@
-type Chunk = any
+type Chunk = any;

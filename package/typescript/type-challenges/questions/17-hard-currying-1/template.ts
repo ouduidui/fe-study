@@ -1,1 +1,1 @@
-declare function Currying(fn: any): any
+declare function Currying(fn: any): any;

@@ -1,1 +1,1 @@
-type Last<T extends any[]> = any
+type Last<T extends any[]> = any;

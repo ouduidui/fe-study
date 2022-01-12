@@ -1,1 +1,1 @@
-type GetOptional<T> = any
+type GetOptional<T> = any;

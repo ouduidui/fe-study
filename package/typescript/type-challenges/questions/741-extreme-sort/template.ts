@@ -1,1 +1,1 @@
-type Sort = any
+type Sort = any;

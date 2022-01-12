@@ -1,1 +1,1 @@
-type IsTuple<T> = any
+type IsTuple<T> = any;

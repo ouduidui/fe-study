@@ -1,1 +1,1 @@
-type OmitByType<T, U> = any
+type OmitByType<T, U> = any;

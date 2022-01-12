@@ -1,4 +1,4 @@
-import { Equal, Expect, IsAny, Debug } from '@type-challenges/utils'
+import { Equal, Expect, IsAny, Debug } from '@type-challenges/utils';
 
 class ClassA {}
 
@@ -9,52 +9,49 @@ VueBasicProps({
     propC: { type: Boolean },
     propD: { type: ClassA },
     propE: { type: [String, Number] },
-    propF: RegExp,
+    propF: RegExp
   },
   data(this) {
-    type PropsType = Debug<typeof this>
+    type PropsType = Debug<typeof this>;
     type cases = [
       Expect<IsAny<PropsType['propA']>>,
       Expect<Equal<PropsType['propB'], string>>,
       Expect<Equal<PropsType['propC'], boolean>>,
       Expect<Equal<PropsType['propD'], ClassA>>,
       Expect<Equal<PropsType['propE'], string | number>>,
-      Expect<Equal<PropsType['propF'], RegExp>>,
-    ]
+      Expect<Equal<PropsType['propF'], RegExp>>
+    ];
 
     // @ts-expect-error
-    this.firstname
+    this.firstname;
     // @ts-expect-error
-    this.getRandom()
+    this.getRandom();
     // @ts-expect-error
-    this.data()
-  
+    this.data();
+
     return {
       firstname: 'Type',
       lastname: 'Challenges',
-      amount: 10,
-    }
+      amount: 10
+    };
   },
   computed: {
     fullname() {
-      return `${this.firstname} ${this.lastname}`
-    },
+      return `${this.firstname} ${this.lastname}`;
+    }
   },
   methods: {
     getRandom() {
-      return Math.random()
+      return Math.random();
     },
     hi() {
-      alert(this.fullname.toLowerCase())
-      alert(this.getRandom())
+      alert(this.fullname.toLowerCase());
+      alert(this.getRandom());
     },
     test() {
-      const fullname = this.fullname
-      const propE = this.propE
-      type cases = [
-        Expect<Equal<typeof fullname, string>>,
-        Expect<Equal<typeof propE, string | number>>,
-      ]
-    },
-  },
-})
+      const fullname = this.fullname;
+      const propE = this.propE;
+      type cases = [Expect<Equal<typeof fullname, string>>, Expect<Equal<typeof propE, string | number>>];
+    }
+  }
+});

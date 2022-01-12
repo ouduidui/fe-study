@@ -1,1 +1,1 @@
-type IsUnion<T> = any
+type IsUnion<T> = any;

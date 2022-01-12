@@ -1,1 +1,1 @@
-type MyReadonly2<T, K> = any
+type MyReadonly2<T, K> = any;

@@ -1,1 +1,1 @@
-type Trim<S extends string> = any
+type Trim<S extends string> = any;

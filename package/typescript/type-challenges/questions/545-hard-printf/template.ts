@@ -1,1 +1,1 @@
-type Format<T extends string> = any
+type Format<T extends string> = any;

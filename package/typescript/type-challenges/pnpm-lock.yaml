@@ -7,7 +7,7 @@ devDependencies:
   '@type-challenges/utils': 0.1.1
 
 packages:
-
   /@type-challenges/utils/0.1.1:
-    resolution: {integrity: sha512-A7ljYfBM+FLw+NDyuYvGBJiCEV9c0lPWEAdzfOAkb3JFqfLl0Iv/WhWMMARHiRKlmmiD1g8gz/507yVvHdQUYA==}
+    resolution:
+      { integrity: sha512-A7ljYfBM+FLw+NDyuYvGBJiCEV9c0lPWEAdzfOAkb3JFqfLl0Iv/WhWMMARHiRKlmmiD1g8gz/507yVvHdQUYA== }
     dev: true

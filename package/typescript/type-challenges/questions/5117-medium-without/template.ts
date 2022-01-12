@@ -1,1 +1,1 @@
-type Without<T, U> = any
+type Without<T, U> = any;

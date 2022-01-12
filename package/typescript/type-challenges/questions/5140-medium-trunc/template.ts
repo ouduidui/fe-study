@@ -1,1 +1,1 @@
-type Trunc = any
+type Trunc = any;

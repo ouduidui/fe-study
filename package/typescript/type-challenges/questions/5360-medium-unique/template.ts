@@ -1,1 +1,1 @@
-type Unique<T> = any
+type Unique<T> = any;

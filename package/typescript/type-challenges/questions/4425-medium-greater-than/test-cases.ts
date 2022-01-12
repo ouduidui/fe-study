@@ -1,4 +1,4 @@
-import { Equal, Expect } from '@type-challenges/utils'
+import { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
   Expect<Equal<GreaterThan<1, 0>, true>>,
@@ -6,4 +6,4 @@ type cases = [
   Expect<Equal<GreaterThan<4, 5>, false>>,
   Expect<Equal<GreaterThan<0, 0>, false>>,
   Expect<Equal<GreaterThan<20, 20>, false>>
-]
+];

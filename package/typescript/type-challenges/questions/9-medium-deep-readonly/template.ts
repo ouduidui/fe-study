@@ -1,1 +1,1 @@
-type DeepReadonly<T> = any
+type DeepReadonly<T> = any;

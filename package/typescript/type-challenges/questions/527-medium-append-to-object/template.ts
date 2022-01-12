@@ -1,1 +1,1 @@
-type AppendToObject<T, U, V> = any
+type AppendToObject<T, U, V> = any;

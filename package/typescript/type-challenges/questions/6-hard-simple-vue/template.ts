@@ -1,2 +1,1 @@
-
-declare function SimpleVue(options: any): any
+declare function SimpleVue(options: any): any;

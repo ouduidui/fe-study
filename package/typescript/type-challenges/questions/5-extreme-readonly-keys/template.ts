@@ -1,1 +1,1 @@
-type GetReadonlyKeys<T> = any
+type GetReadonlyKeys<T> = any;

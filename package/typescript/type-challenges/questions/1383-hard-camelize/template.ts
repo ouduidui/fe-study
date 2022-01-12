@@ -1,1 +1,1 @@
-type Camelize<T> = any
+type Camelize<T> = any;

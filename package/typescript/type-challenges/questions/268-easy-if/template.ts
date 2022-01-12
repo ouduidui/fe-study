@@ -1,1 +1,1 @@
-type If<C, T, F> = any
+type If<C, T, F> = any;

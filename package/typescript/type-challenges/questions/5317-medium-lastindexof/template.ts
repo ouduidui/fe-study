@@ -1,1 +1,1 @@
-type LastIndexOf<T, U> = any
+type LastIndexOf<T, U> = any;

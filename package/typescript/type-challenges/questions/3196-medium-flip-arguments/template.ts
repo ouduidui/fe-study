@@ -1,1 +1,1 @@
-type FlipArguments<T> = any
+type FlipArguments<T> = any;

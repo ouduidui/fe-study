@@ -1,1 +1,1 @@
-type Push<T, U> = any
+type Push<T, U> = any;

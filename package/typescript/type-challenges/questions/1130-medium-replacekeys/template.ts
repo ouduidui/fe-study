@@ -1,1 +1,1 @@
-type ReplaceKeys<U, T, Y> = any
+type ReplaceKeys<U, T, Y> = any;

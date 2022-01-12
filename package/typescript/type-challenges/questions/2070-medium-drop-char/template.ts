@@ -1,1 +1,1 @@
-type DropChar<S, C> = any
+type DropChar<S, C> = any;

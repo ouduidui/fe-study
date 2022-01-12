@@ -1,1 +1,1 @@
-type PercentageParser<A extends string> = any
+type PercentageParser<A extends string> = any;

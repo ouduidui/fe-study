@@ -1,1 +1,1 @@
-type Mutable<T> = any
+type Mutable<T> = any;

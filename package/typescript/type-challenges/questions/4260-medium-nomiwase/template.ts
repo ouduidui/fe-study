@@ -1,1 +1,1 @@
-type AllCombinations<S> = any
+type AllCombinations<S> = any;

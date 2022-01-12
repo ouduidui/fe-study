@@ -1,1 +1,1 @@
-type IsNever = any
+type IsNever = any;

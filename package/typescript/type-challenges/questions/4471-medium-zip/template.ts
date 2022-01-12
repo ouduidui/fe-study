@@ -1,1 +1,1 @@
-type Zip = any
+type Zip = any;

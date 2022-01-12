@@ -1,1 +1,1 @@
-type Capitalize<S extends string> = any
+type Capitalize<S extends string> = any;
