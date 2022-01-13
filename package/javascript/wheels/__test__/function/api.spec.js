@@ -54,7 +54,7 @@ describe('函数原生方法', () => {
   });
 
   describe('bind', () => {
-    it('生成新的函数', () => {
+    it('不会立即调用，而生成新的函数', () => {
       const fn = jest.fn();
       const fn2 = function (arg1, arg2) {
         fn();
@@ -69,7 +69,7 @@ describe('函数原生方法', () => {
       expect(newFn.name).toBe('bound fn2');
     });
 
-    it('传参', () => {
+    it('返回的新函数存在length属性和name属性', () => {
       const fn = function (arg1, arg2) {
         expect(arg1).toBe('arg1');
         expect(arg2).toBe('arg2');
@@ -78,10 +78,23 @@ describe('函数原生方法', () => {
 
       const newFn = fn._bind({ test: 'test' }, 'arg1');
       expect(newFn.length).toBe(1);
+      expect(newFn.name).toBe('bound fn');
       newFn('arg2');
     });
 
-    it('继承', () => {
+    it('返回的新函数被new调用作为构造函数时，绑定的值会指向并改为`new`的指定对象', () => {
+      const Fn = function () {};
+
+      const context = {
+        a: 1
+      };
+      const NewFn = Fn._bind(context);
+
+      const f = new NewFn();
+      expect(f.hasOwnProperty('a')).toBe(false);
+    });
+
+    it('绑定后的函数的`prototype`需要指向原函数的`prototype`', () => {
       const Fn = function () {};
       Fn.prototype.test = function () {
         return 'test';

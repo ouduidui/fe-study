@@ -1,10 +1,21 @@
+# 节流 Throttle
+
+## 用途
+
+在执行后一段之间内，无法重复执行。
+
+## 实现
+
+### 使用时间戳实现
+
+```javascript
 /**
  * 时间戳实现
  * @param func
  * @param delay
  * @return {(function(): void)|*}
  */
-function throttle1(func, delay) {
+function throttle(func, delay) {
   let previous = 0; // 保存上次调用的时间戳
   return function () {
     const now = Date.now();
@@ -16,14 +27,18 @@ function throttle1(func, delay) {
     }
   };
 }
+```
 
+### 使用定时器实现
+
+```javascript
 /**
  * 定时器实现
  * @param func
  * @param delay
  * @return {(function(): void)|*}
  */
-function throttle2(func, delay) {
+function throttle(func, delay) {
   let timer = null;
   return function () {
     if (!timer) {
@@ -36,7 +51,18 @@ function throttle2(func, delay) {
     }
   };
 }
+```
 
+### 复杂版本
+
+- 支持`options`参数
+  - `leading`：是否立即执行
+  - `trailing`：是否在最后额外触发一次
+  - `context`：上下文
+- 支持中断最后额外触发
+  - `debounce.cancel()`
+
+```javascript
 /**
  * 复杂版本
  * @param func<Function>
@@ -71,7 +97,7 @@ function throttle3(
       func.apply(options.context, arg);
       previous = now;
     } else if (!timer && options.trailing) {
-      timer = setTimeout(() => {
+      setTimeout(() => {
         func.apply(options.context, arg);
         previous = 0;
         timer = null;
@@ -87,9 +113,4 @@ function throttle3(
 
   return _throttle;
 }
-
-module.exports = {
-  throttle1,
-  throttle2,
-  throttle3
-};
+```

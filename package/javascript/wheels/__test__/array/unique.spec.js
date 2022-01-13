@@ -1,11 +1,9 @@
-const { unique1, unique2, unique3, unique4, unique5 } = require('../../src/array/unique/index');
-
 describe('数组去重', () => {
-  describe('for + splice', () => testCase(unique1));
-  describe('indexOf | includes', () => testCase(unique2));
-  describe('filter + indexOf', () => testCase(unique3));
-  describe('reduce + includes', () => testCase(unique4));
-  describe('Set', () => testCase(unique5));
+  describe('for + splice', () => testCase(require('../../src/array/unique/for-splice')));
+  describe('indexOf | includes', () => testCase(require('../../src/array/unique/indexof-includes')));
+  describe('filter + indexOf', () => testCase(require('../../src/array/unique/filter-indexof')));
+  describe('reduce + includes', () => testCase(require('../../src/array/unique/reduce-includes')));
+  describe('Set', () => testCase(require('../../src/array/unique/set')));
 });
 
 function testCase(fn) {

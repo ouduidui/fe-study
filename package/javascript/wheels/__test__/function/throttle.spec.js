@@ -1,11 +1,13 @@
-const { throttle1, throttle2, throttle3 } = require('../../src/function/throttle');
+const throttleByTimestamp = require('../../src/function/throttle/timestamp');
+const throttleByTimer = require('../../src/function/throttle/timer');
+const complexThrottle = require('../../src/function/throttle/complex');
 
 describe('节流', () => {
   it('时间戳实现', (done) => {
     const fn = jest.fn();
     console.warn = jest.fn();
 
-    const throttle = throttle1(fn, 2000);
+    const throttle = throttleByTimestamp(fn, 2000);
     throttle();
     expect(fn).toHaveBeenCalledTimes(1);
 
@@ -24,7 +26,7 @@ describe('节流', () => {
     const fn = jest.fn();
     console.warn = jest.fn();
 
-    const throttle = throttle2(fn, 2000);
+    const throttle = throttleByTimer(fn, 2000);
     throttle();
     expect(fn).toHaveBeenCalledTimes(1);
 
@@ -44,7 +46,7 @@ describe('节流', () => {
       expect(this.test).toBe('test');
     });
 
-    const throttle = throttle3(fn, 2000, {
+    const throttle = complexThrottle(fn, 2000, {
       context: { test: 'test' }
     });
 
@@ -64,7 +66,7 @@ describe('节流', () => {
   it('复杂版 - 不立即执行', (done) => {
     const fn = jest.fn();
 
-    const throttle = throttle3(fn, 2000, {
+    const throttle = complexThrottle(fn, 2000, {
       leading: false
     });
 
@@ -81,7 +83,7 @@ describe('节流', () => {
   it('复杂版 - 最后额外触发一次', (done) => {
     const fn = jest.fn();
 
-    const throttle = throttle3(fn, 2000, {
+    const throttle = complexThrottle(fn, 2000, {
       trailing: true
     });
 
@@ -98,7 +100,7 @@ describe('节流', () => {
   it('复杂版 - 取消执行', (done) => {
     const fn = jest.fn();
 
-    const throttle = throttle3(fn, 2000, {
+    const throttle = complexThrottle(fn, 2000, {
       trailing: true
     });
 

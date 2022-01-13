@@ -1,4 +1,5 @@
-const { debounce1, debounce2 } = require('../../src/function/debounce');
+const simpleDebounce = require('../../src/function/debounce/simple');
+const complexDebounce = require('../../src/function/debounce/complex');
 
 describe('防抖', () => {
   it('简易版', (done) => {
@@ -7,7 +8,7 @@ describe('防抖', () => {
       done();
     });
 
-    const debounce = debounce1(fn, 1000);
+    const debounce = simpleDebounce(fn, 1000);
 
     for (let i = 0; i < 10000; i++) {
       debounce();
@@ -22,7 +23,7 @@ describe('防抖', () => {
       done();
     });
 
-    const debounce = debounce2(fn, 1000, {
+    const debounce = complexDebounce(fn, 1000, {
       context: { test: 'test' }
     });
 
@@ -35,7 +36,7 @@ describe('防抖', () => {
   it('复杂版 - 立即执行', () => {
     const fn = jest.fn();
 
-    const debounce = debounce2(fn, 1000, {
+    const debounce = complexDebounce(fn, 1000, {
       leading: true
     });
 
@@ -48,7 +49,7 @@ describe('防抖', () => {
   it('复杂版 - 终止', (done) => {
     const fn = jest.fn();
 
-    const debounce = debounce2(fn, 1000);
+    const debounce = complexDebounce(fn, 1000);
 
     for (let i = 0; i < 10000; i++) {
       debounce();

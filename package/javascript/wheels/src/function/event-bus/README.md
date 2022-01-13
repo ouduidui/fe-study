@@ -1,3 +1,12 @@
+# 事件总线
+
+事件总线是典型的发布订阅模式。如果使用过`vue`对它也不模式，比如`$on`、`$emit`等。
+
+事件总线核心功能无非就是订阅事件`on`，派发事件`emit`，取消订阅事件`off`。然后再外加一个功能`once`，即订阅后触发一次后就删除。
+
+## 实现
+
+```javascript
 class EventBus {
   constructor() {
     // 存储事件
@@ -62,5 +71,4 @@ class EventBus {
     self.on(name, newFn);
   }
 }
-
-module.exports = EventBus;
+```

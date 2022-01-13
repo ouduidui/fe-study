@@ -1,27 +1,11 @@
 /**
- * 防抖简易版
- * @param func {any}
- * @param delay {number} 延迟时间
- * @return {(function(): void)|*}
- */
-function debounce1(func, delay) {
-  let timer;
-  return function () {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, arguments);
-    }, delay);
-  };
-}
-
-/**
  * 防抖复杂版
  * @param func<Function>
  * @param delay<Number>
  * @param options<{context: any, leading: boolean}>
  * @return <Function>
  * */
-function debounce2(
+function debounce(
   func,
   delay,
   options = {
@@ -59,7 +43,4 @@ function debounce2(
   return _debounce;
 }
 
-module.exports = {
-  debounce1,
-  debounce2
-};
+module.exports = debounce;
