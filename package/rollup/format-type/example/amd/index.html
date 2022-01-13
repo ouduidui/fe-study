@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="./require.min.js"></script>
+<script src="../../build/amd/bundle.js"></script>
+<script>
+    window.requirejs(
+      ['Test'],
+      function (test) {
+        console.log(test);
+        test.sayHi();
+      }
+    )
+</script>
+</body>
+</html>

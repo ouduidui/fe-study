@@ -1,0 +1,24 @@
+{
+  "name": "format-type",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "rollup --config",
+    "example:iife": "open './example/iife/index.html'",
+    "example:cjs": "node ./example/cjs/index.js",
+    "example:amd": "open './example/amd/index.html'",
+    "example:umd": "open './example/umd/index.html' && node ./example/umd/index.js",
+    "example:system": "open './example/system/index.html'",
+    "example:esm": "cp build/esm/bundle.js example/esm && live-server './example/esm/index.html'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.63.0"
+  },
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

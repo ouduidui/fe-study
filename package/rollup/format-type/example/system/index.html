@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="./system.min.js"></script>
+<script>
+  System.import('../../build/system/bundle.js').then(Test => {
+    console.log(Test);
+    Test.sayHi();
+  })
+</script>
+</body>
+</html>
