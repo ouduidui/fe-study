@@ -19,7 +19,7 @@ export default {
     {
       file: 'build/iife/bundle.js',
       format: 'iife',
-      name: 'Test',
+      name: 'Test'
     },
     {
       file: 'build/umd/bundle.js',
@@ -34,4 +34,4 @@ export default {
       format: 'system'
     }
   ]
-}
+};

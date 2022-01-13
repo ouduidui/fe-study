@@ -1,4 +1,5 @@
-define('Test', ['exports'], (function (exports) { 'use strict';
+define('Test', ['exports'], function (exports) {
+  'use strict';
 
   const commonMsg = 'hello world';
 
@@ -9,5 +10,4 @@ define('Test', ['exports'], (function (exports) { 'use strict';
   exports.sayHi = sayHi;
 
   Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
+});
