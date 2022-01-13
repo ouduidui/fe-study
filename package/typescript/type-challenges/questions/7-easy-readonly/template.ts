@@ -1,4 +1,3 @@
 type MyReadonly<T> = {
-    readonly [P in keyof T]: T[P]
+  readonly [P in keyof T]: T[P];
 };
-
