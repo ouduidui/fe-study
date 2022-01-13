@@ -2,13 +2,13 @@
 
 ### 热身 1
 
-- [ ] [13・Hello World](./questions/13-warm-hello-world/README.zh-CN.md)
+- [x] [13・Hello World](./questions/13-warm-hello-world/README.zh-CN.md)
 
 ### 简单 13
 
-- [ ] [4・实现 Pick](./questions/4-easy-pick/README.zh-CN.md)
+- [x] [4・实现 Pick](./questions/4-easy-pick/README.zh-CN.md)
 
-- [ ] [7・实现 Readonly](./questions/7-easy-readonly/README.zh-CN.md)
+- [x] [7・实现 Readonly](./questions/7-easy-readonly/README.zh-CN.md)
 
 - [ ] [11・元组转换为对象](./questions/11-easy-tuple-to-object/README.zh-CN.md)
 
