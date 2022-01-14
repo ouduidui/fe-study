@@ -13,6 +13,10 @@
 - [手写题](./package/javascript/wheels)
 - [红宝书学习](./package/javascript/professional-javascript-4/README.md)
 
+## TypeScript
+
+- [类型体操 Type-challenges](./package/typescript/type-challenges/README.md)
+
 ## Vue
 
 - [Vue2 && Vue3 组件通信](./package/vue/vue-component-communication)
