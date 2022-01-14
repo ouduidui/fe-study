@@ -1,8 +1,9 @@
 /**
- * Array.prototype._findIndex
- * @returns <number>: 数组中通过提供测试函数的第一个元素的索引。否则，返回-1
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 findIndex
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {number}
  */
 const _findIndex = function (callback, thisArg) {
   // 判断this不等于null
@@ -15,20 +16,20 @@ const _findIndex = function (callback, thisArg) {
     throw new TypeError(callback + ' is not a function');
   }
 
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
+  const arr = this;
+  const len = arr.length;
 
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      if (callback.call(thisArg, O[k], k, O)) {
-        return k; // 返回第一个满足测试的元素索引
-      }
+  let index = 0;
+  // 遍历数组
+  while (index < len) {
+    // 当有一个满足测试函数就立即返回对应的索引
+    if (callback.call(thisArg, arr[index], index, arr)) {
+      return index;
     }
-    k++;
+    index++;
   }
 
-  // 如果都不通过，则返回-1
+  // 如果没有一个满足条件的话则返回-1
   return -1;
 };
 

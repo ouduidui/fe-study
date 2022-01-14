@@ -5,26 +5,34 @@ describe('Array Methods', () => {
     const arr = ['a', 'b', 'c'];
     let i = 0;
 
-    arr._forEach((currentValue, index, array) => {
-      expect(index).toBe(i);
-      expect(currentValue).toBe(arr[i]);
-      expect(array).toBe(arr);
-      i++;
-    });
+    arr._forEach(
+      function (currentValue, index, array) {
+        expect(this.a).toBe(1);
+        expect(index).toBe(i);
+        expect(currentValue).toBe(arr[i]);
+        expect(array).toBe(arr);
+        i++;
+      },
+      { a: 1 }
+    );
   });
 
   it('map', () => {
     const arr = [1, 2, 3];
     let i = 0;
     expect(
-      arr._map((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._map(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue * 2;
-      })
+          return currentValue * 2;
+        },
+        { a: 1 }
+      )
     ).toEqual([2, 4, 6]);
   });
 
@@ -32,14 +40,18 @@ describe('Array Methods', () => {
     const arr = [1, 2, 3, 4, 5, 6];
     let i = 0;
     expect(
-      arr._filter((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._filter(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue > 2;
-      })
+          return currentValue > 2;
+        },
+        { a: 1 }
+      )
     ).toEqual([3, 4, 5, 6]);
   });
 
@@ -48,14 +60,18 @@ describe('Array Methods', () => {
     let i = 0;
 
     expect(
-      arr._find((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._find(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue === 'b';
-      })
+          return currentValue === 'b';
+        },
+        { a: 1 }
+      )
     ).toBe('b');
   });
 
@@ -64,14 +80,18 @@ describe('Array Methods', () => {
     let i = 0;
 
     expect(
-      arr._findIndex((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._findIndex(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue === 'b';
-      })
+          return currentValue === 'b';
+        },
+        { a: 1 }
+      )
     ).toBe(1);
   });
 
@@ -80,7 +100,7 @@ describe('Array Methods', () => {
     let i = 0;
 
     expect(
-      arr._reduce((accumulator, currentValue, index, array) => {
+      arr._reduce(function (accumulator, currentValue, index, array) {
         expect(index).toBe(i);
         expect(currentValue).toBe(arr[i]);
         expect(array).toBe(arr);
@@ -89,6 +109,16 @@ describe('Array Methods', () => {
         return accumulator + currentValue;
       }, 0)
     ).toBe(21);
+
+    const arr2 = ['a', 'b', 'c'];
+    let j = 1;
+    arr2._reduce((accumulator, currentValue, index) => {
+      expect(index).toBe(j);
+      expect(accumulator).toBe(arr2[j - 1]);
+      expect(currentValue).toBe(arr2[j]);
+      j++;
+      return currentValue;
+    });
   });
 
   it('every', () => {
@@ -96,14 +126,18 @@ describe('Array Methods', () => {
     let i = 0;
 
     expect(
-      arr._every((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._every(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue === 'b';
-      })
+          return currentValue === 'b';
+        },
+        { a: 1 }
+      )
     ).toBe(false);
   });
 
@@ -112,14 +146,18 @@ describe('Array Methods', () => {
     let i = 0;
 
     expect(
-      arr._some((currentValue, index, array) => {
-        expect(index).toBe(i);
-        expect(currentValue).toBe(arr[i]);
-        expect(array).toBe(arr);
-        i++;
+      arr._some(
+        function (currentValue, index, array) {
+          expect(this.a).toBe(1);
+          expect(index).toBe(i);
+          expect(currentValue).toBe(arr[i]);
+          expect(array).toBe(arr);
+          i++;
 
-        return currentValue === 'b';
-      })
+          return currentValue === 'b';
+        },
+        { a: 1 }
+      )
     ).toBe(true);
   });
 });

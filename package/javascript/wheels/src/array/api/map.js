@@ -1,8 +1,9 @@
 /**
- * Array.prototype._map
- * @returns <array>: 一个由原数组每个元素执行回调函数的结果组成的新数组
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 map
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => *}
+ * @param thisArg {object | undefined}
+ * @returns {*[]}
  */
 const _map = function (callback, thisArg) {
   // 判断this不等于null
@@ -15,20 +16,21 @@ const _map = function (callback, thisArg) {
     throw new TypeError(callback + ' is not a function');
   }
 
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
+  const arr = this;
+  const len = arr.length;
+  // 初始化返回数组
+  const newArr = [];
 
-  let k = 0;
-  const res = [];
-  while (k < len) {
-    if (k in O) {
-      res[k] = callback.call(thisArg, O[k], k, O); // 赋值各元素的结果
-    }
-    k++;
+  let index = 0;
+  // 遍历数组
+  while (index < len) {
+    // 将返回值保存到newArr
+    newArr[index] = callback.call(thisArg, arr[index], index, arr);
+    index++;
   }
 
-  // 将结果数组返回
-  return res;
+  // 返回新数组
+  return newArr;
 };
 
 module.exports = _map;

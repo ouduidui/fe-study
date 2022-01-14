@@ -1,8 +1,9 @@
 # JavaScript 手写题目
 
 - Array
-  - [实现数组原型方法](src/array/api/README.md)
-  - [实现数组去重](./src/array/unique/README.md)
+  - [数组原型方法](src/array/api/README.md)
+  - [数组去重](./src/array/unique/README.md)
+  - [数组扁平化](./src/array/flat/README.md)
 - Object
   - [深浅拷贝](./src/object/clone)
   - [Map|Set 实现](./src/object/es)

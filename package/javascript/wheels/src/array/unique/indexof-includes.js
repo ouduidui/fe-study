@@ -1,7 +1,8 @@
 /**
- * indexOf | includes
+ * indexOf | include 实现数组去重
+ * @author OUDUIDUI
  * @param arr {*[]}
- * @return {*[]}
+ * @returns {*[]}
  */
 function unique(arr) {
   const _arr = [];

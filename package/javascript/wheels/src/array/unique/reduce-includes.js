@@ -1,7 +1,8 @@
 /**
- * reduce + includes
+ * reduce + includes 实现数组去重
+ * @author OUDUIDUI
  * @param arr {*[]}
- * @return {*}
+ * @returns {*[]}
  */
 function unique(arr) {
   return arr.reduce((acc, cur) => {

@@ -1,445 +1,418 @@
-# 实现数组原型方法
+# 数组原生方法
 
 ## forEach
 
-### 功能
+### 需求
 
-`forEach()`方法会对数组的每个元素执行一次给定的函数。
+`forEach()` 方法对数组的每个元素执行一次给定的函数。
 
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`**（可选） ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`forEach()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - `undefined`
+它接收两个参数，分别为`callback`和`thisArg`。
+
+- `callback`：为数组中每个元素的执行函数，该函数接收一至三个参数
+
+  - `currentValue`：数组正在处理的当前元素
+
+  - `index`：可选，数组正在处理的当前元素的索引
+
+  - `array`：可选，方法正在操作的数组
+
+- `thisArg`：可选参数。是当执行回调函数`callback`时，用在`this`的值
+
+`forEach`没有返回值。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._forEach
- * @returns undefined
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现 _forEach
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => void}
+ * @param thisArg {object | undefined}
+ * @returns {void}
  */
-Array.prototype._forEach = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      // 判断元素是否在数组中
-      callback.call(thisArg, O[k], k, O);
+const _forEach = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
     }
-    k++;
-  }
-};
+
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+
+    let index = 0;
+    // 遍历数组
+    while (index < len) {
+      // 使用call调用函数
+      callback.call(thisArg, arr[index], index, arr);
+      index++;
+    }
+  };
 ```
 
 ## map
 
-### 功能
+### 需求
 
-`map()`方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+`map()` 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
 
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`** ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`map()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 一个由原数组每个元素执行回调函数的结果组成的新数组。
+它的接收参数跟`forEach`一致，这里就不多说了。
+
+`map()`方法会放毁一个由原数组每个元素执行回调函数的结果组成的新数组。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._map
- * @returns <array>: 一个由原数组每个元素执行回调函数的结果组成的新数组
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 map
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => *}
+ * @param thisArg {object | undefined}
+ * @returns {*[]}
  */
-Array.prototype._map = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  const res = [];
-  while (k < len) {
-    if (k in O) {
-      res[k] = callback.call(thisArg, O[k], k, O); // 赋值各元素的结果
+const _map = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
     }
-    k++;
-  }
 
-  // 将结果数组返回
-  return res;
-};
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+    // 初始化返回数组
+    const newArr = [];
+
+    let index = 0;
+    // 遍历数组
+    while (index < len) {
+      // 将返回值保存到newArr
+      newArr[index] = callback.call(thisArg, arr[index], index, arr);
+      index++;
+    }
+
+    // 返回新数组
+    return newArr;
+  };
 ```
 
 ## filter
 
-### 功能
+### 需求
 
-`filter()`方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。
+`filter()` 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。
 
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`** ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`filter()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。
+它的接收参数跟`forEach`一致，这里就不多说了。
+
+`filter()`会返回一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._filter
- * @returns <array>: 一个新的、由通过测试的元素组成的数组，如果没有任何数组元素通过测试，则返回空数组
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 filter
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {*[]}
  */
-Array.prototype._filter = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  const res = [];
-  while (k < len) {
-    if (k in O) {
-      if (callback.call(thisArg, O[k], k, O)) {
-        res.push(O[k]); // 如果该元素通过测试，即添加到结果数组中
-      }
+const _filter = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
     }
-    k++;
-  }
 
-  // 将结果数组返回
-  return res;
-};
-```
-
-## some
-
-### 功能
-
-`some()`方法测试数组中是不是至少有 1 个元素通过了被提供的函数测试。它返回的是一个`Boolean`类型的值。
-
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`** ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`some()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 数组中有至少一个元素通过回调函数的测试就会返回`true`；所有元素都没有通过回调函数的测试返回值才会为`false`。
-
-### 实现
-
-```javascript
-/**
- * Array.prototype._some
- * @returns <boolean>: 数组中有至少一个元素通过回调函数的测试就会返回true；所有元素都没有通过回调函数的测试返回值才会为false
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
- */
-Array.prototype._some = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      if (callback.call(thisArg, O[k], k, O)) {
-        return true; // 只要有一个元素通过测试，即返回true
-      }
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
     }
-    k++;
-  }
 
-  // 遍历结束还没有通过测试，即返回false
-  return false;
-};
-```
+    const arr = this;
+    const len = arr.length;
 
-## every
+    const newArr = [];
+    let index = 0;
 
-### 功能
-
-`every()`方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。
-
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`**（可选） ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`every()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 如果回调函数的每一次返回都为`truthy`值，返回`true`，否则返回`false`。
-
-### 实现
-
-```javascript
-/**
- * Array.prototype._every
- * @returns <boolean>: 数组中有所有元素都通过回调函数的测试就会返回true；只要一个元素没有通过回调函数的测试返回值才会为false
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
- */
-Array.prototype._every = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      if (!callback.call(thisArg, O[k], k, O)) {
-        return false; // 只要有一个元素没有通过测试，即返回false
+    // 遍历数组
+    while (index < len) {
+      // 如果通过回调函数的测试，则添加到newArr
+      if (callback.call(thisArg, arr[index], index, arr)) {
+        newArr.push(arr[index]);
       }
+      index++;
     }
-    k++;
-  }
 
-  // 遍历结束都通过测试，即返回true
-  return true;
-};
+    // 返回新数组
+    return newArr;
+  };
 ```
 
 ## find
 
-### 功能
+### 需求
 
-`find()`方法返回数组中满足提供的测试函数的第一个元素的值。否则返回`undefined`。
+`find()` 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 `undefined`。
 
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`**（可选） ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`find()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 数组中第一个满足所提供测试函数的元素的值，否则返回`undefined`。
+它的接收参数跟`forEach`一致，这里就不多说了。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._find
- * @returns <any>: 数组中第一个满足所提供测试函数的元素的值，否则返回 undefined
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 find
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {*}
  */
-Array.prototype._find = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      if (callback.call(thisArg, O[k], k, O)) {
-        return O[k]; // 返回第一个满足测试的元素
-      }
+const _find = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
     }
-    k++;
-  }
 
-  // 如果都不通过，则返回undefined
-  return undefined;
-};
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+
+    let index = 0;
+    // 遍历数组
+    while (index < len) {
+      // 当有一个满足测试函数就立即返回
+      if (callback.call(thisArg, arr[index], index, arr)) {
+        return arr[index];
+      }
+      index++;
+    }
+
+    // 如果没有一个满足条件的话则返回 undefined
+    return undefined;
+  };
 ```
 
 ## findIndex
 
-### 功能
+### 需求
 
-`findIndex()`方法返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回`-1`。
+`findIndex()`方法返回数组中满足提供的测试函数的第一个元素的**索引**。若没有找到对应元素则返回-1。
 
-- 参数
-  - **`callback`** ： 为数组中每个元素执行的函数，该函数接收三个参数
-    - **`currentValue`**（可选） ：数组中正在处理的当前元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引
-    - **`array`**（可选） ：`findIndex()`方法正在操作的数组
-  - **`thisArg`**（可选） ：当执行回调函数`callback`时，用作`this`的值
-- 返回值
-  - 数组中通过提供测试函数的第一个元素的索引。否则，返回`-1`。
+它的接收参数跟`forEach`一致，这里就不多说了。
+
+### 实现
+
+这个其实只需要在`find`的基础上修改一下返回值就可以了：
+
+```javascript
+/**
+ * 实现数组原型方法 findIndex
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {number}
+ */
+const _findIndex = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+
+    let index = 0;
+    // 遍历数组
+    while (index < len) {
+      // 当有一个满足测试函数就立即返回对应的索引
+      if (callback.call(thisArg, arr[index], index, arr)) {
+        return index;
+      }
+      index++;
+    }
+
+    // 如果没有一个满足条件的话则返回-1
+    return -1;
+  };
+```
+
+## every
+
+### 需求
+
+`every()` 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。
+
+> **注意**：若收到一个空数组，此方法在一切情况下都会返回 `true`。
+
+它的接收参数跟`forEach`一致，这里就不多说了。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._findIndex
- * @returns <number>: 数组中通过提供测试函数的第一个元素的索引。否则，返回-1
- * @param callback<function>: executor有三个参数：currentValue、index和array
- * @param thisArg<object>
+ * 实现数组原型方法 every
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {boolean}
  */
-Array.prototype._findIndex = function (callback, thisArg) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
+const _every = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
+    }
 
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
 
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
+    const arr = this;
+    const len = arr.length;
 
-  let k = 0;
-  while (k < len) {
-    if (k in O) {
-      if (callback.call(thisArg, O[k], k, O)) {
-        return k; // 返回第一个满足测试的元素索引
+    let index = 0;
+    // 遍历数组
+    while (index < len) {
+      // 但凡有一个没有通过测试，则返回false
+      if (!callback.call(thisArg, arr[index], index, arr)) {
+        return false;
       }
     }
-    k++;
-  }
 
-  // 如果都不通过，则返回-1
-  return -1;
-};
+    // 遍历结束都通过测试，即返回true
+    return true;
+  };
+```
+
+## some
+
+### 需求
+
+`some()` 方法测试数组中是不是至少有1个元素通过了被提供的函数测试。它返回的是一个Boolean类型的值。
+
+> **注意**：如果用一个空数组进行测试，在任何情况下它返回的都是`false`。
+
+它的接收参数跟`forEach`一致，这里就不多说了。
+
+### 实现
+
+```javascript
+/**
+ * 实现数组原型方法 some
+ * @author OUDUIDUI
+ * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
+ * @param thisArg {object | undefined}
+ * @returns {boolean}
+ */
+const _some = function (callback, thisArg) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+
+    let index = 0;
+    while (index < len) {
+      if (callback.call(thisArg, arr[index], index, arr)) {
+        // 只要有一个元素通过测试，即返回true
+        return true;
+      }
+      index++;
+    }
+
+    // 遍历结束还没有通过测试，即返回false
+    return false;
+  };
 ```
 
 ## reduce
 
-### 功能
+### 需求
 
-`reduce()`方法对数组中的每个元素执行一个由您提供的`reducer`函数(升序执行)，将其结果汇总为单个返回值。
+`reduce()` 方法对数组中的每个元素执行一个由您提供的**reducer**函数(升序执行)，将其结果汇总为单个返回值。
 
-`reducer`函数接收 4 个参数:
+它接收两个参数，分别为`reducer`和`initialValue`。
 
-- Accumulator (`acc`) (累计器)
-- Current Value (`cur`) (当前值)
-- Current Index (`idx`) (当前索引)
-- Source Array (`src`) (源数组)
+- `callback`：为`reducer`函数，它接收四个参数：
 
-您的`reducer`函数的返回值分配给累计器，该返回值在数组的每个迭代中被记住，并最后成为最终的单个结果值。
+  - `accumulator`：累计器累计回调的返回值; 它是上一次调用回调时返回的累积值，或`initialValue`
 
-- 参数
-  - **`callback`** ： 执行数组中每个值 (如果没有提供`initialValue`则第一个值除外)的函数，包含四个参数：
-    - **`accumulator`** ：累计器累计回调的返回值; 它是上一次调用回调时返回的累积值，或`initialValue`
-    - **`currentValue`** ：数组中正在处理的元素
-    - **`index`**（可选） ：数组中正在处理的当前元素的索引。 如果提供了`initialValue`，则起始索引号为 0，否则从索引 1 起
-      始
-    - **`array`**（可选） ：`reduce()`方法正在操作的数组
-  - **`initialValue`**（可选） ：作为第一次调用`callback`函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第
-    一 个元素。 在没有初始值的空数组上调用`reduce`将报错
-- 返回值
-  - 函数累计处理的结果
+  - `currentValue`：数组中正在处理的元素
+
+  - `index`：可选，数组中正在处理的当前元素的索引。 如果提供了`initialValue`，则起始索引号为0，否则从索引1起始
+
+  - `array`：可选，调用`reduce()`的数组
+
+- `initialValue`：可选参数。作为第一次调用`callback`函数时第一个参数的值。如果没有提供初始值，则将使用数组中的第一个元素。 在没有初始值的空数组上调用`callback` 将报错。
+
+`reduce`会返回函数累计处理的结果。
 
 ### 实现
 
 ```javascript
 /**
- * Array.prototype._reduce
- * @returns <any>: 函数累计处理的结果
- * @param callback<function>: executor有四个参数：accumulator、currentValue、index和array
- * @param initialValue<any>: 作为第一次调用 callback函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第一个元素。 在没有初始值的空数组上调用 reduce 将报错
+ * 实现数组原型方法 some
+ * @author OUDUIDUI
+ * @param callback {(accumulator: *, currentValue: *, index?: number, array?: *[]) => *}
+ * @param initialValue {*}
+ * @returns {*}
  */
-Array.prototype._reduce = function (callback, initialValue) {
-  // 判断this不等于null
-  if (this === null) {
-    throw new TypeError('this is null or not defined');
-  }
-
-  // 判断callback是不是一个函数
-  if (typeof callback !== 'function') {
-    throw new TypeError(callback + ' is not a function');
-  }
-
-  const O = Object(this); // O === this
-  const len = O.length >>> 0; // 本质上就是保证x有意义（为数字类型），且为正整数，在有效的数组范围内（0 ～ 0xFFFFFFFF），且在无意义的情况下缺省值为0
-
-  let k = 0;
-  let acc;
-
-  if (arguments.length > 1) {
-    acc = initialValue;
-  } else {
-    // 没传入初始值的时候，取数组第一个非empty的值为初始值
-    while (k < len && !(k in O)) {
-      k++;
+const _reduce = function (callback, initialValue) {
+    // 判断this不等于null
+    if (this === null) {
+      throw new TypeError('this is null or not defined');
     }
-    if (k > len) {
+
+    // 判断callback是不是一个函数
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    const arr = this;
+    const len = arr.length;
+
+    // 在没有初始值的空数组上调用callback将报错
+    if (len === 0 && initialValue === undefined) {
       throw new TypeError('Reduce of empty array with no initial value');
     }
-    acc = O[k++]; // 后续遍历从k+1开始遍历
-  }
 
-  while (k < len) {
-    if (k in O) {
-      acc = callback.call(acc, O[k], k, O);
+    let index = 0;
+    let accumulator = initialValue;
+    // 没传入初始值的时候，取数组第一个值为初始值
+    if (initialValue === undefined) {
+      index = 1;
+      accumulator = arr[0];
     }
-    k++;
-  }
 
-  return acc;
-};
+    // 遍历调用
+    while (index < len) {
+      // 更新accumulator
+      accumulator = callback(accumulator, arr[index], index, arr);
+      index++;
+    }
+
+    // 返回累计处理的结果
+    return accumulator;
+  };
 ```
