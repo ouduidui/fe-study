@@ -10,27 +10,27 @@
 
 - [x] [7・实现 Readonly](./questions/7-easy-readonly/README.zh-CN.md)
 
-- [ ] [11・元组转换为对象](./questions/11-easy-tuple-to-object/README.zh-CN.md)
+- [x] [11・元组转换为对象](./questions/11-easy-tuple-to-object/README.zh-CN.md)
 
-- [ ] [14・第一个元素](./questions/14-easy-first/README.zh-CN.md)
+- [x] [14・第一个元素](./questions/14-easy-first/README.zh-CN.md)
 
-- [ ] [18・获取元组长度](./questions/18-easy-tuple-length/README.zh-CN.md)
+- [x] [18・获取元组长度](./questions/18-easy-tuple-length/README.zh-CN.md)
 
-- [ ] [43・Exclude](./questions/43-easy-exclude/README.zh-CN.md)
+- [x] [43・Exclude](./questions/43-easy-exclude/README.zh-CN.md)
 
-- [ ] [189・Awaited](./questions/189-easy-awaited/README.zh-CN.md)
+- [x] [189・Awaited](./questions/189-easy-awaited/README.zh-CN.md)
 
-- [ ] [268・If](./questions/268-easy-if/README.zh-CN.md)
+- [x] [268・If](./questions/268-easy-if/README.zh-CN.md)
 
-- [ ] [533・Concat](./questions/533-easy-concat/README.zh-CN.md)
+- [x] [533・Concat](./questions/533-easy-concat/README.zh-CN.md)
 
-- [ ] [898・Includes](./questions/898-easy-includes/README.zh-CN.md)
+- [x] [898・Includes](./questions/898-easy-includes/README.zh-CN.md)
 
-- [ ] [3057・Push](./questions/3057-easy-push/README.zh-CN.md)
+- [x] [3057・Push](./questions/3057-easy-push/README.zh-CN.md)
 
-- [ ] [3060・Unshift](./questions/3060-easy-unshift/README.zh-CN.md)
+- [x] [3060・Unshift](./questions/3060-easy-unshift/README.zh-CN.md)
 
-- [ ] [3312・Parameters](./questions/3312-easy-parameters/README.zh-CN.md)
+- [x] [3312・Parameters](./questions/3312-easy-parameters/README.zh-CN.md)
 
 ### 中等 64
 
