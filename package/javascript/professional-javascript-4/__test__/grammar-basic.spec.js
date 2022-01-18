@@ -123,7 +123,7 @@ describe('第三章 语言基础', () => {
 
   describe('3.4 数据类型', () => {
     it('七种数据类型', function () {
-      // 六种原始类型
+      // 六种原始类型 undefined null boolean number string symbol
       expect(typeof undefined).toBe('undefined');
       expect(typeof null).toBe('object'); // null实际上是空指针
       expect(typeof true).toBe('boolean');
@@ -131,9 +131,10 @@ describe('第三章 语言基础', () => {
       expect(typeof 'a').toBe('string');
       expect(typeof Symbol('foo')).toBe('symbol');
 
-      // 一种复杂数据类型
+      // 一种复杂数据类型 object
       expect(typeof {}).toBe('object');
       expect(typeof []).toBe('object');
+      expect(typeof (() => {})).toBe('function'); // function实质上也是一种特殊的对象
 
       // ES2020新类型 BigInt
       expect(typeof 10n).toBe('bigint');
@@ -160,6 +161,103 @@ describe('第三章 语言基础', () => {
           fn();
         }
         expect(fn).toBeCalledTimes(1);
+      });
+    });
+
+    describe('null', () => {
+      it('逻辑上讲，null值表示一个空对象指针', () => {
+        let msg = null;
+        expect(typeof msg).toBe('object');
+      });
+
+      it('在定义将要来保存对象值的变量时，建议使用null来初始化', () => {
+        let msg1 = null;
+        let msg2 = {};
+        const fn = jest.fn();
+        if (msg1) {
+          fn();
+        }
+        expect(fn).not.toBeCalled();
+        if (msg2) {
+          fn();
+        }
+        expect(fn).toBeCalledTimes(1);
+      });
+
+      it('undefined值是由null值派生而来', () => {
+        expect(undefined == null).toBe(true);
+        expect(undefined === null).toBe(false);
+      });
+    });
+
+    describe('boolean', () => {
+      it('要将一个其他类型的值转换为布尔值，可以调用特定的Boolean()转换函数', () => {
+        // 字符串
+        // 非空字符串 -> true
+        expect(Boolean('abc')).toBe(true);
+        // 空字符串 -> false
+        expect(Boolean('')).toBe(false);
+
+        // 数值
+        // 非零数值（包括无穷值） -> true
+        expect(Boolean(1)).toBe(true);
+        expect(Boolean(-1)).toBe(true);
+        expect(Boolean(Infinity)).toBe(true);
+        expect(Boolean(-Infinity)).toBe(true);
+        // 0\NaN  -> false
+        expect(Boolean(0)).toBe(false);
+        expect(Boolean(NaN)).toBe(false);
+
+        // 对象
+        // 任意对象 -> true
+        expect(Boolean({})).toBe(true);
+        expect(Boolean({ a: 1 })).toBe(true);
+        expect(Boolean([])).toBe(true);
+        expect(Boolean([1, 2, 3])).toBe(true);
+        expect(Boolean(() => {})).toBe(true);
+        // null -> false
+        expect(Boolean(null)).toBe(false);
+
+        // undefined -> false
+        expect(Boolean(undefined)).toBe(false);
+      });
+    });
+
+    describe('number', () => {
+      it('Number类型使用IEEE 754格式表示整数和浮点数（双精度值）', () => {
+        // 也是因为这个特性，才会导致 0.1 + 0.2 !== 0.3
+        expect(0.1 + 0.2).not.toBe(0.3);
+        // 因为浮动数转为双精度值，大部分都是需要被四舍五入，因此实际上存入的值跟原始值不同
+        expect(0.1).toBe(0.100000000000000005551115123126);
+      });
+
+      it('十进制、八进制、十六进制', () => {
+        expect(55).toBe(55); // 十进制
+        expect(0o70).toBe(56); // 八进制  0o + number
+        expect(0x1f).toBe(31); // 十六进制  0x + number
+      });
+
+      describe('浮点数', () => {
+        it('因为存储浮点数值使用的内存空间是存储整数值的两倍，所以小数点后没有数字的情况下，数值就会变成整数', () => {
+          expect(1).toBe(1);
+          expect(10.0).toBe(10);
+        });
+
+        it('科学计数法', () => {
+          expect(3.125e7).toBe(31250000);
+          expect(3e-7).toBe(0.0000003);
+        });
+      });
+
+      it('值的范围', () => {
+        expect(Number.MAX_VALUE).toBe(1.7976931348623157e308);
+        expect(Number.MIN_VALUE).toBe(5e-324);
+        expect(Number.MAX_SAFE_INTEGER).toBe(2 ** 53 - 1);
+        expect(Number.MIN_SAFE_INTEGER).toBe(-1 * (2 ** 53 - 1));
+        expect(Number.MAX_VALUE * 2).toBe(Infinity); // 无穷大
+        expect(-1 * Number.MAX_VALUE * 2).toBe(-Infinity); // 负无穷大
+        expect(Number.POSITIVE_INFINITY).toBe(Infinity);
+        expect(Number.NEGATIVE_INFINITY).toBe(-Infinity);
       });
     });
   });

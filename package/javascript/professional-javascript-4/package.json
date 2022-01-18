@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test:pj4": "jest --watch"
+  },
   "dependencies": {
     "jest": "^27.4.5"
   }
