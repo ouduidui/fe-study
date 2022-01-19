@@ -259,6 +259,131 @@ describe('第三章 语言基础', () => {
         expect(Number.POSITIVE_INFINITY).toBe(Infinity);
         expect(Number.NEGATIVE_INFINITY).toBe(-Infinity);
       });
+
+      describe('NaN', () => {
+        it('NaN用于表达本来要返回数值的操作失败了，而不是抛出错误', () => {
+          expect(0 / 0).toBe(NaN);
+          expect(-0 / +0).toBe(NaN);
+        });
+
+        it('NaN不等于包括NaN在内的任何值', () => {
+          expect(NaN === NaN).toBe(false);
+        });
+
+        it('isNaN()接收一个参数，可以是任意数据类型，然后判断这个参数是否"不是数值"', () => {
+          expect(isNaN(NaN)).toBe(true);
+          expect(isNaN(10)).toBe(false);
+          expect(isNaN('10')).toBe(false); // 可以转换为10
+          expect(isNaN('blue')).toBe(true); // 不可以转换为数值
+          expect(isNaN(true)).toBe(false); // 可以转换为 1
+        });
+      });
+
+      describe('数值转换', () => {
+        describe('Number()：可以用于任何数据类型', () => {
+          it('布尔值', () => {
+            expect(Number(true)).toBe(1); // true -> 1
+            expect(Number(false)).toBe(0); // false -> 0
+          });
+
+          it('数值', () => {
+            expect(Number(1)).toBe(1);
+          });
+
+          it('null', () => {
+            expect(Number(null)).toBe(0); // null -> 0
+          });
+
+          it('undefined', () => {
+            expect(Number(undefined)).toBe(NaN); // undefined -> NaN
+          });
+
+          it('字符串', () => {
+            // 如果字符串包含数值字符，包括数值字符前面带加、减号的情况，则转换为一个十进制数值
+            expect(Number('1')).toBe(1);
+            expect(Number('+1')).toBe(1);
+            expect(Number('-1')).toBe(-1);
+            expect(Number('01')).toBe(1); // 会忽略前面的零
+            expect(Number('3.125e7')).toBe(31250000); // 支持科学计数法
+
+            // 如果字符串包含有效的浮点数，则会转换为相应的浮点数
+            expect(Number('1.1')).toBe(1.1);
+            expect(Number('.1')).toBe(0.1);
+            expect(Number('00.1')).toBe(0.1); // 会忽略前面的零
+
+            // 如果字符串包含有效的八进制或十六进制，则会转换为与该八进制或十六进制值对象的十进制整数值
+            expect(Number('0xff')).toBe(255);
+            expect(Number('0o17')).toBe(15);
+
+            // 如果是空字符串，则返回0
+            expect(Number('')).toBe(0);
+
+            // 除此之外，则返回NaN
+            expect(Number('a')).toBe(NaN);
+            expect(Number('111a')).toBe(NaN);
+            expect(Number('a111')).toBe(NaN);
+            expect(Number('1a1')).toBe(NaN);
+          });
+
+          it('对象', () => {
+            // 调用valueOf方法，并按照上述规则转换返回的值。如果转换结果为NaN，则调用toString()方法，再按照转换字符串的规则转换
+            const obj = { a: 1 };
+            let res1 = Number(obj.valueOf());
+            isNaN(res1) && (res1 = Number(obj.toString()));
+            expect(Number(obj)).toBe(res1);
+            expect(Number(obj)).toBe(NaN);
+
+            const arr = [1];
+            let res2 = Number(arr.valueOf());
+            isNaN(res2) && (res2 = Number(obj.toString()));
+            expect(Number(arr)).toBe(res2);
+            expect(Number(arr)).toBe(1);
+          });
+        });
+
+        describe('parseInt()：只用于字符串转换，并且只能生成整数，不能生成浮点数', () => {
+          it('从第一个字符开始寻找，直至第一个非数值字符或加减符号为止', () => {
+            expect(parseInt('123')).toBe(123);
+            expect(parseInt('123a')).toBe(123);
+            expect(parseInt('12a3')).toBe(12);
+            expect(parseInt('1a23')).toBe(1);
+            expect(parseInt('3e7')).toBe(3); // 不支持科学计数法
+            expect(parseInt('a123')).toBe(NaN);
+            expect(parseInt('')).toBe(NaN);
+          });
+
+          it('遇到小数会转成整数', () => {
+            expect(parseInt('1.1')).toBe(1);
+            expect(parseInt('1.9')).toBe(1);
+            expect(parseInt('0.1')).toBe(0);
+            expect(parseInt('0.9')).toBe(0);
+            expect(parseInt('0.111a')).toBe(0);
+            expect(parseInt('3.125e7')).toBe(3); // 不支持科学计数法
+          });
+
+          it('支持非十进制转换', () => {
+            // 十六进制
+            expect(parseInt('0xA')).toBe(10);
+            expect(parseInt('A', 16)).toBe(10);
+            // 八进制
+            expect(parseInt('17', 8)).toBe(15);
+            // 二进制
+            expect(parseInt('10', 2)).toBe(2);
+          });
+        });
+
+        describe('parseFloat()：只用于字符串转换，可以生成整数，也可以生成浮点数', () => {
+          it('从第一个字符开始检测，解析到第一个无效浮点数值字符为止', () => {
+            expect(parseFloat('1234')).toBe(1234);
+            expect(parseFloat('1234a')).toBe(1234);
+            expect(parseFloat('12.34')).toBe(12.34);
+            expect(parseFloat('012.34')).toBe(12.34);
+            expect(parseFloat('.1234')).toBe(0.1234);
+            expect(parseFloat('1.2.3.4')).toBe(1.2);
+            expect(parseFloat('3.125e7')).toBe(31250000); // 支持科学计数法
+          });
+        });
+      });
     });
   });
 });
