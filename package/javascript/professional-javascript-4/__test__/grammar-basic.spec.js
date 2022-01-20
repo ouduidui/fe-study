@@ -385,5 +385,81 @@ describe('第三章 语言基础', () => {
         });
       });
     });
+
+    describe('string', () => {
+      describe('转换为字符串', () => {
+        it('toString()', () => {
+          expect((11).toString()).toBe('11');
+          expect(true.toString()).toBe('true');
+          expect('abc'.toString()).toBe('abc');
+          expect({ a: 1 }.toString()).toBe('[object Object]');
+
+          // undefined和null没有toString方法
+          expect(() => {
+            undefined.toString();
+          }).toThrowError(TypeError);
+          expect(() => {
+            null.toString();
+          }).toThrowError(TypeError);
+
+          // 对于字符串可以接收底数转进制
+          expect((10).toString()).toBe('10');
+          expect((10).toString(2)).toBe('1010');
+          expect((10).toString(8)).toBe('12');
+          expect((10).toString(10)).toBe('10');
+          expect((10).toString(16)).toBe('a');
+        });
+
+        it('String()', () => {
+          expect(String(10)).toBe('10');
+          expect(String('a')).toBe('a');
+          expect(String(true)).toBe('true');
+          expect(String(undefined)).toBe('undefined');
+          expect(String(null)).toBe('null');
+          expect(String({})).toBe('[object Object]');
+        });
+      });
+
+      describe('模板字面量', () => {
+        it('模板字面量保留换行字符，可以跨行定义字符串', () => {
+          const str1 = 'Hello\nWorld';
+          const str2 = `Hello
+World`;
+          expect(str1).toBe(str2);
+
+          const str3 = `
+HelloWorld`;
+          expect(str3[0]).toBe('\n');
+        });
+
+        it('支持字符串插值', () => {
+          let person = 'OUDUIDUI';
+          let sayHi = `Hello, ${person}`;
+          expect(sayHi).toBe('Hello, OUDUIDUI');
+
+          // 变量为非字符串类型会自动调用toString
+          person = { toString: () => 'OUDUIDUI' };
+          sayHi = `Hello, ${person}`;
+          expect(sayHi).toBe('Hello, OUDUIDUI');
+
+          // 在插槽中可以调用函数和方法
+          person = (name) => name;
+          sayHi = `Hello, ${person('OUDUIDUI')}`;
+          expect(sayHi).toBe('Hello, OUDUIDUI');
+        });
+
+        it('标签函数', () => {
+          const getSum = (a, b) => {
+            return `${a} + ${b} = ${a + b}`;
+          };
+          expect(getSum(1, 2)).toBe('1 + 2 = 3');
+        });
+      });
+
+      describe('原始字符串', () => {
+        expect('\u00A9').toBe('©');
+        expect(String.raw`\u00A9`).toBe('\\u00A9');
+      });
+    });
   });
 });
