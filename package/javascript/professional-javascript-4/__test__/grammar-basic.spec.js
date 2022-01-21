@@ -15,6 +15,7 @@ describe('第三章 语言基础', () => {
           function test() {
             var message = 'hi'; // 局部变量
           }
+
           test();
           // 访问不到message
           expect(() => message).toThrow(ReferenceError); // Uncaught ReferenceError: message is not defined
@@ -24,6 +25,7 @@ describe('第三章 语言基础', () => {
           function test() {
             message = 'hi'; // 局部变量
           }
+
           test();
           // 访问不到message
           expect(message).toBe('hi');
@@ -459,6 +461,92 @@ HelloWorld`;
       describe('原始字符串', () => {
         expect('\u00A9').toBe('©');
         expect(String.raw`\u00A9`).toBe('\\u00A9');
+      });
+    });
+
+    describe('symbol', () => {
+      it('符号示例是唯一、不可变的', function () {
+        const s1 = Symbol('abc');
+        const s2 = Symbol('abc');
+        expect(s1).not.toBe(s2);
+      });
+
+      it('Symbol函数不能与new关键字一起作为构造函数使用', () => {
+        expect(() => new Symbol()).toThrow(TypeError); // TypeError: Symbol is not a constructor
+      });
+
+      it('全局注册表', () => {
+        const s1 = Symbol.for('foo');
+        const s2 = Symbol.for('foo');
+        expect(s1).toBe(s2);
+
+        // 全局注册表定义的符号跟Symbol()定义的符号也并不等同
+        const s3 = Symbol('foo');
+        expect(s1).not.toBe(s3);
+        expect(s2).not.toBe(s3);
+
+        // 查询全局注册表
+        expect(Symbol.keyFor(s1)).toBe('foo');
+        expect(Symbol.keyFor(s2)).toBe('foo');
+        expect(Symbol.keyFor(s3)).toBe(undefined);
+      });
+
+      it('凡是可以使用字符串或字符作为属性的地方，都可以使用符号', () => {
+        const s1 = Symbol('foo');
+        const obj = { [s1]: 'foo', baz: 'baz' };
+        expect(obj[s1]).toBe('foo');
+
+        const s2 = Symbol('bar');
+        Object.defineProperty(obj, s2, { value: 'bar' });
+        expect(obj[s2]).toBe('bar');
+
+        // getOwnPropertyNames 返回常规属性数组
+        expect(Object.getOwnPropertyNames(obj)).toStrictEqual(['baz']);
+        // getOwnPropertySymbols 返回符号属性数组
+        expect(Object.getOwnPropertySymbols(obj)).toStrictEqual([s1, s2]);
+        // Object.getOwnPropertyDescriptors 返回包含常规和符号属性描述符的对象
+        expect(Object.getOwnPropertyDescriptors(obj)).toStrictEqual({
+          baz: { configurable: true, enumerable: true, value: 'baz', writable: true },
+          [s1]: { configurable: true, enumerable: true, value: 'foo', writable: true },
+          [s2]: { configurable: false, enumerable: false, value: 'bar', writable: false }
+        });
+        // Reflect.ownKeys 返回两种类型的键
+        expect(Reflect.ownKeys(obj)).toStrictEqual(['baz', s1, s2]);
+      });
+
+      describe('常用内置符号', () => {
+        it('Symbol.asyncIterator', (done) => {
+          // 一个方法，该方法返回对象默认的AsyncIterator，由for-await-of语句使用
+          // 这个符号表示实现异步迭代器API的函数
+          class Emitter {
+            constructor(max) {
+              this.max = max;
+              this.asyncIdx = 0;
+            }
+
+            async *[Symbol.asyncIterator]() {
+              while (this.asyncIdx < this.max) {
+                yield new Promise((resolve) => resolve(this.asyncIdx++));
+              }
+            }
+          }
+
+          async function asyncCount() {
+            let emitter = new Emitter(5);
+            expect(typeof emitter[Symbol.asyncIterator]).toBe('function');
+
+            let i = 0;
+
+            for await (const x of emitter) {
+              expect(x).toBe(i++);
+              if (i === 5) {
+                done();
+              }
+            }
+          }
+
+          asyncCount();
+        });
       });
     });
   });
