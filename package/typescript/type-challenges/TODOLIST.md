@@ -34,41 +34,41 @@
 
 ### 中等 64
 
-- [ ] [2・获取函数返回类型](./questions/2-medium-return-type/README.zh-CN.md)
+- [x] [2・获取函数返回类型](./questions/2-medium-return-type/README.zh-CN.md)
 
-- [ ] [3・实现 Omit](./questions/3-medium-omit/README.zh-CN.md)
+- [x] [3・实现 Omit](./questions/3-medium-omit/README.zh-CN.md)
 
-- [ ] [8・Readonly 2](./questions/8-medium-readonly-2/README.zh-CN.md)
+- [x] [8・Readonly 2](./questions/8-medium-readonly-2/README.zh-CN.md)
 
-- [ ] [9・深度 Readonly](./questions/9-medium-deep-readonly/README.zh-CN.md)
+- [x] [9・深度 Readonly](./questions/9-medium-deep-readonly/README.zh-CN.md)
 
-- [ ] [10・元组转合集](./questions/10-medium-tuple-to-union/README.zh-CN.md)
+- [x] [10・元组转合集](./questions/10-medium-tuple-to-union/README.zh-CN.md)
 
-- [ ] [12・可串联构造器](./questions/12-medium-chainable-options/README.zh-CN.md)
+- [x] [12・可串联构造器](./questions/12-medium-chainable-options/README.zh-CN.md)
 
-- [ ] [15・最后一个元素](./questions/15-medium-last/README.zh-CN.md)
+- [x] [15・最后一个元素](./questions/15-medium-last/README.zh-CN.md)
 
-- [ ] [16・出堆](./questions/16-medium-pop/README.zh-CN.md)
+- [x] [16・出堆](./questions/16-medium-pop/README.zh-CN.md)
 
-- [ ] [20・Promise.all](./questions/20-medium-promise-all/README.zh-CN.md)
+- [x] [20・Promise.all](./questions/20-medium-promise-all/README.zh-CN.md)
 
-- [ ] [62・Type Lookup](./questions/62-medium-type-lookup/README.zh-CN.md)
+- [x] [62・Type Lookup](./questions/62-medium-type-lookup/README.zh-CN.md)
 
-- [ ] [106・Trim Left](./questions/106-medium-trimleft/README.zh-CN.md)
+- [x] [106・Trim Left](./questions/106-medium-trimleft/README.zh-CN.md)
 
-- [ ] [108・Trim](./questions/108-medium-trim/README.md)
+- [x] [108・Trim](./questions/108-medium-trim/README.md)
 
-- [ ] [110・Capitalize](./questions/110-medium-capitalize/README.md)
+- [x] [110・Capitalize](./questions/110-medium-capitalize/README.md)
 
-- [ ] [116・Replace](./questions/116-medium-replace/README.md)
+- [x] [116・Replace](./questions/116-medium-replace/README.md)
 
-- [ ] [119・ReplaceAll](./questions/119-medium-replaceall/README.md)
+- [x] [119・ReplaceAll](./questions/119-medium-replaceall/README.md)
 
-- [ ] [191・追加参数](./questions/191-medium-append-argument/README.zh-CN.md)
+- [x] [191・追加参数](./questions/191-medium-append-argument/README.zh-CN.md)
 
-- [ ] [296・Permutation](./questions/296-medium-permutation/README.md)
+- [x] [296・Permutation](./questions/296-medium-permutation/README.md)
 
-- [ ] [298・Length of String](./questions/298-medium-length-of-string/README.md)
+- [x] [298・Length of String](./questions/298-medium-length-of-string/README.md)
 
 - [ ] [459・Flatten](./questions/459-medium-flatten/README.zh-CN.md)
 

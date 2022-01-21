@@ -1,4 +1,5 @@
 import { Equal, Expect } from '@type-challenges/utils';
+import { LengthOfString } from './template';
 
 type cases = [
   Expect<Equal<LengthOfString<''>, 0>>,
