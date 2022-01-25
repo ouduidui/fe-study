@@ -515,8 +515,7 @@ HelloWorld`;
       });
 
       describe('常用内置符号', () => {
-        it('Symbol.asyncIterator', (done) => {
-          // 一个方法，该方法返回对象默认的AsyncIterator，由for-await-of语句使用
+        it('Symbol.asyncIterator：一个方法，该方法返回对象默认的AsyncIterator，由for-await-of语句使用', (done) => {
           // 这个符号表示实现异步迭代器API的函数
           class Emitter {
             constructor(max) {
@@ -547,6 +546,213 @@ HelloWorld`;
 
           asyncCount();
         });
+
+        it('Symbol.hasInstance： 一个方法，该方法决定一个构造函数对象是否认可一个对象是它的实例，由instanceof操作符使用', () => {
+          class Bar {}
+          const a = new Bar();
+          expect(a instanceof Bar).toBe(true);
+          expect(Bar[Symbol.hasInstance](a)).toBe(true);
+
+          class Baz extends Bar {
+            static [Symbol.hasInstance]() {
+              return false;
+            }
+          }
+          const b = new Baz();
+          expect(Bar[Symbol.hasInstance](b)).toBe(true);
+          expect(Baz[Symbol.hasInstance](b)).toBe(false);
+        });
+
+        it('Symbol.isConcatSpreadable：一个布尔值，如果是true，则意味对象应该用Array.prototype.concat()打平其数组对象', () => {
+          let arr1 = ['foo'];
+          let arr2 = ['bar'];
+          expect(arr1.concat(arr2)).toStrictEqual(['foo', 'bar']);
+          arr2[Symbol.isConcatSpreadable] = false;
+          expect(arr1.concat(arr2)).toStrictEqual(['foo', arr2]); // ['foo', ['bar']]
+
+          let arrLikeObject = { length: 1, 0: 'baz' };
+          expect(arrLikeObject[Symbol.isConcatSpreadable]).toBe(undefined);
+          expect(arr1.concat(arrLikeObject)).toStrictEqual(['foo', arrLikeObject]); //  ['foo', {length: 1, 0: 'baz'}]
+          arrLikeObject[Symbol.isConcatSpreadable] = true;
+          expect(arr1.concat(arrLikeObject)).toStrictEqual(['foo', 'baz']);
+        });
+
+        it('Symbol.iterator：一个方法，该方法返回对象默认的迭代器', () => {
+          class Emitter {
+            constructor(max) {
+              this.max = max;
+              this.idx = 0;
+            }
+
+            *[Symbol.iterator]() {
+              while (this.idx < this.max) {
+                yield this.idx++;
+              }
+            }
+          }
+
+          const emitter = new Emitter(5);
+
+          let expected = 0;
+          for (const x of emitter) {
+            expect(x).toBe(expected++);
+          }
+        });
+
+        it('Symbol.match：一个正则表达式方法，该方法用正则表达式去匹配字符串。由String.prototype.match()方法使用', () => {
+          expect('foobar'.match(/bar/)[0]).toBe('bar');
+
+          class FooMatch {
+            static [Symbol.match](target) {
+              return target.includes('foo');
+            }
+          }
+          expect('foobar'.match(FooMatch)).toBe(true);
+          expect('barbaz'.match(FooMatch)).toBe(false);
+        });
+
+        it('Symbol.replace：一个正则表达式方法，该方法替换一个字符串匹配的子串。由String.prototype.replace()方法使用', () => {
+          expect('foobarbaz'.replace(/bar/, 'qux')).toBe('fooquxbaz');
+
+          class FooReplacer {
+            static [Symbol.replace](target, replacement) {
+              return target.split('foo').join(replacement);
+            }
+          }
+          expect('barfoobaz'.replace(FooReplacer, 'qux')).toBe('barquxbaz');
+        });
+
+        it('Symbol.search：一个正则表达式方法，该方法返回字符串中匹配正则表达式的索引。由String.prototype.search()方法使用', () => {
+          expect('foobar'.search(/bar/)).toBe(3);
+
+          class FooSearcher {
+            static [Symbol.search](target) {
+              return target.indexOf('foo');
+            }
+          }
+          expect('foobar'.search(FooSearcher)).toBe(0);
+        });
+
+        it('Symbol.species：一个函数值，该函数作为创建派生对象的构建函数', () => {
+          class Bar extends Array {}
+          class Baz extends Array {
+            // 常用于对内置类型实例方法的返回值暴露实例化派生对象
+            // 用Symbol.species定义静态的获取器(get)方法，可以覆盖新创建的实例的原型定义
+            static get [Symbol.species]() {
+              return Array;
+            }
+          }
+          let bar = new Bar();
+          expect(bar instanceof Array).toBe(true);
+          expect(bar instanceof Bar).toBe(true);
+          bar = bar.concat(bar);
+          expect(bar instanceof Array).toBe(true);
+          expect(bar instanceof Bar).toBe(true);
+
+          let baz = new Baz();
+          expect(baz instanceof Array).toBe(true);
+          expect(baz instanceof Baz).toBe(true);
+          baz = baz.concat(baz);
+          expect(baz instanceof Array).toBe(true);
+          expect(baz instanceof Baz).toBe(false);
+        });
+
+        it('Symbol.split：一个正则表达式方法，该方法在匹配正则表达式的索引位置拆分字符串。由String.prototype.split()方法使用', () => {
+          expect('foobarbaz'.split(/bar/)).toStrictEqual(['foo', 'baz']);
+
+          class FooSplitter {
+            static [Symbol.split](target) {
+              return target.split('foo');
+            }
+          }
+          expect('barfoobaz'.split(FooSplitter)).toStrictEqual(['bar', 'baz']);
+        });
+
+        it('Symbol.toPrimitive：一个方法，该方法将对象转换为相应的原始值。由ToPrimitive抽象操作使用', () => {
+          class Foo {}
+          let foo = new Foo();
+          expect(3 + foo).toBe('3[object Object]');
+          expect(3 - foo).toBe(NaN);
+          expect(String(foo)).toBe('[object Object]');
+
+          class Bar {
+            constructor() {
+              this[Symbol.toPrimitive] = function (hint) {
+                switch (hint) {
+                  case 'number':
+                    return 3;
+                  case 'string':
+                    return 'string bar';
+                  case 'default':
+                  default:
+                    return 'default bar';
+                }
+              };
+            }
+          }
+          let bar = new Bar();
+          expect(3 + bar).toBe('3default bar');
+          expect(3 - bar).toBe(0);
+          expect(String(bar)).toBe('string bar');
+        });
+
+        it('Symbol.toStringTag：一个字符串，该字符串用于创建对象的默认字符串描述。由内置方法Object.prototype.toString()使用', () => {
+          const s = new Set();
+          expect(s.toString()).toBe('[object Set]');
+          expect(s[Symbol.toStringTag]).toBe('Set');
+
+          class Foo {}
+          const foo = new Foo();
+          expect(foo.toString()).toBe('[object Object]');
+          expect(foo[Symbol.toStringTag]).toBe(undefined);
+
+          class Bar {
+            constructor() {
+              this[Symbol.toStringTag] = 'Bar';
+            }
+          }
+          const bar = new Bar();
+          expect(bar.toString()).toBe('[object Bar]');
+          expect(bar[Symbol.toStringTag]).toBe('Bar');
+        });
+
+        it('Symbol.unscopables：一个对象，该对象所有的以及继承的属性，都会从关联对象的with环境绑定中排除', () => {
+          // const o = { foo: 'bar' };
+          //
+          // with (o) {
+          //   expect(foo).toBe('bar');
+          // }
+          //
+          // o[Symbol.unscopables] = {
+          //   foo: true
+          // };
+          //
+          // with (o) {
+          //   expect(() => foo).toThrowError(TypeError);
+          // }
+        });
+      });
+    });
+
+    describe('object', () => {
+      const obj = new Object();
+      obj.a = 1;
+
+      it('原型属性和方法', () => {
+        // constructor 指向用于创建对象的函数
+        expect(obj.constructor).toBe(Object);
+        // hasOwnProperty 用于判断当前对象实例（不是原型）上是否存在给定的属性
+        expect(obj.hasOwnProperty('a')).toBe(true);
+        // isPrototypeOf 用于判断当前对象是否为另一个对象的原型
+        expect(Object.prototype.isPrototypeOf(obj)).toBe(true);
+        // propertyIsEnumerable 用于判断给定的属性是否可以使用
+        expect(obj.propertyIsEnumerable('a')).toBe(true);
+        // toLocaleString 返回对象的字符串表示，该字符串反映对象所在的本地化执行环境
+        expect(obj.toLocaleString()).toBe('[object Object]');
+        // toString 返回对象的字符串表示
+        expect(obj.toString()).toBe('[object Object]');
+        // valueOf 返回对象对应的原始值
+        expect(obj.valueOf()).toBe(obj);
       });
     });
   });
