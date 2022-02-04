@@ -5,4 +5,5 @@
 - [设计原则](./docs/design_principles.md)
 - [单例模式](./packages/singleton/README.md)
 - [工厂模式](./packages/factory/README.md)
-- [抽象工厂模式](./packages/abstract_factory/README.md)
+- [抽象工厂模式](./packages/abstract-factory/README.md)
+- [代理模式](./packages/proxy/README.md)
