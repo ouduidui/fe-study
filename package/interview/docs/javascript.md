@@ -200,3 +200,130 @@ fraction 就是科学计数法后的小数部分，而因为 fraction 占 52 位
 ```
 
 但此时将这个 IEEE 754 标准的数值转成十进制，可以发现值已经变成了`0.100000000000000005551115123126`，而不是`0.1`了。
+
+### 类型转换的原理
+
+**类型转换**指的是将一种类型转换成另一种类型，例如：
+
+```javascript
+const b = 2;
+const a = String(b);
+console.log(typeof a); // string
+```
+
+**类型转换**分为显式和隐式，但是不管哪一种，都会遵循一定的原理。由于 JavaScript 是一门动态类型的语言，可以随时赋予任意值
+，但是各种运算符或条件判断中是需要特定类型的，因此 JavaScript 引擎会在运算时为变量设定类型。
+
+虽然这看起来很美好，JavaScript 引擎帮我们搞定了类型的问题，但是引擎毕竟不是 ASI（超级人工智能），它的很多动作会跟我们的
+预期相去甚远，我们可以从一道面试题看起：
+
+```javascript
+console.log({} + []); // 0
+```
+
+JavaScript 类型转换可以从**原始类型**转为**引用类型**，同样可以将**引用类型**转成**原始类型**，而转为原始类型的抽象操作
+为`toPrimitive`，而后续更加细分的操作为`toNumber`、`toString`、`toBoolean`。
+
+为了更深入的探究 JavaScript 引擎是如何处理代码中的类型转换问题，就需要看 ECMA-262 详细的规范，从而探究其内部原理，我们从
+这段原理示意代码开始：
+
+```javascript
+// ECMA-262, section 9.1, page 30. Use null/undefined for no hint,
+// (1) for number hint, and (2) for string hint.
+function ToPrimitive(x, hint) {
+  // Fast case check.
+  if (IS_STRING(x)) return x;
+  // Normal behavior.
+  if (!IS_SPEC_OBJECT(x)) return x;
+  if (IS_SYMBOL_WRAPPER(x)) throw MakeTypeError(kSymbolToPrimitive);
+  if (hint == NO_HINT) hint = (IS_DATE(x)) ? STRING_HINT : NUMBER_HINT;
+  return (hint == NUMBER_HINT) ? DefaultNumber(x) : DefaultString(x);
+}
+
+// ECMA-262, section 8.6.2.6, page 28.
+function DefaultNumber(x) {
+  if (!IS_SYMBOL_WRAPPER(x)) {
+    var valueOf = x.valueOf;
+    if (IS_SPEC_FUNCTION(valueOf)) {
+      var v = %_CallFunction(x, valueOf);
+      if (IsPrimitive(v)) return v; }
+    var toString = x.toString;
+    if (IS_SPEC_FUNCTION(toString)) {
+      var s = %_CallFunction(x, toString);
+      if (IsPrimitive(s)) return s; }
+  }
+  throw MakeTypeError(kCannotConvertToPrimitive);
+}
+
+// ECMA-262, section 8.6.2.6, page 28.
+function DefaultString(x) {
+  if (!IS_SYMBOL_WRAPPER(x)) {
+    var toString = x.toString;
+    if (IS_SPEC_FUNCTION(toString)) {
+      var s = %_CallFunction(x, toString);
+      if (IsPrimitive(s)) return s; }
+    var valueOf = x.valueOf;
+    if (IS_SPEC_FUNCTION(valueOf)) {
+      var v = %_CallFunction(x, valueOf);
+      if (IsPrimitive(v)) return v; }
+  }
+  throw MakeTypeError(kCannotConvertToPrimitive);
+}
+```
+
+上面的代码逻辑是这样的：
+
+- 如果变量是字符串，直接返回
+
+- 如果`!IS_SPEC_OBJECT(x)`，直接返回
+
+- 如果`IS_SYMBOL_WRAPPER(x)`，则抛出错误
+
+- 否则会根据传入的`hint`来调用`DefaultNumber`和`DefaultString`，比如如果是`Date`对象，会调用会`DefaultString`
+  
+  - `DefaultNumber`：首先`x.valueOf`，如果为`primitive`，则返回`valueOf`后的值，否则继续调用`x.toString`，如果
+    为`primitive`，则返回`toString`后的值，否则抛出异常
+  
+  - `DefaultString`和`DefaultNumber`正好相反，先调用`toString`，如果不是`primitive`再调用`valueOf`
+
+那讲完实现原理，这个`toPrimitive`有什么用呢？实际上很多操作会调用`toPrimitive`，比如加运算、相等操作或比较操作等。在执行
+加运算操作时就会将左右的操作数转换为`primitive`，然后再进行相加。
+
+下面来个实例：`({}) + 1`会输出什么？（将`{}` 放在括号里是为了让内核将其认为一个代码块）
+
+加操作只会左右两边同时为 string 或 number 时才会执行对应的`%_StringAdd`或`%_NumberAdd`，而上面的例子会经过以下步骤：
+
+- `{}`和`1`首先会同时调用`toPrimitive`函数
+
+- 而`{}`会走到`DefaultNumber`，首先调用`valueOf`，返回`{}`对象，不是 primitive 类型，则继续调用`toString`，返
+  回`[object object]`字符串
+
+- 因此最后`({})+1`转换成了`'[object object]' + 1`，最后输出为字符串`'[object object]1'`
+
+如果是`[]+1`的话，则最后结果为字符串`'1'`，因为`[]`执行`toPrimitive`的结果是空字符串。
+
+### 对原型链的理解
+
+绝大部分的函数（少数内建函数除外）都有一个`prototype`属性，这个属性是原型对象用来创建新对象实例的，而所有被创建的对象都
+会共享原型对象，因此这些对象都可以访问原型对象的属性。
+
+例如`hasOwnProperty()`方法就存在于 Object 原型对象中，它便可以被任何对象当做自己的方法使用。
+
+```javascript
+const person = {
+  name: 'OUDUIDUI',
+  age: 29
+};
+console.log(person.hasOwnProperty('name')); // true
+console.log(person.hasOwnProperty('hasOwnProperty')); // false
+console.log(person.prototype.hasOwnProperty('hasOwnProperty')); // true
+```
+
+由上面的代码可知，`hasOwnProperty`并不存在于`person`对象中，但是`person`依然可以拥有此方法。而`person`对象找到`Object`对
+象中的`hasOwnProperty`方法靠的就是原型链。
+
+每个对象都有`__proto__`属性，此属性指向该独享的构造函数的原型。
+
+对象可以通过`__proto__`与上游的构造函数的原型对象连接起来，而上游的原型对象也有一个`__proto__`，这样也就形成了原型链。
+
+![](../assets/images/prototype-list.jpg)

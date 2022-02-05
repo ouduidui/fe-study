@@ -74,25 +74,25 @@ DOCTYPE 是 HTML 的标准网页声明，且必须声明在 HTML 文档的第一
 面刷新等。
 
 - charset：用于描述 HTML 文档的编码格式
-
+  
   ```html
   <meta chartset="UTF-8" />
   ```
 
 - http-equiv：相当于 http 的文件头作用，比如下面的代码可以设置 http 的缓存过期时间
-
+  
   ```html
   <meta http-equiv="expires" content="Sun Jan 09 2022 15:26:11 GMT+0800" />
   ```
 
 - viewport：控制视口的大小和比例
-
+  
   ```html
   <meta name="viewport" content="width=device-width initial-scale=1 maximun-scale=1" />
   ```
 
 - apple-mobile-web-app-status-bar-style：设置苹果手机状态栏背景颜色
-
+  
   ```html
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   ```
@@ -160,31 +160,30 @@ DOCTYPE 是 HTML 的标准网页声明，且必须声明在 HTML 文档的第一
 ### 前端存储方式
 
 - cookie
-
+  
   - 在 HTML5 标准前本地存储的主要方式
-
+  
   - 优点是兼容性好，请求头自带 cookies
-
+  
   - 缺点是大小只有 4k，自动请求头加入 cookie 浪费流量，每个 domain 限制 20 个 cookie，使用起来麻烦，需要自行封装
 
 - localStorage
-
+  
   - HTML5 加入的以键值对为标准的方式
-
+  
   - 优点是操作方便，永久性存储（触发手动删除），大小为 5M，兼容 IE8+
 
 - sessionStorage
-
+  
   - 与 localStorage 基本类似，区别是 sessionStorage 当前页面关闭后会被清理，而且与 cookie、localStorage 不同的是，它不能
     在所有同源窗口中共享，是会话级别的存储方式
 
 - Web SQL
-
+  
   - 2010 年被 W3C 废弃的本地数据库存储方案，但是主流浏览器（火狐除外）都已经有了相关实现
-
+  
   - Web SQL 类似 SQLite，是真正意义上的关系型数据库，用 SQL 进行操作，当我们用 JavaScript 时要进行转换，较为繁琐
 
 - IndexedDB
-
-  - 是被正式纳入 HTML5 标准的数据库存储方案，它是 NoSQL 数据库，用键值对进行存储，可以进行快速读取操作，非常适合 Web 场
-    景，同时用 JavaScript 进行操作会非常方便
+  
+  - 是被正式纳入 HTML5 标准的数据库存储方案，它是 NoSQL 数据库，用键值对进行存储，可以进行快速读取操作，非常适合 Web 场景，同时用 JavaScript 进行操作会非常方便
