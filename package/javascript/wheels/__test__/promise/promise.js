@@ -1,4 +1,4 @@
-const Promise = require('../../src/others/promise/Promise');
+const Promise = require('../../src/promise/api/index');
 
 /**
  * Promise/A+测试
