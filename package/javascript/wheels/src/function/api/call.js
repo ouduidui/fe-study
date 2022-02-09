@@ -1,28 +1,29 @@
 /**
- * @param context {object} this上下文
+ * 实现函数原生方法 call
+ * @param thisArg {*} this上下文
  * @param args {*[]} 参数
  * @return {*}
  */
-function _call(context, ...args) {
-  // 处理没有传this的情况
-  if (!context) {
-    context = typeof window !== 'undefined' ? window : global;
+function _call(thisArg, ...args) {
+  // 如果没有传thisArg默认为全局
+  if (!thisArg) {
+    thisArg = window !== undefined ? window : global;
   }
-  // context有可能传的不是对象
-  context = Object(context);
 
-  // 用Symbol生成唯一的key
-  const fn = Symbol();
-  // 将函数赋值到context上
-  context[fn] = this;
+  // 有可能thisArg传的不是对象
+  thisArg = Object(thisArg);
 
-  // 调用函数，并获取返回值
-  const res = context[fn](...args);
-  // 在上下文中删除函数
-  delete context[fn];
+  // 使用Symbol确保唯一值
+  const fnKey = Symbol();
+  // 将函数绑定到thisArg上
+  thisArg[fnKey] = this;
 
-  // 返回结果
-  return res;
+  // 调用函数
+  const result = thisArg[fnKey](...args);
+  // 删除函数
+  delete thisArg[fnKey];
+
+  return result;
 }
 
 module.exports = _call;

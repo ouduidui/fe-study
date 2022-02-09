@@ -1,6 +1,6 @@
 /**
  * 实现数组原型方法 some
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(accumulator: *, currentValue: *, index?: number, array?: *[]) => *}
  * @param initialValue {*}
  * @returns {*}

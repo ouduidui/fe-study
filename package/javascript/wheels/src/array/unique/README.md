@@ -18,7 +18,7 @@ console.log(unique(arr))  // [1, 2, 3, 'a', 'b', 'c', 'e', {a: 1}, {a: 1}]
 ```javascript
 /**
  * for + splice 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */
@@ -41,7 +41,7 @@ function unique(arr) {
 ```javascript
 /**
  * indexOf | include 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */
@@ -60,7 +60,7 @@ function unique(arr) {
 ```javascript
 /**
  * filter + indexOf 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */
@@ -74,7 +74,7 @@ function unique(arr) {
 ```javascript
 /**
  * reduce + includes 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */
@@ -93,7 +93,7 @@ function unique(arr) {
 ```javascript
 /**
  * ES6 Set 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */

@@ -97,6 +97,23 @@ describe('节流', () => {
     }, 2000);
   });
 
+  it('复杂版 - 不立即执行但最后额外触发一次', (done) => {
+    const fn = jest.fn();
+
+    const throttle = complexThrottle(fn, 2000, {
+      leading: false,
+      trailing: true
+    });
+
+    throttle();
+    expect(fn).toHaveBeenCalledTimes(0);
+
+    setTimeout(() => {
+      expect(fn).toHaveBeenCalledTimes(1);
+      done();
+    }, 2000);
+  });
+
   it('复杂版 - 取消执行', (done) => {
     const fn = jest.fn();
 

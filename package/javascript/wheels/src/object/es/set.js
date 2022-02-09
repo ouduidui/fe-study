@@ -1,11 +1,15 @@
+/**
+ * 实现 Set
+ * @author 欧怼怼
+ * @param values {*[]}
+ * @returns {Set}
+ */
 class Set {
-  /**
-   * @param values {any[]}
-   */
   constructor(values) {
     this._values = [];
     this.size = 0;
 
+    // 迭代属性
     this[Symbol.iterator] = this.values;
 
     values.length && values.forEach((v) => this.add(v));
@@ -32,23 +36,40 @@ class Set {
     return this;
   }
 
+  /**
+   * 删除
+   * @param value
+   * @return {boolean}
+   */
   delete(value) {
-    if (this.has(value)) {
+    const hasValue = this.has(value);
+    if (hasValue) {
       this._values = this._values.filter((v) => v !== value);
       this.size--;
     }
-    return this;
+    return hasValue;
   }
 
+  /**
+   * 清空
+   */
   clear() {
     this._values = [];
     this.size = 0;
   }
 
+  /**
+   * 获取values组成的迭代器
+   * @return {Generator<*, void, *>}
+   */
   values() {
     return this._createIterator([...this._values]);
   }
 
+  /**
+   * 返回一个新的迭代器对象
+   * @return {Generator<*, void, *>}
+   */
   entries() {
     const entries = [];
     for (let value of this._values) {
@@ -58,10 +79,15 @@ class Set {
     return this._createIterator(entries);
   }
 
-  forEach(callback, context = {}) {
+  /**
+   * 遍历
+   * @param callback
+   * @param thisArg
+   */
+  forEach(callback, thisArg = {}) {
     for (let i = 0; i < this._values.length; i++) {
       const value = this._values[i];
-      callback.call(context, value, i, this);
+      callback.call(thisArg, value, i, this);
     }
   }
 

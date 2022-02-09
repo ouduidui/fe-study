@@ -25,7 +25,7 @@
 ```javascript
 /**
  * 实现 _forEach
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => void}
  * @param thisArg {object | undefined}
  * @returns {void}
@@ -69,7 +69,7 @@ const _forEach = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 map
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => *}
  * @param thisArg {object | undefined}
  * @returns {*[]}
@@ -118,7 +118,7 @@ const _map = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 filter
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {*[]}
@@ -167,7 +167,7 @@ const _filter = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 find
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {*}
@@ -216,7 +216,7 @@ const _find = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 findIndex
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {number}
@@ -265,7 +265,7 @@ const _findIndex = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 every
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {boolean}
@@ -313,7 +313,7 @@ const _every = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 some
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {boolean}
@@ -373,7 +373,7 @@ const _some = function (callback, thisArg) {
 ```javascript
 /**
  * 实现数组原型方法 some
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(accumulator: *, currentValue: *, index?: number, array?: *[]) => *}
  * @param initialValue {*}
  * @returns {*}

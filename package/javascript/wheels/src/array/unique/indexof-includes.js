@@ -1,6 +1,6 @@
 /**
  * indexOf | include 实现数组去重
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param arr {*[]}
  * @returns {*[]}
  */

@@ -1,4 +1,4 @@
-const EventBus = require('../../src/function/event-bus');
+const EventBus = require('../../src/others/event-bus');
 
 describe('事件总线', () => {
   it('on', () => {

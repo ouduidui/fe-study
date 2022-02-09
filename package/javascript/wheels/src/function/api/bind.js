@@ -1,35 +1,37 @@
 /**
- * @param context {object} this上下文
+ * 实现函数原生方法 bind
+ * @author 欧怼怼
+ * @param thisArg {object} this上下文
  * @param args {*[]} 参数
  * @return {(function(...[*]=): (*))}
  * @private
  */
-function _bind(context, ...args) {
-  const self = this;
+function _bind(thisArg, ...args) {
+  const fn = this; // 获取函数
   // 封装新的函数
   const boundFunc = function (...args1) {
+    // 合并参数
+    const mergeArgs = args.concat(args1);
+    // 判断是否使用new关键字创建实现
     if (new.target) {
-      // 使用new创建实例
-      const res = self.apply(this, args.concat(args1));
-      // 如果返回值为对象或方法，直接返回
-      if ((typeof res === 'object' || typeof res === 'function') && res !== null) {
-        return res;
+      const result = fn.apply(this, mergeArgs);
+      // 如果返回值为对象或方法，则直接返回
+      if ((typeof result === 'object' || typeof result === 'function') && result !== null) {
+        return result;
       }
       // 否则返回this
       return this;
-    } else {
-      // 调用函数
-      return self.apply(context, args.concat(args1));
     }
+
+    // 如果不是new关键字，则直接调用函数
+    return fn.apply(thisArg, mergeArgs);
   };
 
-  // 绑定后的函数的prototype需要指向原函数的prototype
-  if (self.prototype) {
-    boundFunc.prototype = self.prototype;
-  }
+  // 绑定生成的函数的原型指向原函数的原型
+  fn.prototype && (boundFunc.prototype = fn.prototype);
 
-  // 定义函数的长度length和名字name
-  const desc = Object.getOwnPropertyDescriptors(self);
+  // 定义函数的长度和名称
+  const desc = Object.getOwnPropertyDescriptors(fn);
   Object.defineProperties(boundFunc, {
     length: Object.assign(desc.length, {
       // 需要减掉传入的args长度

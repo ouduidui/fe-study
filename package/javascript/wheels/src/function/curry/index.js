@@ -1,24 +1,22 @@
 /**
- *
- * @param fn {Function}
- * @param args {any}
- * @returns {(function(...[*]): void)|*}
+ * 函数柯里化
+ * @author 欧怼怼
+ * @param fn {function(...[*]): *}
+ * @return {function(...[*]): *}
  */
-function curry(fn, ...args) {
-  // 获取原函数的参数长度
-  let length = fn.length;
+function curry(fn) {
+  return function (...args) {
+    // 如果参数超出一个，报错
+    if (args.length > 1) {
+      throw new Error('只能传递一个参数');
+    }
 
-  return function (...newArgs) {
-    // 合并参数
-    const combined = [...args, ...newArgs];
-
-    // 判断参数总和是否达到要求
-    if (combined.length < length) {
-      // 如果还是缺少参数，则返回函数继续调用
-      return curry(fn.bind(this), ...combined);
+    // 当fn.length为1的时候，代表是最后一次调用函数了
+    if (fn.length === 1) {
+      return fn.apply(this, args); // 调用函数返回结果
     } else {
-      // 如果参数不缺少，就调用函数
-      return fn.apply(this, combined);
+      // 如果还是缺少参数，则返回函数继续调用
+      return curry(fn.bind(this, ...args));
     }
   };
 }

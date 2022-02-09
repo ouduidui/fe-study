@@ -1,15 +1,18 @@
 /**
  * 防抖简易版
- * @param func {any}
+ * @author 欧怼怼
+ * @param func {(function(): void)}
  * @param delay {number} 延迟时间
  * @return {(function(): void)|*}
  */
 function debounce(func, delay) {
-  let timer;
-  return function () {
-    clearTimeout(timer);
+  let timer; // 存储定时器
+  return function (...args) {
+    clearTimeout(timer); // 每次调用时，清除之前的定时器
+    // 重新新建一个定时器
     timer = setTimeout(() => {
-      func.apply(this, arguments);
+      // 调用函数
+      func.apply(this, args);
     }, delay);
   };
 }

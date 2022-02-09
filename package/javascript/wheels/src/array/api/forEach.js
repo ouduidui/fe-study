@@ -1,6 +1,6 @@
 /**
  * 实现数组原型方法 forEach
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => void}
  * @param thisArg {object | undefined}
  * @returns {void}

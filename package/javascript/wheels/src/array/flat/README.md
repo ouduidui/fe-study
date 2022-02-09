@@ -17,7 +17,7 @@ console.log(arr1.flat())   // [0, 1, 2, 3, 4, 5, 6, 7]
 ```javascript
 /**
  * 使用reduce实现简易版扁平化
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param array {*[]}
  * @returns {*[]}
  */
@@ -37,7 +37,7 @@ const flat = function (array) {
 ```javascript
 /**
  * 使用栈实现简易版扁平化
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param array {*[]}
  * @returns {*[]}
  */
@@ -84,7 +84,7 @@ console.log(arr2.flat(-1))   // [0, 1, 2, 3, 4]
 ```javascript
 /**
  * 完整版数组扁平化
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param array {*[]}
  * @param depth {number}
  * @returns {*[]}

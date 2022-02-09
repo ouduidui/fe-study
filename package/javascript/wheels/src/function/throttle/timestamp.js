@@ -1,16 +1,22 @@
 /**
- * 时间戳实现
- * @param func
- * @param delay
- * @return {(function(): void)|*}
+ * 节流时间戳实现
+ * @author 欧怼怼
+ * @param func {(function(): void)}
+ * @param delay {number}
+ * @return {(function(): void)}
  */
 function throttle(func, delay) {
-  let previous = 0; // 保存上次调用的时间戳
-  return function () {
+  // 保存上一次的时间戳
+  let prevTimestamp = 0;
+  return function (...args) {
+    // 获取现在的时间戳
     const now = Date.now();
-    if (now >= delay + previous) {
-      func.apply(this, arguments);
-      previous = now;
+    // 比较 now 和 prevTimestamp + delay
+    if (now >= prevTimestamp + delay) {
+      // 执行函数
+      func.apply(this, args);
+      // 更新时间戳
+      prevTimestamp = now;
     } else {
       console.warn('距离上次调用的时间差不满足要求');
     }

@@ -1,28 +1,29 @@
 /**
- * @param context {object} this上下文
- * @param args {*[]} 参数
+ * 实现函数原生方法 apply
+ * @author 欧怼怼
+ * @param thisArg {object} this上下文
+ * @param argsArray {*[]} 参数
  * @return {*}
  */
-function _apply(context, args = []) {
-  // 处理没有传this的情况
-  if (!context) {
-    context = typeof window !== 'undefined' ? window : global;
+function _apply(thisArg, argsArray) {
+  if (!thisArg) {
+    thisArg = window !== undefined ? window : global;
   }
-  // context有可能传的不是对象
-  context = Object(context);
 
-  // 用Symbol生成唯一的key
-  const fn = Symbol();
-  // 将函数赋值到context上
-  context[fn] = this;
+  // 处理参数
+  if (!argsArray) {
+    argsArray = [];
+  }
 
-  // 调用函数，并获取返回值
-  const res = context[fn](...args);
-  // 在上下文中删除函数
-  delete context[fn];
+  thisArg = Object(thisArg);
 
-  // 返回结果
-  return res;
+  const fnKey = Symbol();
+  thisArg[fnKey] = this;
+
+  const result = thisArg[fnKey](...argsArray);
+  delete thisArg[fnKey];
+
+  return result;
 }
 
 module.exports = _apply;

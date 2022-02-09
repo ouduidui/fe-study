@@ -1,6 +1,6 @@
 /**
  * 完整版数组扁平化
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param array {*[]}
  * @param depth {number}
  * @returns {*[]}

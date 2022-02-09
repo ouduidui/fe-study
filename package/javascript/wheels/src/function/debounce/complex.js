@@ -1,8 +1,9 @@
 /**
  * 防抖复杂版
+ * @author 欧怼怼
  * @param func<Function>
  * @param delay<Number>
- * @param options<{context: any, leading: boolean}>
+ * @param options<{context: *, leading: boolean}>
  * @return <Function>
  * */
 function debounce(
@@ -10,37 +11,41 @@ function debounce(
   delay,
   options = {
     leading: false, // 表示是否立即执行
-    context: null
+    context: null // 配置上下文
   }
 ) {
-  let timer;
-  let isRun = false;
-  const _debounce = function (...args) {
-    options.context || (options.context = this);
-    if (timer) {
-      clearTimeout(timer);
-    }
+  let timer = null; // 存储定时器
 
-    if (options.leading && !timer) {
+  const debounceFn = function (...args) {
+    // 清除定时器
+    timer && clearTimeout(timer);
+    // 处理上下文
+    const context = options.context || this;
+
+    // 如果timer为空且开启立即执行
+    if (timer === null && options.leading) {
+      func.apply(context, args); // 立即执行
+      // 延迟清空定时器
       timer = setTimeout(() => {
         timer = null;
       }, delay);
-      func.apply(options.context, args);
-      isRun = true;
-    } else {
+    }
+    // 默认情况
+    else {
       timer = setTimeout(() => {
-        func.apply(options.context, args);
+        func.apply(context, args);
         timer = null;
       }, delay);
     }
   };
 
-  _debounce.cancel = function () {
+  // 实现取消方法
+  debounceFn.cancel = function () {
     clearTimeout(timer);
     timer = null;
   };
 
-  return _debounce;
+  return debounceFn;
 }
 
 module.exports = debounce;

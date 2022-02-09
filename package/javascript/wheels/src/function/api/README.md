@@ -1,122 +1,164 @@
-# Function原型方法
+# 函数原生方法
 
 ## call
 
-`call`方法使用一个指定的`this`值和单独给出的一个或多个参数来调用一个函数。
+### 思路
 
-因此实现该方法的关键点就在于指定的`this`上下文，以及传入的参数。
+`call()` 方法使用一个指定的 `this` 值和单独给出的一个或多个参数来调用一个函数。
+
+
+
+它接收多个参数：
+
+- `thisArg`：可选的。为`Function`函数运行时使用的`this`值
+
+- `arg1、arg2...`：指定的参数列表
+
+它返回使用调用者提供的 `this` 值和参数调用该函数的返回值。
 
 ### 实现
 
 ```javascript
 /**
- * @param context {object} this上下文
+ * 实现函数原生方法 call
+ * @param thisArg {*} this上下文
  * @param args {*[]} 参数
  * @return {*}
  */
-function _call(context, ...args) {
-  // 处理没有传this的情况
-  if(!context) {
-    context = typeof window !== 'undefined' ? window : global;
+function _call(thisArg, ...args) {
+  // 如果没有传thisArg默认为全局
+  if (!thisArg) {
+    thisArg = window !== undefined ? window : global;
   }
-  // context有可能传的不是对象
-  context = Object(context);
 
-  // 用Symbol生成唯一的key
-  const fn = Symbol();
-  // 将函数赋值到context上
-  context[fn] = this;
+  // 有可能thisArg传的不是对象
+  thisArg = Object(thisArg);
 
-  // 调用函数，并获取返回值
-  const res = context[fn](...args);
-  // 在上下文中删除函数
-  delete context[fn];
+  // 使用Symbol确保唯一值
+  const fnKey = Symbol();
+  // 将函数绑定到thisArg上
+  thisArg[fnKey] = this;
 
-  // 返回结果
-  return res;
+  // 调用函数
+  const result = thisArg[fnKey](...args);
+  // 删除函数
+  delete thisArg[fnKey];
+
+  return result;
 }
 ```
 
 ## apply
 
-`apply`核心跟`call`基本相同。它们唯一的不同点在于`call`接收的是一个参数列表，而`apply`接收的是一个包含多个参数的数组。
+### 思路
+
+`apply()` 方法调用一个具有给定`this`值的函数，以及以一个数组（或[类数组对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections#working_with_array-like_objects)）的形式提供的参数。
+
+> `apply()`方法的作用跟`call()`方法类似，区别就是`call()`方法接受的是**参数列表**，而`apply()`方法接受的是**一个参数数组**。因此它们实现上也大同小异。
+
+
+
+它接收两个参数：
+
+- `thisArg`：可选的。为`Function`函数运行时使用的`this`值
+
+- `argsArray`：可选的。一个数组或者类数组对象，其中的数组元素将作为单独的参数传给 `func` 函数
+
+它返回使用调用者提供的 `this` 值和参数调用该函数的返回值。
 
 ### 实现
 
 ```javascript
 /**
- * @param context {object} this上下文
- * @param args {*[]} 参数
+ * 实现函数原生方法 apply
+ * @author 欧怼怼
+ * @param thisArg {object} this上下文
+ * @param argsArray {*[]} 参数
  * @return {*}
  */
-function _apply(context, args = []) {
-  // 处理没有传this的情况
-  if (!context) {
-    context = typeof window !== 'undefined' ? window : global;
+function _apply(thisArg, argsArray) {
+  if (!thisArg) {
+    thisArg = window !== undefined ? window : global;
   }
-  // context有可能传的不是对象
-  context = Object(context);
 
-  // 用Symbol生成唯一的key
-  const fn = Symbol();
-  // 将函数赋值到context上
-  context[fn] = this;
+  // 处理参数
+  if (!argsArray) {
+    argsArray = [];
+  }
 
-  // 调用函数，并获取返回值
-  const res = context[fn](...args);
-  // 在上下文中删除函数
-  delete context[fn];
+  thisArg = Object(thisArg);
 
-  // 返回结果
-  return res;
+  const fnKey = Symbol();
+  thisArg[fnKey] = this;
+
+  const result = thisArg[fnKey](...argsArray);
+  delete thisArg[fnKey];
+
+  return result;
 }
 ```
 
 ## bind
 
-`bind`不同于前面两个，最大的区别在于它不会立即执行函数，而是会返回一个新的函数，并且新的函数会绑定传入的`this`以及参数。
+### 思路
+
+`bind()` 方法创建一个新的函数，在 `bind()` 被调用时，这个新函数的 `this` 被指定为 `bind()` 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
+
+
+
+它接收多个参数：
+
+- `thisArg`：调用绑定函数时作为 `this` 参数传递给目标函数的值
+
+- `arg1、arg2...`：当目标函数被调用时，被预置入绑定函数的参数列表中的参数
+
+它返回返回一个原函数的拷贝，并拥有指定的 **`this`** 值和初始参数。
+
+
 
 并且，`bind`还有以下特性：
+
 - 返回的新函数被`new`调用作为构造函数时，绑定的值会指向并改为`new`的指定对象
 - 返回的新函数存在`length`属性和`name`属性
 - 绑定后的函数的`prototype`需要指向原函数的`prototype`
-
-> 真实情况中绑定后的函数是没有 `prototype` 的，取而代之在绑定后的函数中有个内部属性 `[[TargetFunction]]` 保存原函数，当将绑定后函数作为构造函数时，将创建的实例的 `__proto__` 指向 `[[TargetFunction]]` 的 `prototype`，这里无法模拟内部属性，所以直接声明了一个 `prototype` 属性
 
 ### 实现
 
 ```javascript
 /**
- * @param context {object} this上下文
+ * 实现函数原生方法 bind
+ * @author 欧怼怼
+ * @param thisArg {object} this上下文
  * @param args {*[]} 参数
  * @return {(function(...[*]=): (*))}
  * @private
  */
-function _bind(context, ...args) {
-  const self = this;
+function _bind(thisArg, ...args) {
+  const fn = this; // 获取函数
   // 封装新的函数
   const boundFunc = function (...args1) {
-    if (new.target) {   // 使用new创建实例
-      const res = self.apply(this, args.concat(args1));
-      // 如果返回值为对象或方法，直接返回
-      if ((typeof res === 'object' || typeof res === 'function') && res !== null) {
-        return res;
+    // 合并参数
+    const mergeArgs = args.concat(args1);
+    // 判断是否使用new关键字创建实现
+    if (new.target) {
+      const result = fn.apply(this, mergeArgs);
+      // 如果返回值为对象或方法，则直接返回
+      if ((typeof result === 'object' || typeof result === 'function') && result !== null) {
+        return result;
       }
       // 否则返回this
       return this;
-    } else {
-      // 调用函数
-      return self.apply(context, args.concat(args1));
     }
+
+    // 如果不是new关键字，则直接调用函数
+    return fn.apply(thisArg, mergeArgs);
   };
 
-  // 绑定后的函数的prototype需要指向原函数的prototype
-  if (self.prototype) {
-    boundFunc.prototype = self.prototype;
-  }
+  // 绑定生成的函数的原型指向原函数的原型
+  fn.prototype && (boundFunc.prototype = fn.prototype);
 
-  // 定义函数的长度length和名字name
-  const desc = Object.getOwnPropertyDescriptors(self);
+  // 定义函数的长度和名称
+  const desc = Object.getOwnPropertyDescriptors(fn);
   Object.defineProperties(boundFunc, {
     length: Object.assign(desc.length, {
       // 需要减掉传入的args长度

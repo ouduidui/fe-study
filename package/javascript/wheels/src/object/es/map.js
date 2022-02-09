@@ -1,13 +1,17 @@
+/**
+ * 实现 Map
+ * @author 欧怼怼
+ * @param values {[*, *][]}
+ * @returns {Map}
+ */
 class Map {
-  /**
-   * @param values {[any, any][]}
-   */
   constructor(values = []) {
     this._values = Object.create(null);
     this.size = 0;
     this._keys = [];
     this._keyMap = {};
 
+    // 迭代属性
     this[Symbol.iterator] = this.entries;
 
     values.length && values.forEach((v) => this.set(v[0], v[1]));
@@ -53,17 +57,18 @@ class Map {
   /**
    * 删除值
    * @param key {*}
-   * @return {Map}
+   * @return {boolean}
    */
   delete(key) {
-    if (this.has(key)) {
+    const hasKey = this.has(key);
+    if (hasKey) {
       const keyStr = this._defaultToString(key);
       delete this._values[keyStr];
       delete this._keyMap[keyStr];
       this._keys = this._keys.filter((k) => k !== keyStr);
       this.size--;
     }
-    return this;
+    return hasKey;
   }
 
   /**
@@ -116,13 +121,13 @@ class Map {
   /**
    *
    * @param callback {Function}
-   * @param context {object}
+   * @param thisArg {object}
    */
-  forEach(callback, context = {}) {
+  forEach(callback, thisArg = {}) {
     for (let k of this._keys) {
       const key = this._keyMap[k];
       const value = this._values[k];
-      callback.call(context, value, key, this);
+      callback.call(thisArg, value, key, this);
     }
   }
 

@@ -1,6 +1,6 @@
 /**
  * 实现数组原型方法 filter
- * @author OUDUIDUI
+ * @author 欧怼怼
  * @param callback {(currentValue: *, index?: number, array?: *[]) => boolean}
  * @param thisArg {object | undefined}
  * @returns {*[]}

@@ -1,9 +1,5 @@
-const _call = require('./call');
-const _apply = require('./apply');
-const _bind = require('./bind');
-
-Function.prototype._call = _call;
-Function.prototype._apply = _apply;
-Function.prototype._bind = _bind;
+Function.prototype._call = require('./call');
+Function.prototype._apply = require('./apply');
+Function.prototype._bind = require('./bind');
 
 module.exports = Function;

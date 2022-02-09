@@ -17,13 +17,13 @@ describe('Map', () => {
     expect(map.get('a')).toBe(2);
     expect(map.get(obj)).toBe(false);
 
-    map.delete('a');
+    expect(map.delete('a')).toBe(true);
     expect(map.size).toBe(2);
     expect(map.has('a')).toBe(false);
 
-    map.delete({ c: 4 });
+    expect(map.delete({ c: 4 })).toBe(false);
     expect(map.size).toBe(2);
-    map.delete(obj);
+    expect(map.delete(obj)).toBe(true);
     expect(map.size).toBe(1);
 
     map.clear();

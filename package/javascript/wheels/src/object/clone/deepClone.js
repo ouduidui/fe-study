@@ -1,22 +1,27 @@
+/**
+ * 复制版深拷贝
+ * @author 欧怼怼
+ */
+
 // 可遍历类型
-const MAP_TAG = '[object Map]';
-const SET_TAG = '[object Set]';
-const WEAK_MAP_TAG = '[object WeakMap]';
-const WEAK_SET_TAG = '[object WeakSet]';
-const ARRAY_TAG = '[object Array]';
-const OBJECT_TAG = '[object Object]';
-const ARGUMENTS_TAG = '[object Arguments]';
+const MAP_TAG = '[object Map]'; // Map
+const SET_TAG = '[object Set]'; // Set
+const WEAK_MAP_TAG = '[object WeakMap]'; // WeakMap
+const WEAK_SET_TAG = '[object WeakSet]'; // WeakSet
+const ARRAY_TAG = '[object Array]'; // Array
+const OBJECT_TAG = '[object Object]'; // Object
+const ARGUMENTS_TAG = '[object Arguments]'; // Argument
 const CAN_TRAVERSE_TYPE = [MAP_TAG, SET_TAG, WEAK_MAP_TAG, WEAK_SET_TAG, ARRAY_TAG, OBJECT_TAG, ARGUMENTS_TAG];
 
 // 不可以遍历类型
-const BOOLEAN_TAG = '[object Boolean]';
-const NUMBER_TAG = '[object Number]';
-const STRING_TAG = '[object String]';
-const SYMBOL_TAG = '[object Symbol]';
-const DATE_TAG = '[object Date]';
-const ERROR_TAG = '[object Error]';
-const REGEXP_TAG = '[object RegExp]';
-const FUNC_TAG = '[object Function]';
+const BOOLEAN_TAG = '[object Boolean]'; // Boolean
+const NUMBER_TAG = '[object Number]'; // Number
+const STRING_TAG = '[object String]'; // String
+const SYMBOL_TAG = '[object Symbol]'; // Symbol
+const DATE_TAG = '[object Date]'; // Date
+const ERROR_TAG = '[object Error]'; // Error
+const REGEXP_TAG = '[object RegExp]'; // RegExp
+const FUNC_TAG = '[object Function]'; // Function
 
 /**
  * 判断是否为对象
@@ -55,9 +60,11 @@ function functionTypeHandle(target) {
   const paramReg = /(?<=\().+(?=\)\s+{)/;
   const funcStr = target.toString();
 
+  // 函数内容
   const body = bodyReg.exec(funcStr);
   if (!body) return null;
 
+  // 参数
   const param = paramReg.exec(funcStr);
   if (param) {
     const paramArr = param[0].split(',');
@@ -104,9 +111,13 @@ function handleNotTraverse(target, type) {
  * @returns {*}
  */
 function deepClone(target, valSet = new WeakSet()) {
-  if (!isObject(target)) return target; // 判断是否为对象或函数
+  // 如果不是对象或函数的话，代表为原始类型，直接返回
+  if (!isObject(target)) return target;
 
+  // 获取对象类型
   const type = getType(target);
+
+  // 如果是不可遍历状态，调用handleNotTraverse进行处理
   if (!CAN_TRAVERSE_TYPE.includes(type)) return handleNotTraverse(target, type);
 
   if (valSet.has(target)) return target; // 判断是否拷贝过此target
@@ -118,14 +129,14 @@ function deepClone(target, valSet = new WeakSet()) {
   const newTarget = new Ctor();
 
   switch (type) {
-    // MAP类型
+    // Map 和 WeakMap 类型
     case MAP_TAG || WEAK_MAP_TAG:
-      target.forEach((val, key) => newTarget.set(deepClone(key), deepClone(val)));
+      target.forEach((val, key) => newTarget.set(deepClone(key, valSet), deepClone(val, valSet)));
       break;
 
-    // SET类型
+    // Set 和 WeakSet 类型
     case SET_TAG || WEAK_SET_TAG:
-      target.forEach((item) => newTarget.add(deepClone(item)));
+      target.forEach((item) => newTarget.add(deepClone(item, valSet)));
       break;
 
     default:

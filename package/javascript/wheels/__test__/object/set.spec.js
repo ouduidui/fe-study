@@ -1,5 +1,4 @@
 const Set = require('../../src/object/es/set');
-const Map = require('../../src/object/es/map');
 
 describe('Set', () => {
   it('Happy Path', () => {
@@ -13,11 +12,11 @@ describe('Set', () => {
     expect(set.has(obj)).toBe(true);
     expect(set.has({ a: 1 })).toBe(false);
 
-    set.delete(1);
+    expect(set.delete(1)).toBe(true);
     expect(set.size).toBe(2);
     expect(set.has(1)).toBe(false);
 
-    set.delete({ a: 1 });
+    expect(set.delete({ a: 1 })).toBe(false);
     expect(set.size).toBe(2);
     expect(set.has(obj)).toBe(true);
 
