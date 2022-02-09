@@ -1,5 +1,4 @@
 const Promise = require('../../src/promise/api/index');
-const { logger } = require('browser-sync/dist/logger');
 
 describe('Promise实现', () => {
   it('resolve then', (done) => {

@@ -1,18 +1,28 @@
 # JavaScript 手写题目
 
 - Array
-  - [数组原型方法](src/array/api/README.md)
+  - [实现数组原型方法](src/array/api/README.md)
   - [数组去重](./src/array/unique/README.md)
   - [数组扁平化](./src/array/flat/README.md)
 - Object
-  - [深浅拷贝](./src/object/clone)
-  - [Map|Set 实现](./src/object/es)
+  - [实现对象原生方法](./src/object/api/README.md)
+  - [深浅拷贝](./src/object/clone/README.md)
+  - [Map|Set 实现](./src/object/es/README.md)
+  - [实现instanceof操作符](./src/object/instanceof/README.md)
+  - [实现new操作符](./src/object/new/README.md)
+  - [实现JSON.stringify和JSON.parse](./src/object/json/README.md)
 - Function
-  - [实现函数 API](./src/function/api)
+  - [实现函数原生方法](./src/function/api)
   - [函数防抖](./src/function/debounce/README.md)
   - [函数节流](./src/function/throttle/README.md)
-  - [事件总线](./src/function/event-bus)
-  - [函数柯里化](./src/function/curry)
+  - [函数柯里化](./src/function/curry/README.md)
+  - [偏函数](./src/function/partial/README.md)
+  - [继承](./src/function/extend/README.md)
+- String
+  - [实现字符串原生方法](./src/string/api/README.md)
+  - [解析模板字符串](./src/string/render/README.md)
+- Promise
+  - [Promise实现](src/promise/api/README.md)
 - 其他
-  - [Promise](src/others/promise/README.md)
+  - [事件总线](./src/others/event-bus)
   - [图片懒加载](src/others/lazy-load/README.md)

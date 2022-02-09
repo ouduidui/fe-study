@@ -1,4 +1,9 @@
 /**
+ * @手写Promise
+ * @author 欧怼怼
+ */
+
+/**
  * Promise 三种状态
  * @desc 待定状态的 Promise 对象要么会通过一个值被兑现（fulfilled），要么会通过一个原因（错误）被拒绝（rejected）。当这些情况之一发生时，我们用 promise 的 then 方法排列起来的相关处理程序就会被调用
  * @type {{FULFILLED: string, PENDING: string, REJECTED: string}}
@@ -89,6 +94,7 @@ class Promise {
           try {
             // 得到返回值
             const res = fn();
+            // // 处理返回值
             resolvePromise(newPromise, res, resolve, reject);
           } catch (e) {
             reject(e);
@@ -121,24 +127,24 @@ class Promise {
   /**
    * Promise.prototype.catch
    * @desc 用于您的promise组合中的错误处理
-   * @param callback {(reason: *) => *}
+   * @param onRejected {(reason: *) => *}
    * @return {Promise}
    */
-  catch(callback) {
-    return this.then(null, callback);
+  catch(onRejected) {
+    return this.then(null, onRejected);
   }
 
   /**
    * Promise.prototype.finally
    * @desc 在promise结束时，无论结果是fulfilled或者是rejected，都会执行指定的回调函数
-   * @param callback {() => *}
+   * @param onFinally {() => *}
    * @return {Promise}
    */
-  finally(callback) {
+  finally(onFinally) {
     return this.then(
-      (res) => Promise.resolve(callback()).then(() => res),
+      (res) => Promise.resolve(onFinally()).then(() => res),
       (err) =>
-        Promise.reject(callback()).then(() => {
+        Promise.reject(onFinally()).then(() => {
           throw err;
         })
     );
@@ -181,6 +187,7 @@ class Promise {
           (res) => {
             // 保存结果值
             results.push(res);
+            // 当results和promises长度一致，则代表所有 promise 执行完成了
             if (results.length === promises.length) {
               resolve(results);
             }
@@ -286,7 +293,7 @@ class Promise {
  * @return {*}
  */
 function resolvePromise(newPromise, res, resolve, reject) {
-  // 循环引用使用
+  // 避免循环引用使用
   if (res === newPromise) {
     return reject(new TypeError('Chaining cycle detected for promise'));
   }
@@ -296,7 +303,7 @@ function resolvePromise(newPromise, res, resolve, reject) {
   // 如果返回值为一个对象或者函数
   if (res != null && (typeof res === 'object' || typeof res === 'function')) {
     try {
-      // 如果返回值是一个promise
+      // 如果返回值是一个promise或者一个带有then函数的对象
       const then = res.then;
       if (typeof then === 'function') {
         // 调用返回值的then
@@ -318,7 +325,7 @@ function resolvePromise(newPromise, res, resolve, reject) {
           }
         );
       } else {
-        // res 为普通的值，直接返回
+        // res 为普通的对象和函数，直接返回
         resolve(res);
       }
     } catch (e) {
