@@ -1,3 +1,7 @@
+/**
+ * 事件总线 （发布-订阅模式）
+ * @author 欧怼怼
+ */
 class EventBus {
   constructor() {
     // 存储事件
