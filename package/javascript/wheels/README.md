@@ -1,5 +1,13 @@
 # JavaScript 手写题目
 
+## 测试
+
+```shell
+pnpm test
+```
+
+## 目录
+
 - Array
   - [实现数组原型方法](src/array/api)
   - [数组去重](./src/array/unique)

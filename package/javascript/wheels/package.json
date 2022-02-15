@@ -5,10 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest && yarn test:promise",
-    "test:promise": "promises-aplus-tests __test__/promise/promise.js",
-    "test:array_api": "jest __test__/array/api.spec.js",
-    "test:throttle-and-debounce": "jest src/function/throttle_and_debounce/__test__/throttle.spec.js",
-    "test:function_api": "jest __test__/function/api.spec.js"
+    "test:promise": "promises-aplus-tests __test__/promise/promise.js"
   },
   "devDependencies": {
     "jest": "^27.3.1",
