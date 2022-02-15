@@ -5,10 +5,13 @@ const {
   quickSort,
   heapSort,
   radixSort,
-  shellSort
+  shellSort,
+  mergeSort,
+  countingSort,
+  bucketSort
 } = require('../../src/others/sort-algorithm');
 
-describe('七大排序方式', () => {
+describe('十大排序方式', () => {
   const arr = [21, -123, -54, 242, 251, 66, -4, 41, 0, -143, 503, -23, 12];
   const expected = [-143, -123, -54, -23, -4, 0, 12, 21, 41, 66, 242, 251, 503];
 
@@ -38,5 +41,17 @@ describe('七大排序方式', () => {
 
   it('希尔排序', () => {
     expect(shellSort([...arr])).toStrictEqual(expected);
+  });
+
+  it('归并排序', () => {
+    expect(mergeSort([...arr])).toStrictEqual(expected);
+  });
+
+  it('计数排序', () => {
+    expect(countingSort([...arr])).toStrictEqual(expected);
+  });
+
+  it('桶排序', () => {
+    expect(bucketSort([...arr])).toStrictEqual(expected);
   });
 });
