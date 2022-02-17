@@ -21,6 +21,10 @@
 
 - [Vue2 && Vue3 组件通信](./package/vue/vue-component-communication)
 
+## 网络协议
+
+- [强缓存和协商缓存](./package/network/cache)
+
 ## 设计模式
 
 - [设计模式学习笔记](./package/patterns/README.md)

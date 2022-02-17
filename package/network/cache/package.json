@@ -1,0 +1,16 @@
+{
+  "name": "cache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:stroing-cache": "node ./strong-cache/server.js",
+    "test:negotiate-cache": "node ./negotiate-cache/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "md5": "^2.3.0"
+  }
+}
