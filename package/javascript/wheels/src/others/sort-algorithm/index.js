@@ -410,7 +410,7 @@ function radixSort(array) {
     const buckets = [];
 
     // 保证遍历完所有可能的位数
-    while (m < maxValue) {
+    while (m <= maxValue) {
       // 清空桶
       buckets.length = 0;
 
