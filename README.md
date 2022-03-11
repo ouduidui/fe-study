@@ -1,34 +1,93 @@
-# 前端学习仓库
+# Front-end Study Repository
 
-> 之前每次学一个新知识就新建一个仓库，后面导致仓库太多了，不太好管理，因此觉得将所有学习仓库都合并到这里，统一管理。
+<p align="center">
+  <samp>
+  CSS
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/css/center-in-css">CSS 居中</a>  |
+    <a href="./package/css/stacking-context">CSS 层叠上下文</a> |
+    <a href="./package/css/clipping-and-masking">CSS 中的剪切和遮罩</a>
+  </samp>
+</p>
 
-## CSS
+<br>
 
-- [CSS 居中](./package/css/center-in-css)
-- [CSS 层叠上下文](./package/css/stacking-context)
-- [CSS 中的剪切和遮罩](./package/css/clipping-and-masking)
+<p align="center">
+  <samp>
+  JavaScript
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="https://github.com/ouduidui/javascript-wheels">JavaScript手写题</a>  |
+    <a href="./package/javascript/professional-javascript-4/README.md">红宝书学习</a>
+  </samp>
+</p>
 
-## JavaScript
+<br>
 
-- [手写题](./package/javascript/wheels)
-- [红宝书学习](./package/javascript/professional-javascript-4/README.md)
+<p align="center">
+  <samp>
+  TypeScript
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/typescript/type-challenges/README.md">Type-challenges</a>
+  </samp>
+</p>
 
-## TypeScript
+<br>
 
-- [类型体操 Type-challenges](./package/typescript/type-challenges/README.md)
+<p align="center">
+  <samp>
+  Vue
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/vue/vue-component-communication">Vue2 && Vue3 组件通信</a>
+  </samp>
+</p>
 
-## Vue
+<br>
 
-- [Vue2 && Vue3 组件通信](./package/vue/vue-component-communication)
+<p align="center">
+  <samp>
+  网络协议
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/network/cach">强缓存和协商缓存</a>
+  </samp>
+</p>
 
-## 网络协议
+<br>
 
-- [强缓存和协商缓存](./package/network/cache)
+<p align="center">
+  <samp>
+  设计模式
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/patterns/README.md">设计模式学习笔记</a>
+  </samp>
+</p>
 
-## 设计模式
+<br>
 
-- [设计模式学习笔记](./package/patterns/README.md)
-
-## Demo 实现
-
-- [大文件上传](./package/demo/file-upload)
+<p align="center">
+  <samp>
+  Demo
+  </samp>
+</p>
+<p align="center">
+  <samp>
+    <a href="./package/demo/file-upload">大文件上传</a>
+  </samp>
+</p>
